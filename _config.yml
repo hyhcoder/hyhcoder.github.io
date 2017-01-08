@@ -15,7 +15,7 @@ author: Chris
 url: http://hyhcoer.github.io
 root: /
 permalink: :year/:month/:day/:title/
-#permalink_defaults:
+permalink_defaults: 
 
 # Directory
 source_dir: source
@@ -73,3 +73,7 @@ deploy:
  repository: git@github.com:hyhcoder/hyhcoder.github.io.git 
 
  branch: master
+
+# Social
+social:
+  github: hyhcoder
