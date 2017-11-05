@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2014/12/10/ubuntu安装后鼠标闪烁和卡顿问题/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2016/07/22/CRON表达式详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -328,7 +328,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2014/12/10/ubuntu安装后鼠标闪烁和卡顿问题/" itemprop="url">ubuntu安装后鼠标闪烁和卡顿问题</a></h1>
+                <a class="post-title-link" href="/2016/07/22/CRON表达式详解/" itemprop="url">CRON表达式详解</a></h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-10T16:31:42+08:00">
-                2014-12-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T14:55:55+08:00">
+                2016-07-22
               </time>
             
 
@@ -359,9 +359,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/12/10/ubuntu安装后鼠标闪烁和卡顿问题/#comments" itemprop="discussionUrl">
+                <a href="/2016/07/22/CRON表达式详解/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/12/10/ubuntu安装后鼠标闪烁和卡顿问题/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/07/22/CRON表达式详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -391,27 +391,185 @@
       
         
           
-            <h1 id="win7下安装ubuntu14-04双系统"><a href="#win7下安装ubuntu14-04双系统" class="headerlink" title="win7下安装ubuntu14.04双系统"></a>win7下安装ubuntu14.04双系统</h1><p>之前的ubuntu卸载掉了，最近想组建个linux下的android开发环境，因此把一些内容整理一下。</p>
+            <h1 id="CRON表达式详解"><a href="#CRON表达式详解" class="headerlink" title="CRON表达式详解"></a>CRON表达式详解</h1><h3 id="格式解释"><a href="#格式解释" class="headerlink" title="格式解释"></a>格式解释</h3><p>Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式：</p>
+<ul>
+<li>Seconds Minutes Hours DayofMonth Month DayofWeek Year</li>
+<li>Seconds Minutes Hours DayofMonth Month DayofWeek</li>
+</ul>
+<p>Cron常用于linux的计划任务中,每个域可以出现的字符如下:</p>
+<ul>
+<li>Seconds: 可出现”, - * /“四个字符，有效范围为0-59的整数</li>
+<li>Minutes: 可出现”, - * /“四个字符，有效范围为0-59的整数</li>
+<li>Hours: 可出现”, - * /“四个字符，有效范围为0-23的整数</li>
+<li>DayofMonth: 可出现”, - * / ? L W C”八个字符，有效范围为0-31的整数</li>
+<li>Month: 可出现”, - * /“四个字符，有效范围为1-12的整数或JAN-DEc</li>
+<li>DayofWeek: 可出现”, - * / ? L C #”四个字符，有效范围为1-7的整数或SUN-SAT两个范围。1表示星期天，2表示星期一， 依次类推</li>
+<li><p>Year: 可出现”, - * /“四个字符，有效范围为1970-2099年<br>每个域一般都是使用数字,但也可以使用特殊符号,具体如下:</p>
+</li>
+<li><p>* : 表示匹配该域的任意值，假如在Minutes域使用*, 即表示每分钟都会触发事件。</p>
+</li>
+<li><p>? : 只能用在DayofMonth和DayofWeek两个域。它也匹配域的任意值，但实际不会。因为DayofMonth和 DayofWeek会相互影响。例如想在每月的20日触发调度，不管20日到底是星期几，则只能使用如下写法： 13 13 15 20 <em> ?, 其中最后一位只能用？，而不能使用</em>，如果使用*表示不管星期几都会触发，实际上并不是这样。</p>
+</li>
+<li><p>- : 表示范围，例如在Minutes域使用5-20，表示从5分到20分钟每分钟触发一次</p>
+</li>
+<li><p>/ ： 表示起始时间开始触发，然后每隔固定时间触发一次，例如在Minutes域使用5/20,则意味着5分钟触发一次，而25，45等分别触发一次.</p>
+</li>
+<li><p>, : 表示列出枚举值值。例如：在Minutes域使用5,20，则意味着在5和20分每分钟触发一次。</p>
+</li>
+<li><p>L : 表示最后，只能出现在DayofWeek和DayofMonth域，如果在DayofWeek域使用5L,意味着在最后的一个星期四触发。</p>
+</li>
+<li><p>W : 表示有效工作日(周一到周五),只能出现在DayofMonth域，系统将在离指定日期的最近的有效工作日触发事件。例如：在 DayofMonth使用5W，如果5日是星期六，则将在最近的工作日：星期五，即4日触发。如果5日是星期天，则在6日(周一)触发；如果5日在星期一 到星期五中的一天，则就在5日触发。另外一点，W的最近寻找不会跨过月份</p>
+</li>
+<li><p>LW : 这两个字符可以连用，表示在某个月最后一个工作日，即最后一个星期五。</p>
+</li>
+<li><p># : 用于确定每个月第几个星期几，只能出现在DayofMonth域。例如在4#2，表示某月的第二个星期三。</p>
+</li>
+</ul>
+<h3 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">0 0 10,14,16 * * ? 每天上午10点，下午2点，4点 </div><div class="line">0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时 </div><div class="line">0 0 12 ? * WED 表示每个星期三中午12点 </div><div class="line">0 0 12 * * ? 每天中午12点触发 </div><div class="line">0 15 10 ? * * 每天上午10:15触发 </div><div class="line">0 15 10 * * ? 每天上午10:15触发 </div><div class="line">0 15 10 * * ? * 每天上午10:15触发 </div><div class="line">0 15 10 * * ? 2005 2005年的每天上午10:15触发 </div><div class="line">0 * 14 * * ?&quot; 在每天下午2点到下午2:59期间的每1分钟触发 </div><div class="line">0 0/5 14 * * ? 在每天下午2点到下午2:55期间的每5分钟触发 </div><div class="line">0 0/5 14,18 * * ? 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 </div><div class="line">0 0-5 14 * * ? 在每天下午2点到下午2:05期间的每1分钟触发 </div><div class="line">0 10,44 14 ? 3 WED 每年三月的星期三的下午2:10和2:44触发 </div><div class="line">0 15 10 ? * MON-FRI 周一至周五的上午10:15触发 </div><div class="line">0 15 10 15 * ? 每月15日上午10:15触发 </div><div class="line">0 15 10 L * ? 每月最后一日的上午10:15触发 </div><div class="line">0 15 10 ? * 6L 每月的最后一个星期五上午10:15触发 </div><div class="line">0 15 10 ? * 6L 2002-2005 2002年至2005年的每月的最后一个星期五上午10:15触发 </div><div class="line">0 15 10 ? * 6#3 每月的第三个星期五上午10:15触发</div></pre></td></tr></table></figure>
+<h3 id="相关网站"><a href="#相关网站" class="headerlink" title="相关网站"></a>相关网站</h3><p>若还觉得混乱, 还有相关的在线网站可以测试生成;</p>
+<ul>
+<li><a href="http://cron.qqe2.com/" target="_blank" rel="external">在线cron表达式生成器</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2016/05/27/记录一些markdown的使用技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/27/记录一些markdown的使用技巧/" itemprop="url">记录一些markdown的使用技巧</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-27T11:55:41+08:00">
+                2016-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/05/27/记录一些markdown的使用技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/05/27/记录一些markdown的使用技巧/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="记录一些markdown的使用技巧"><a href="#记录一些markdown的使用技巧" class="headerlink" title="记录一些markdown的使用技巧"></a>记录一些markdown的使用技巧</h1><p>markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;</p>
 <ol>
-<li>我们首先需要在win7下把硬盘的一些空间压缩出来，比如选择F盘，进行压缩卷，然后把压缩出来的部分删除卷，使其变成黑色未分配状态，这样就为ubuntu的安装提供了空间，一般需要50G以上比较充足;</li>
-<li>ubuntu现在是14.04,去官网下载相关的iso文件，然后下载esayBCD安装，用于引导启动;</li>
-<li>打开easyBCD，添加新条目，然后在NEOgrup选项中点击安装，然后点配置，出现一个txt的文件，用下面的内容将其覆盖;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">title Install Ubuntu</div><div class="line">root (hd0,0)</div><div class="line">kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04-desktop-am64.iso ro quiet splash locale=zh_CN.UTF-8</div><div class="line">initrd (hd0,0)/initrd.lz</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><strong>注意:</strong><br>ubuntu-14.04-desktop-am64.iso是你的iso的名字，别写成我的了，这个要改成你的。<br>对于有的电脑上你的第一个盘符并不是C盘，在磁盘管理中可以看出，所以安装时需将(hd0,0)改为（hd0,1）【假设为第二个】。</p>
-<ol>
-<li><p>把下载后iso镜像文件用压缩软件或者虚拟光驱打开，找到casper文件夹，把里面的initrd.lz和vmlinuz解压到C盘，把.disk文件夹也解压到C盘，然后在把整个iso文件复制到C盘;</p>
-</li>
-<li><p>重启，会多了一个neogrup的启动项，进去，就会进入ubuntu的试用界面;</p>
-</li>
-<li><p>这一步很重要，不然可能会失败，按Ctrl+Alt+T 打开终端，输入代码:sudo umount -l /isodevice这一命令取消掉对光盘所在 驱动器的挂载（注意，这里的-l是L的小写，-l 与 /isodevice 有一个空格。），否则分区界面找不到分区;</p>
-</li>
-<li><p>做完上面的步骤，就可以点击桌面的安装进行安装了，这里除了分区没什么需要注意的。<br>（说下分区，一般分 / 50g ext4格式 ， /home 30G ext4格式 ，swap分区 8g）<br>这是我自己的，其他可以按比例分，并且只有/分区也就是根分区是必须的，其他看硬盘大小;</p>
-</li>
-<li><p>等待安装完重启便可以了;</p>
-</li>
-<li><p>最后进入Windows 7，打开EasyBCD删除安装时改的menu.lst文件，按Remove即可。<br>然后去我们的c盘 删除vmlinuz，initrd.lz和系统的iso文件。<br>利用EasyBCD可以更改启动项菜单按Edit Boot Menu按钮，可以选择将Windows7设为默认开机选项.</p>
-</li>
+<li>在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱;</li>
+<li>#后面跟着标题时, 要留个空格, 不然有些解析器会读不出来;</li>
+<li>markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化;</li>
+<li>markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网站,比如这个: 极简图床;</li>
+<li>对markdown语法用到的关键字引用, 比如#,*等, 要加\转义;</li>
+<li>首行缩进, 可以在前面插入一个全角的空格或者加入&ensp;</li>
+<li>添加空行可以结束前面的格式状态;</li>
+<li>若要使图片居中或者限制大小, 可用html语言来写, 记住markdown其实也是一种标志性语言;</li>
 </ol>
 
           
@@ -461,7 +619,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2014/12/09/win7下安装ubuntu14-04双系统/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2016/04/15/Git代理设置，加速clone/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -480,7 +638,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2014/12/09/win7下安装ubuntu14-04双系统/" itemprop="url">win7下安装ubuntu14.04双系统</a></h1>
+                <a class="post-title-link" href="/2016/04/15/Git代理设置，加速clone/" itemprop="url">Git代理设置，加速clone</a></h1>
         
 
         <div class="post-meta">
@@ -492,8 +650,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-09T16:31:13+08:00">
-                2014-12-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-15T08:55:16+08:00">
+                2016-04-15
               </time>
             
 
@@ -511,9 +669,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/12/09/win7下安装ubuntu14-04双系统/#comments" itemprop="discussionUrl">
+                <a href="/2016/04/15/Git代理设置，加速clone/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/12/09/win7下安装ubuntu14-04双系统/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/04/15/Git代理设置，加速clone/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -543,28 +701,16 @@
       
         
           
-            <h1 id="win7下安装ubuntu14-04双系统"><a href="#win7下安装ubuntu14-04双系统" class="headerlink" title="win7下安装ubuntu14.04双系统"></a>win7下安装ubuntu14.04双系统</h1><p>之前的ubuntu卸载掉了，最近想组建个linux下的android开发环境，因此把一些内容整理一下。</p>
+            <h1 id="Git代理设置，加速clone"><a href="#Git代理设置，加速clone" class="headerlink" title="Git代理设置，加速clone"></a>Git代理设置，加速clone</h1><p>由于经常用到github看开源项目, 但是经常clone的速度确实不敢说;</p>
+<p>想到之前部署了一台服务器, 可以用ss代理来进行加速;</p>
+<p>步骤:</p>
 <ol>
-<li>我们首先需要在win7下把硬盘的一些空间压缩出来，比如选择F盘，进行压缩卷，然后把压缩出来的部分删除卷，使其变成黑色未分配状态，这样就为ubuntu的安装提供了空间，一般需要50G以上比较充足;</li>
-<li>ubuntu现在是14.04,去官网下载相关的iso文件，然后下载esayBCD安装，用于引导启动;</li>
-<li>打开easyBCD，添加新条目，然后在NEOgrup选项中点击安装，然后点配置，出现一个txt的文件，用下面的内容将其覆盖;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">title Install Ubuntu</div><div class="line">root (hd0,0)</div><div class="line">kernel (hd0,0)/vmlinuz boot=casper iso-scan/filename=/ubuntu-14.04-desktop-am64.iso ro quiet splash locale=zh_CN.UTF-8</div><div class="line">initrd (hd0,0)/initrd.lz</div></pre></td></tr></table></figure>
+<li>确保ss客户端连接;</li>
+<li>打开命令行输入以下代码:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global http.proxy &apos;socks5://127.0.0.1:1090&apos; </div><div class="line">git config --global https.proxy &apos;socks5://127.0.0.1:1090&apos;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><strong>注意:</strong><br>ubuntu-14.04-desktop-am64.iso是你的iso的名字，别写成我的了，这个要改成你的。<br>对于有的电脑上你的第一个盘符并不是C盘，在磁盘管理中可以看出，所以安装时需将(hd0,0)改为（hd0,1）【假设为第二个】。</p>
-<ol>
-<li><p>把下载后iso镜像文件用压缩软件或者虚拟光驱打开，找到casper文件夹，把里面的initrd.lz和vmlinuz解压到C盘，把.disk文件夹也解压到C盘，然后在把整个iso文件复制到C盘;</p>
-</li>
-<li><p>重启，会多了一个neogrup的启动项，进去，就会进入ubuntu的试用界面;</p>
-</li>
-<li><p>这一步很重要，不然可能会失败，按Ctrl+Alt+T 打开终端，输入代码:sudo umount -l /isodevice这一命令取消掉对光盘所在 驱动器的挂载（注意，这里的-l是L的小写，-l 与 /isodevice 有一个空格。），否则分区界面找不到分区;</p>
-</li>
-<li><p>做完上面的步骤，就可以点击桌面的安装进行安装了，这里除了分区没什么需要注意的。<br>（说下分区，一般分 / 50g ext4格式 ， /home 30G ext4格式 ，swap分区 8g）<br>这是我自己的，其他可以按比例分，并且只有/分区也就是根分区是必须的，其他看硬盘大小;</p>
-</li>
-<li><p>等待安装完重启便可以了;</p>
-</li>
-<li><p>最后进入Windows 7，打开EasyBCD删除安装时改的menu.lst文件，按Remove即可。<br>然后去我们的c盘 删除vmlinuz，initrd.lz和系统的iso文件。<br>利用EasyBCD可以更改启动项菜单按Edit Boot Menu按钮，可以选择将Windows7设为默认开机选项.</p>
-</li>
-</ol>
+<p>1090为ss的本地端口,这个要根据自己的设置来更改;</p>
+<p>这样就可以完成代理;再clone一个项目, 发现速度再也不卡了;尽情享受吧!</p>
 
           
         
@@ -613,7 +759,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2014/10/28/关于Java中转换机制整理/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2016/01/09/JSON-JSONArray-Map一些总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -632,7 +778,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2014/10/28/关于Java中转换机制整理/" itemprop="url">关于Java中转换机制整理</a></h1>
+                <a class="post-title-link" href="/2016/01/09/JSON-JSONArray-Map一些总结/" itemprop="url">JSON,JSONArray,Map一些总结</a></h1>
         
 
         <div class="post-meta">
@@ -644,8 +790,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-10-28T16:29:20+08:00">
-                2014-10-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-09T14:54:10+08:00">
+                2016-01-09
               </time>
             
 
@@ -663,9 +809,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/10/28/关于Java中转换机制整理/#comments" itemprop="discussionUrl">
+                <a href="/2016/01/09/JSON-JSONArray-Map一些总结/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/10/28/关于Java中转换机制整理/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/01/09/JSON-JSONArray-Map一些总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -694,77 +840,15 @@
 
       
         
-          
-            <h1 id="关于Java中转换机制整理"><a href="#关于Java中转换机制整理" class="headerlink" title="关于Java中转换机制整理"></a>关于Java中转换机制整理</h1><p>这两天在会看think in java, 顺便整理一些东西;</p>
-<p>下面是最基本的数据类型比较:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/94101325-file_1490513405075_15bf5.gif" alt=""></p>
-<p>说明几点:<br>1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）</p>
-<ul>
-<li>注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的</li>
-</ul>
-<p>2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。<br>3 . 若还需要用更高精度的浮点数，可以考虑使用BigDecimal类。<br>4 . Java提供了三个特殊的浮点数值：正无穷大、负无穷大和非数，用于表示溢出和出错。<br>5 . 例如使用一个正浮点数除以0将得到正无穷大（POSITIVE_INFINITY）;负浮点数除以0得到负无穷大（NEGATIVE_INFINITY）。0.0除以0.0或对一个负数开方得到一个非数（NaN）。（都属于Double或Float包装类）<br>6 . 所有正无穷大数值相等，所有负无穷大数值都是相等；而NaN不与任何数值相等。</p>
-<h3 id="1-基本数值型类型的自动类型转换"><a href="#1-基本数值型类型的自动类型转换" class="headerlink" title="1.基本数值型类型的自动类型转换"></a>1.基本数值型类型的自动类型转换</h3><p>这种很好理解，就是在基本类型中（boolean除外），可以系统自动转换把范围小的直接赋予范围大的变量。</p>
-<ul>
-<li>一般是实行如下转换，不用特别标记:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</div><div class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></div><div class="line">        </div><div class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</div><div class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></div><div class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></div><div class="line">        </div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p><strong>PS：</strong>有一种比较特殊的自动类型转换，就是把基本类型（boolean也行）和一个空字符连接起来，可以形成对应的字符串。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</div><div class="line">     String str = b + <span class="string">""</span>;</div><div class="line">     System.out.print(str);<span class="comment">//这里输出true</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="2-强制类型转化"><a href="#2-强制类型转化" class="headerlink" title="2.强制类型转化"></a>2.强制类型转化</h3><p>上面的自动类型只能把表数范围小的数值转化为大的，如果没有显性表示把大的转为小的，会发生编译错误。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">int</span> b = <span class="number">233</span>;</div><div class="line">     <span class="keyword">byte</span> c = (<span class="keyword">byte</span>)b;<span class="comment">//强制把一个int转为byte类型</span></div><div class="line">     System.out.println(c);<span class="comment">//输出-23</span></div><div class="line">      </div><div class="line">     <span class="keyword">float</span> a = <span class="number">5.6</span>;<span class="comment">//错误，因为5.6默认是double类型</span></div><div class="line">     <span class="keyword">float</span> a = (<span class="keyword">float</span>)<span class="number">5.6</span>;<span class="comment">//正确，要进行强制转化</span></div><div class="line">      </div><div class="line">     <span class="keyword">double</span> d = <span class="number">3.98</span>;</div><div class="line">     <span class="keyword">int</span> e = (<span class="keyword">int</span>)d;<span class="comment">//强制把一个double转为int类型</span></div><div class="line">     System.out.println(e);<span class="comment">//输出3</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>像上面一样，要执行表数大的范围转为小的，需要显性声明，若强制转化后数值过大，会造成精度丢失。</p>
-<h3 id="3-字符串（String）转换为基本类型"><a href="#3-字符串（String）转换为基本类型" class="headerlink" title="3.字符串（String）转换为基本类型"></a>3.字符串（String）转换为基本类型</h3><ul>
-<li>通常情况下，字符串不能直接转换为基本类型，但通过基本类型对应的包装类可以实现。</li>
-<li>每个包装类都会有提供一个parseXxx（String str）静态方法来用于字符串转换为基本类型</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Sting a = <span class="string">"45"</span>;</div><div class="line"><span class="comment">//使用Integer的方法将一个字符串转换为int类型</span></div><div class="line"><span class="keyword">int</span> iValue = Interger.parseInt(a);</div><div class="line"><span class="comment">//boolean比较特殊，仅在字符串为true的情况下为true，其他为false</span></div><div class="line"><span class="keyword">boolean</span> b = Boolean.valueOf(a);</div></pre></td></tr></table></figure>
-<h3 id="4-将基本类型转换为字符串（String）"><a href="#4-将基本类型转换为字符串（String）" class="headerlink" title="4.将基本类型转换为字符串（String）"></a>4.将基本类型转换为字符串（String）</h3><p>每个包装类都带有一个toString的方法，比如Double.toString(double d)等，可以转换为String字符串。</p>
-<h3 id="5-基本数据类型和包装类的转换"><a href="#5-基本数据类型和包装类的转换" class="headerlink" title="5.基本数据类型和包装类的转换"></a>5.基本数据类型和包装类的转换</h3><table>
-<thead>
-<tr>
-<th>基本数据类型</th>
-<th>包装类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>boolean</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>char</td>
-<td>Character</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>Byte</td>
-</tr>
-<tr>
-<td>short</td>
-<td>Short</td>
-</tr>
-<tr>
-<td>integer</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>下面示例两者之间的互相转换</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);<span class="comment">//包装</span></div><div class="line"><span class="keyword">int</span> unWrap = iWrap.intValue();<span class="comment">//解包装</span></div></pre></td></tr></table></figure>
-          
+          <p>JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说;</p>
+<p>我们先来看比较复杂的一个JSONArray:<br><img src="http://omwycd607.bkt.clouddn.com/17-4-9/4877941-file_1491745216641_1063b.png" alt="enter image description here"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/01/09/JSON-JSONArray-Map一些总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -811,7 +895,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2014/05/15/Oracle数据库服务总结/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -830,7 +914,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2014/05/15/Oracle数据库服务总结/" itemprop="url">Oracle数据库服务总结</a></h1>
+                <a class="post-title-link" href="/2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/" itemprop="url">解决/bin/bash^M: bad interpreter: No such file or directory</a></h1>
         
 
         <div class="post-meta">
@@ -842,8 +926,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-05-15T16:28:56+08:00">
-                2014-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-09T14:53:19+08:00">
+                2015-09-09
               </time>
             
 
@@ -861,9 +945,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2014/05/15/Oracle数据库服务总结/#comments" itemprop="discussionUrl">
+                <a href="/2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/05/15/Oracle数据库服务总结/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -892,191 +976,15 @@
 
       
         
-          
-            <h1 id="Oracle数据库服务总结"><a href="#Oracle数据库服务总结" class="headerlink" title="Oracle数据库服务总结"></a>Oracle数据库服务总结</h1><h2 id="Oracle的数据库服务默认有5个"><a href="#Oracle的数据库服务默认有5个" class="headerlink" title="Oracle的数据库服务默认有5个"></a>Oracle的数据库服务默认有5个</h2><p>看了几篇文章后,总结其作用如下:<br>1 .<strong>OracleServiceORCL:数据库服务</strong>，这个服务会自动的启动和停止数据库。ORCL是Oracle的实例标识。此服务被默认的设置为开机启动。</p>
-<ul>
-<li>必须启动，这是Oracle数据库的服务。</li>
-</ul>
-<p>2 .<strong>OracleOraDb11g_home1TNSListener.监听器服务</strong>，服务只有在数据库需要远程访问的时候才需要，此服务被默认的设置为开机启动。</p>
-<ul>
-<li>必须启动，这是临听，用于远程客户端连接你的Oracle;</li>
-</ul>
-<p>3 .<strong>OracleJobSchedulerORCL.Oracle作业调度服务</strong>，ORCL是Oracle实例标识。此服务被默认设置为禁用状态.</p>
-<ul>
-<li>通常不启动，用于定期操作任务的服务； </li>
-<li>数据库工作日程调度，一般没有安排工作日程就不需要启动，为什么默认是禁用？因为启动后会占用很大的系统资源。</li>
-</ul>
-<p>4 .<strong> OracleDBConsoleorcl.Oracle数据库控制台服务</strong>，orcl是Oracle的实例标识，默认的实例为orcl.在运行Enterprise Manager 的时候，需要启动这个服务。此服务被默认设置为自动开机启动的。</p>
-<ul>
-<li>可以不启动，用于管理Oracle的企业管理器的服务； </li>
-</ul>
-<p>5 .<strong>OracleOraDb10g_home1iSQL<em>Plus iSQL</em>Plus的服务进程</strong></p>
-<ul>
-<li>可以不启动，这是isqlplus服务，用于用网页执行sql执行，11g已经取消了这个功能；</li>
-</ul>
-<h2 id="用命令启动"><a href="#用命令启动" class="headerlink" title="用命令启动"></a>用命令启动</h2><ul>
-<li>启动listener:lsnrctl start  </li>
-<li>启动数据库：net start OracleServiceORCL</li>
-</ul>
-<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ol>
-<li><strong>在资源不够的情况下，要记得：</strong><br>只有这两项是必须启动的：OracleOraDb10g_home1TNSListener和OracleServiceORCL。（就是监听和数据库服务）</li>
-<li>对上面的服务也可以做一个批处理文件来启动和停止，批处理文件如下:</li>
-</ol>
-<ul>
-<li>建立dbstart.cmd文件（开启）</li>
-<li>添加如下内容：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@echo　off  </div><div class="line">net　　start　　OracleServiceORACLE  </div><div class="line">net　　start　　OracleDBConsoleoracle  </div><div class="line">net　　start　　OracleOraDb10g_home1iSQL*Plus  </div><div class="line">net　　start　　OracleOraDb10g_home1TNSListener  </div><div class="line">pause</div></pre></td></tr></table></figure>
-<ul>
-<li>同样我们可以建立关闭文件（dbstop.cmd）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@echo　off  </div><div class="line">net　　stop　　OracleServiceORACLE  </div><div class="line">net　　stop　　OracleDBConsoleoracle  </div><div class="line">net　　stop　　OracleOraDb10g_home1iSQL*Plus  </div><div class="line">net　　stop　　OracleOraDb10g_home1TNSListener  </div><div class="line">pause</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.xin/2014/03/19/Oracle中删除重复记录整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/03/19/Oracle中删除重复记录整理/" itemprop="url">Oracle中删除重复记录整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-19T16:28:36+08:00">
-                2014-03-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/03/19/Oracle中删除重复记录整理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/03/19/Oracle中删除重复记录整理/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Oracle中删除重复记录整理"><a href="#Oracle中删除重复记录整理" class="headerlink" title="Oracle中删除重复记录整理"></a>Oracle中删除重复记录整理</h1><p>Oracle中经常会删除一些重复记录，整理一下以备用</p>
-<p>举例(建立数据如下):</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_table  </div><div class="line">(<span class="keyword">id</span> <span class="built_in">NUMBER</span>,  </div><div class="line"><span class="keyword">name</span> VARCHAR2(<span class="number">20</span>)  </div><div class="line">);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">7890</span>, <span class="string">'cde'</span>);</div></pre></td></tr></table></figure>
-<p>1 .<strong>第一种方法:</strong>适用于有少量重复记录的情况(临时表法)</p>
-<ul>
-<li>(建一个临时表用来存放重复的记录)</li>
-<li>(清空表的数据，但保留表的结构)</li>
-<li>(再将临时表里的内容反插回来)</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tmp_table <span class="keyword">as</span> <span class="keyword">select</span> <span class="keyword">distinct</span> * <span class="keyword">from</span> t_table;  </div><div class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> t_table;  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">select</span> * <span class="keyword">from</span> tmp_table;</div></pre></td></tr></table></figure>
-<p>2 .<strong>第二种方法:</strong>适用于有大量重复记录的情况</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">delete</span> t_table <span class="keyword">where</span>   </div><div class="line">(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>   </div><div class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>)   </div><div class="line"><span class="keyword">and</span>   </div><div class="line"><span class="keyword">rowid</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">min</span>(<span class="keyword">rowid</span>)   </div><div class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>);</div></pre></td></tr></table></figure>
-<p>3 .<strong>第三种方法:</strong>适用于有少量重复记录的情况</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t_table a <span class="keyword">where</span> a.rowid!=(<span class="keyword">select</span> <span class="keyword">max</span>(b.rowid)   </div><div class="line"><span class="keyword">from</span> t_table b <span class="keyword">where</span> a.id=b.id <span class="keyword">and</span> a.name=b.name);</div></pre></td></tr></table></figure>
-
-          
+          <p>今天编译了一个程序,然后上传到服务器运行时,居然报了以下错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/bash^M: bad interpreter: No such file or directory&apos;</div></pre></td></tr></table></figure></p>
+<p>查阅资料, 可以得知是因为linux和windows对换行符理解的不同所导致的,解决很简单;</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1114,7 +1022,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1177,7 +1085,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
