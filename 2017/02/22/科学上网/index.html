@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>科学上网 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="科学上网最近被网速限制烦了, 想想还是弄台vps科学上网, 不用每次换hosts; 原因 因为众所周知的原因,我们没法那么流畅的浏览google,油管等网站. 平时还好, 可是偶尔要查下东西, 部署android sdk, 或者拉取github的东西, 都比较麻烦; 之前可以通过hosts文件来进行上网, 但总归速度什么的都不是那么好; 还要经常换;  选择在多种vps的选择下, 最后还是选了搬瓦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科学上网">
+<meta property="og:url" content="https://www.hyhcoder.xin/2017/02/22/科学上网/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="科学上网最近被网速限制烦了, 想想还是弄台vps科学上网, 不用每次换hosts; 原因 因为众所周知的原因,我们没法那么流畅的浏览google,油管等网站. 平时还好, 可是偶尔要查下东西, 部署android sdk, 或者拉取github的东西, 都比较麻烦; 之前可以通过hosts文件来进行上网, 但总归速度什么的都不是那么好; 还要经常换;  选择在多种vps的选择下, 最后还是选了搬瓦">
+<meta property="og:image" content="http://i4.buimg.com/567571/f1095808d9821a1c.png">
+<meta property="og:image" content="http://i2.buimg.com/567571/35eff13ff5c7dd85.png">
+<meta property="og:updated_time" content="2017-11-05T07:01:44.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="科学上网">
+<meta name="twitter:description" content="科学上网最近被网速限制烦了, 想想还是弄台vps科学上网, 不用每次换hosts; 原因 因为众所周知的原因,我们没法那么流畅的浏览google,油管等网站. 平时还好, 可是偶尔要查下东西, 部署android sdk, 或者拉取github的东西, 都比较麻烦; 之前可以通过hosts文件来进行上网, 但总归速度什么的都不是那么好; 还要经常换;  选择在多种vps的选择下, 最后还是选了搬瓦">
+<meta name="twitter:image" content="http://i4.buimg.com/567571/f1095808d9821a1c.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#科学上网"><span class="toc-text">科学上网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原因"><span class="toc-text">原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择"><span class="toc-text">选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装部署"><span class="toc-text">安装部署</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-科学上网" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">科学上网</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.02.22</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2017/02/22/科学上网/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><p>最近被网速限制烦了, 想想还是弄台vps科学上网, 不用每次换hosts;</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><ol>
+<li>因为众所周知的原因,我们没法那么流畅的浏览google,油管等网站.</li>
+<li>平时还好, 可是偶尔要查下东西, 部署android sdk, 或者拉取github的东西, 都比较麻烦;</li>
+<li>之前可以通过hosts文件来进行上网, 但总归速度什么的都不是那么好; 还要经常换;</li>
+</ol>
+<h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><p>在多种vps的选择下, 最后还是选了搬瓦工, 为啥, 因为穷, 哈哈!<br>搬瓦工选择$19.99/年的即可; 选择LA的节点;</p>
+<h3 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h3><ol>
+<li>一般科学上网有两种, 一种是通过vpn, 一种是通过shadowsocks;</li>
+<li>shadowsocks的使用会比较简单, 已经可以基本上满足上网的需求, vpn比较容易被封IP,还有设置比较麻烦, 就选了shadowsocks;</li>
+<li><p>进入搬瓦工的控制面板KiwiVM;<br><img src="http://i4.buimg.com/567571/f1095808d9821a1c.png" alt="enter image description here"></p>
+</li>
+<li><p>点击左侧菜单”Shadowsocks Server”，然后看到上图所示。点击Install Shadowsocks Server进行部署，我们只需要点击按钮就可以。我们会看到界面中在执行脚本，我们不要管他，只要等着看到下面界面就可以了。<br><img src="http://i2.buimg.com/567571/35eff13ff5c7dd85.png" alt="enter image description here"></p>
+</li>
+<li><p>接下来下载客户端;选择你的操作系统;</p>
+</li>
+<li>把上面生成的账号密码填进去,设置开机启动;</li>
+<li>浏览器用chrome插件(SwitchySharp);</li>
+<li>设置socks5代理;并添加G..F..W的list;自动切换;就可以科学上网了;</li>
+</ol>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/01/26/如何申请免费的HTTPS证书/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/02/26/一个奇怪的bug-tomcat卡在deploying/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2017/02/22/科学上网/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

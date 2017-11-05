@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于Java中转换机制整理 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Java,基础知识," />
+  
+
+  <meta name="description" content="关于Java中转换机制整理这两天在会看think in java, 顺便整理一些东西; 下面是最基本的数据类型比较: 说明几点:1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）  注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的  2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。3 . 若还需">
+<meta name="keywords" content="Java,基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Java中转换机制整理">
+<meta property="og:url" content="https://www.hyhcoder.xin/2014/10/28/关于Java中转换机制整理/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="关于Java中转换机制整理这两天在会看think in java, 顺便整理一些东西; 下面是最基本的数据类型比较: 说明几点:1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）  注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的  2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。3 . 若还需">
+<meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-26/94101325-file_1490513405075_15bf5.gif">
+<meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-26/56836039-file_1490513440333_7802.png">
+<meta property="og:updated_time" content="2017-11-04T09:50:57.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Java中转换机制整理">
+<meta name="twitter:description" content="关于Java中转换机制整理这两天在会看think in java, 顺便整理一些东西; 下面是最基本的数据类型比较: 说明几点:1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）  注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的  2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。3 . 若还需">
+<meta name="twitter:image" content="http://omwycd607.bkt.clouddn.com/17-3-26/94101325-file_1490513405075_15bf5.gif">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于Java中转换机制整理"><span class="toc-text">关于Java中转换机制整理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-基本数值型类型的自动类型转换"><span class="toc-text">1.基本数值型类型的自动类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-强制类型转化"><span class="toc-text">2.强制类型转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-字符串（String）转换为基本类型"><span class="toc-text">3.字符串（String）转换为基本类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-将基本类型转换为字符串（String）"><span class="toc-text">4.将基本类型转换为字符串（String）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-基本数据类型和包装类的转换"><span class="toc-text">5.基本数据类型和包装类的转换</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-关于Java中转换机制整理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">关于Java中转换机制整理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.10.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2014/10/28/关于Java中转换机制整理/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="关于Java中转换机制整理"><a href="#关于Java中转换机制整理" class="headerlink" title="关于Java中转换机制整理"></a>关于Java中转换机制整理</h1><p>这两天在会看think in java, 顺便整理一些东西;</p>
+<p>下面是最基本的数据类型比较:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/94101325-file_1490513405075_15bf5.gif" alt=""></p>
+<p>说明几点:<br>1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）</p>
+<ul>
+<li>注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的</li>
+</ul>
+<p>2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。<br>3 . 若还需要用更高精度的浮点数，可以考虑使用BigDecimal类。<br>4 . Java提供了三个特殊的浮点数值：正无穷大、负无穷大和非数，用于表示溢出和出错。<br>5 . 例如使用一个正浮点数除以0将得到正无穷大（POSITIVE_INFINITY）;负浮点数除以0得到负无穷大（NEGATIVE_INFINITY）。0.0除以0.0或对一个负数开方得到一个非数（NaN）。（都属于Double或Float包装类）<br>6 . 所有正无穷大数值相等，所有负无穷大数值都是相等；而NaN不与任何数值相等。</p>
+<h3 id="1-基本数值型类型的自动类型转换"><a href="#1-基本数值型类型的自动类型转换" class="headerlink" title="1.基本数值型类型的自动类型转换"></a>1.基本数值型类型的自动类型转换</h3><p>这种很好理解，就是在基本类型中（boolean除外），可以系统自动转换把范围小的直接赋予范围大的变量。</p>
+<ul>
+<li>一般是实行如下转换，不用特别标记:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</div><div class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></div><div class="line">        </div><div class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</div><div class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></div><div class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></div><div class="line">        </div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p><strong>PS：</strong>有一种比较特殊的自动类型转换，就是把基本类型（boolean也行）和一个空字符连接起来，可以形成对应的字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</div><div class="line">     String str = b + <span class="string">""</span>;</div><div class="line">     System.out.print(str);<span class="comment">//这里输出true</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-强制类型转化"><a href="#2-强制类型转化" class="headerlink" title="2.强制类型转化"></a>2.强制类型转化</h3><p>上面的自动类型只能把表数范围小的数值转化为大的，如果没有显性表示把大的转为小的，会发生编译错误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">int</span> b = <span class="number">233</span>;</div><div class="line">     <span class="keyword">byte</span> c = (<span class="keyword">byte</span>)b;<span class="comment">//强制把一个int转为byte类型</span></div><div class="line">     System.out.println(c);<span class="comment">//输出-23</span></div><div class="line">      </div><div class="line">     <span class="keyword">float</span> a = <span class="number">5.6</span>;<span class="comment">//错误，因为5.6默认是double类型</span></div><div class="line">     <span class="keyword">float</span> a = (<span class="keyword">float</span>)<span class="number">5.6</span>;<span class="comment">//正确，要进行强制转化</span></div><div class="line">      </div><div class="line">     <span class="keyword">double</span> d = <span class="number">3.98</span>;</div><div class="line">     <span class="keyword">int</span> e = (<span class="keyword">int</span>)d;<span class="comment">//强制把一个double转为int类型</span></div><div class="line">     System.out.println(e);<span class="comment">//输出3</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>像上面一样，要执行表数大的范围转为小的，需要显性声明，若强制转化后数值过大，会造成精度丢失。</p>
+<h3 id="3-字符串（String）转换为基本类型"><a href="#3-字符串（String）转换为基本类型" class="headerlink" title="3.字符串（String）转换为基本类型"></a>3.字符串（String）转换为基本类型</h3><ul>
+<li>通常情况下，字符串不能直接转换为基本类型，但通过基本类型对应的包装类可以实现。</li>
+<li>每个包装类都会有提供一个parseXxx（String str）静态方法来用于字符串转换为基本类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Sting a = <span class="string">"45"</span>;</div><div class="line"><span class="comment">//使用Integer的方法将一个字符串转换为int类型</span></div><div class="line"><span class="keyword">int</span> iValue = Interger.parseInt(a);</div><div class="line"><span class="comment">//boolean比较特殊，仅在字符串为true的情况下为true，其他为false</span></div><div class="line"><span class="keyword">boolean</span> b = Boolean.valueOf(a);</div></pre></td></tr></table></figure>
+<h3 id="4-将基本类型转换为字符串（String）"><a href="#4-将基本类型转换为字符串（String）" class="headerlink" title="4.将基本类型转换为字符串（String）"></a>4.将基本类型转换为字符串（String）</h3><p>每个包装类都带有一个toString的方法，比如Double.toString(double d)等，可以转换为String字符串。</p>
+<h3 id="5-基本数据类型和包装类的转换"><a href="#5-基本数据类型和包装类的转换" class="headerlink" title="5.基本数据类型和包装类的转换"></a>5.基本数据类型和包装类的转换</h3><table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>integer</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>下面示例两者之间的互相转换</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);<span class="comment">//包装</span></div><div class="line"><span class="keyword">int</span> unWrap = iWrap.intValue();<span class="comment">//解包装</span></div></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2014/05/15/Oracle数据库服务总结/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2014/12/09/win7下安装ubuntu14-04双系统/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2014/10/28/关于Java中转换机制整理/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

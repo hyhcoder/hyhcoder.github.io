@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mysql的主从备份搭建 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="Mysql的主从备份搭建设置server-id，打开binlog 修改master节点的/etc/my.cnf, 在[mysqld] 下面加入： 12345log-bin=mysql-binactiviti在主从复制模式下需要设置format为mixedbinlog_format=MIXEDserver-id=1注意主从的server-id一定要不同即可  重启master： 1service m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql的主从备份搭建">
+<meta property="og:url" content="https://www.hyhcoder.xin/2016/10/26/Mysql的主从备份搭建/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="Mysql的主从备份搭建设置server-id，打开binlog 修改master节点的/etc/my.cnf, 在[mysqld] 下面加入： 12345log-bin=mysql-binactiviti在主从复制模式下需要设置format为mixedbinlog_format=MIXEDserver-id=1注意主从的server-id一定要不同即可  重启master： 1service m">
+<meta property="og:updated_time" content="2017-11-05T07:11:05.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql的主从备份搭建">
+<meta name="twitter:description" content="Mysql的主从备份搭建设置server-id，打开binlog 修改master节点的/etc/my.cnf, 在[mysqld] 下面加入： 12345log-bin=mysql-binactiviti在主从复制模式下需要设置format为mixedbinlog_format=MIXEDserver-id=1注意主从的server-id一定要不同即可  重启master： 1service m">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql的主从备份搭建"><span class="toc-text">Mysql的主从备份搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置server-id，打开binlog"><span class="toc-text">设置server-id，打开binlog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建数据库复制用户"><span class="toc-text">创建数据库复制用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置初始复制点"><span class="toc-text">设置初始复制点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开防火墙"><span class="toc-text">打开防火墙</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Mysql的主从备份搭建" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Mysql的主从备份搭建</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2016/10/26/Mysql的主从备份搭建/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="Mysql的主从备份搭建"><a href="#Mysql的主从备份搭建" class="headerlink" title="Mysql的主从备份搭建"></a>Mysql的主从备份搭建</h1><h3 id="设置server-id，打开binlog"><a href="#设置server-id，打开binlog" class="headerlink" title="设置server-id，打开binlog"></a>设置server-id，打开binlog</h3><ol>
+<li><p>修改master节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div><div class="line">activiti在主从复制模式下需要设置format为mixed</div><div class="line">binlog_format=MIXED</div><div class="line">server-id=1</div><div class="line">注意主从的server-id一定要不同即可</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启master：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改slave节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server-id=2</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="创建数据库复制用户"><a href="#创建数据库复制用户" class="headerlink" title="创建数据库复制用户"></a>创建数据库复制用户</h3><ul>
+<li>master节点执行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE USER &apos;repluser&apos;@&apos;%&apos; IDENTIFIED BY &apos;replpass&apos;;</div><div class="line">GRANT REPLICATION SLAVE ON *.* TO &apos;repluser&apos;@&apos;%&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="设置初始复制点"><a href="#设置初始复制点" class="headerlink" title="设置初始复制点"></a>设置初始复制点</h3><ol>
+<li><p>对master节点进行锁表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLUSH TABLES WITH READ LOCK;</div></pre></td></tr></table></figure>
+</li>
+<li><p>master节点执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master status;</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| File | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| mysql-bin.000001 |  419 |  |  |   |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>记下<strong>mysql-bin.000001 和 419</strong></p>
+<ol>
+<li><p>slave节点执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CHANGE MASTER TO MASTER_HOST=&apos;192.168.1.1&apos;, MASTER_USER=&apos;repluser&apos;, MASTER_PASSWORD=&apos;replpass&apos;, MASTER_LOG_FILE=&apos;mysql-bin.000001&apos;,MASTER_LOG_POS=419</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start slave</div></pre></td></tr></table></figure>
+</li>
+<li><p>看是否正常工作, 在slave上面执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">show slave status /G;</div><div class="line">#看到Slave_IO_Running和Slave_SQL_Running状态均为YES即可</div></pre></td></tr></table></figure>
+</li>
+<li><p>对master节点进行解锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unlock tables;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="打开防火墙"><a href="#打开防火墙" class="headerlink" title="打开防火墙"></a>打开防火墙</h3><p>要注意的是可能需要打开防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</div></pre></td></tr></table></figure></p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/26/samba服务器可以访问-无法写入故障/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/11/05/编译安装nginx-使其支持sticky模块/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2016/10/26/Mysql的主从备份搭建/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

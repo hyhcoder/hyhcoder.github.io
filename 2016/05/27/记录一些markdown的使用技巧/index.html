@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>记录一些markdown的使用技巧 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="记录一些markdown的使用技巧markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;  在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱; #后面跟着标题时, 要留个空格, 不然有些解析器会读不出来; markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化; markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录一些markdown的使用技巧">
+<meta property="og:url" content="https://www.hyhcoder.xin/2016/05/27/记录一些markdown的使用技巧/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="记录一些markdown的使用技巧markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;  在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱; #后面跟着标题时, 要留个空格, 不然有些解析器会读不出来; markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化; markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网">
+<meta property="og:updated_time" content="2017-11-05T07:03:52.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记录一些markdown的使用技巧">
+<meta name="twitter:description" content="记录一些markdown的使用技巧markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;  在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱; #后面跟着标题时, 要留个空格, 不然有些解析器会读不出来; markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化; markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#记录一些markdown的使用技巧"><span class="toc-text">记录一些markdown的使用技巧</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-记录一些markdown的使用技巧" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">记录一些markdown的使用技巧</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.05.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2016/05/27/记录一些markdown的使用技巧/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="记录一些markdown的使用技巧"><a href="#记录一些markdown的使用技巧" class="headerlink" title="记录一些markdown的使用技巧"></a>记录一些markdown的使用技巧</h1><p>markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;</p>
+<ol>
+<li>在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱;</li>
+<li>#后面跟着标题时, 要留个空格, 不然有些解析器会读不出来;</li>
+<li>markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化;</li>
+<li>markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网站,比如这个: 极简图床;</li>
+<li>对markdown语法用到的关键字引用, 比如#,*等, 要加\转义;</li>
+<li>首行缩进, 可以在前面插入一个全角的空格或者加入&ensp;</li>
+<li>添加空行可以结束前面的格式状态;</li>
+<li>若要使图片居中或者限制大小, 可用html语言来写, 记住markdown其实也是一种标志性语言;</li>
+</ol>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/04/15/Git代理设置，加速clone/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/07/22/CRON表达式详解/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2016/05/27/记录一些markdown的使用技巧/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

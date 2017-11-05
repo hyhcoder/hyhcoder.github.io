@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>小程序wx.uploadFile踩坑 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="小程序wx.uploadFile踩坑前端实现小程序目前可以上传文件了,比如最常用到的会是图片的上传: 我们可以使用wx.chooseImage(OBJECT)实现 官方示例如下:123456789wx.chooseImage(&amp;#123;  count: 1, // 默认9  sizeType: [&apos;original&apos;, &apos;compressed&apos;], // 可以指定是原图还是压缩图，默认二者都有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序wx.uploadFile踩坑">
+<meta property="og:url" content="https://www.hyhcoder.xin/2017/04/01/小程序wx-uploadFile踩坑/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="小程序wx.uploadFile踩坑前端实现小程序目前可以上传文件了,比如最常用到的会是图片的上传: 我们可以使用wx.chooseImage(OBJECT)实现 官方示例如下:123456789wx.chooseImage(&amp;#123;  count: 1, // 默认9  sizeType: [&apos;original&apos;, &apos;compressed&apos;], // 可以指定是原图还是压缩图，默认二者都有">
+<meta property="og:updated_time" content="2017-11-05T07:16:46.132Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序wx.uploadFile踩坑">
+<meta name="twitter:description" content="小程序wx.uploadFile踩坑前端实现小程序目前可以上传文件了,比如最常用到的会是图片的上传: 我们可以使用wx.chooseImage(OBJECT)实现 官方示例如下:123456789wx.chooseImage(&amp;#123;  count: 1, // 默认9  sizeType: [&apos;original&apos;, &apos;compressed&apos;], // 可以指定是原图还是压缩图，默认二者都有">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#小程序wx-uploadFile踩坑"><span class="toc-text">小程序wx.uploadFile踩坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前端实现"><span class="toc-text">前端实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后端实现"><span class="toc-text">后端实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真机无法通过问题"><span class="toc-text">真机无法通过问题</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-小程序wx-uploadFile踩坑" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">小程序wx.uploadFile踩坑</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.04.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2017/04/01/小程序wx-uploadFile踩坑/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="小程序wx-uploadFile踩坑"><a href="#小程序wx-uploadFile踩坑" class="headerlink" title="小程序wx.uploadFile踩坑"></a>小程序wx.uploadFile踩坑</h1><h3 id="前端实现"><a href="#前端实现" class="headerlink" title="前端实现"></a>前端实现</h3><p>小程序目前可以上传文件了,比如最常用到的会是图片的上传:</p>
+<p>我们可以使用wx.chooseImage(OBJECT)实现</p>
+<p>官方示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">wx.chooseImage(&#123;</div><div class="line">  count: <span class="number">1</span>, <span class="comment">// 默认9</span></div><div class="line">  sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>], <span class="comment">// 可以指定是原图还是压缩图，默认二者都有</span></div><div class="line">  sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>], <span class="comment">// 可以指定来源是相册还是相机，默认二者都有</span></div><div class="line">  success: function (res) &#123;</div><div class="line">    <span class="comment">// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片</span></div><div class="line">    var tempFilePaths = res.tempFilePaths</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>小程序目前一次只能上传一张图片;</p>
+<p>上传后通过wx.uploadFile(OBJECT) 可以将本地资源文件上传到服务器。</p>
+<p>官方示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">wx.chooseImage(&#123;</div><div class="line">  success: function(res) &#123;</div><div class="line">    var tempFilePaths = res.tempFilePaths</div><div class="line">    wx.uploadFile(&#123;</div><div class="line">      url: <span class="string">'http://example.weixin.qq.com/upload'</span>, <span class="comment">//仅为示例，非真实的接口地址</span></div><div class="line">      filePath: tempFilePaths[<span class="number">0</span>],</div><div class="line">      name: <span class="string">'file'</span>,</div><div class="line">      formData:&#123;</div><div class="line">        <span class="string">'user'</span>: <span class="string">'test'</span></div><div class="line">      &#125;,</div><div class="line">      success: function(res)&#123;</div><div class="line">        var data = res.data</div><div class="line">        <span class="comment">//do something</span></div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="后端实现"><a href="#后端实现" class="headerlink" title="后端实现"></a>后端实现</h3><p>后端的实现我们使用最基本的Servlet进行基本的post和get操作就可以把文件存储下来;</p>
+<p>核心代码如下,具体捕获到再进行其他处理:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileUploadServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(FileUploadServlet.class);</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileUploadServlet</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        JsonMessage&lt;Object&gt; message = <span class="keyword">new</span> JsonMessage&lt;Object&gt;();</div><div class="line">        EOSResponse eosResponse = <span class="keyword">null</span>;</div><div class="line">        String sessionToken = <span class="keyword">null</span>;</div><div class="line">        FileItem file = <span class="keyword">null</span>;</div><div class="line">        InputStream in = <span class="keyword">null</span>;</div><div class="line">        ByteArrayOutputStream swapStream1 = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            request.setCharacterEncoding(<span class="string">"UTF-8"</span>); </div><div class="line">            <span class="comment">//1、创建一个DiskFileItemFactory工厂  </span></div><div class="line">            DiskFileItemFactory factory = <span class="keyword">new</span> DiskFileItemFactory();  </div><div class="line">            <span class="comment">//2、创建一个文件上传解析器  </span></div><div class="line">            ServletFileUpload upload = <span class="keyword">new</span> ServletFileUpload(factory);</div><div class="line">            <span class="comment">//解决上传文件名的中文乱码  </span></div><div class="line">            upload.setHeaderEncoding(<span class="string">"UTF-8"</span>);   </div><div class="line">            <span class="comment">// 1. 得到 FileItem 的集合 items  </span></div><div class="line">            List&lt;FileItem&gt; items = upload.parseRequest(request);</div><div class="line">            logger.info(<span class="string">"items:&#123;&#125;"</span>, items.size());</div><div class="line">            <span class="comment">// 2. 遍历 items:  </span></div><div class="line">            <span class="keyword">for</span> (FileItem item : items) &#123;  </div><div class="line">                String name = item.getFieldName();  </div><div class="line">                logger.info(<span class="string">"fieldName:&#123;&#125;"</span>, name);</div><div class="line">                <span class="comment">// 若是一个一般的表单域, 打印信息  </span></div><div class="line">                <span class="keyword">if</span> (item.isFormField()) &#123;  </div><div class="line">                    String value = item.getString(<span class="string">"utf-8"</span>);  </div><div class="line">					<span class="comment">//进行业务处理...</span></div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">if</span>(<span class="string">"file"</span>.equals(name))&#123;</div><div class="line">                       <span class="comment">//进行文件存储....</span></div><div class="line">                    &#125;</div><div class="line">                &#125;  </div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">finally</span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span>(swapStream1 != <span class="keyword">null</span>)&#123;</div><div class="line">                    swapStream1.close();</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span>(in != <span class="keyword">null</span>)&#123;</div><div class="line">                    in.close();</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        PrintWriter out = response.getWriter();  </div><div class="line">        out.write(JSONObject.toJSONString(message));  </div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        doGet(request, response);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="真机无法通过问题"><a href="#真机无法通过问题" class="headerlink" title="真机无法通过问题"></a>真机无法通过问题</h3><p>用上面的方法调试后, 会发现在本机的开发者工具是可以通过的, 但一弄到真机上面去调试, 就会发现无法通过, 这大概会有两个原因:</p>
+<ol>
+<li>没有使用真实的地址去调试, 真机调试需要用到https连接才可以通过, 因此需要先搭建一台服务器进行模拟, 不能使用本地的地址;</li>
+<li>服务器不支持TSL1.2, ios对于加密策略比较谨慎, 需要对https服务的支持TSL1.2才可以, 可以使用这个地址来测试服务器支不支持TSL1.2,地址如下:<a href="https://www.ssllabs.com/ssltest/index.html" target="_blank" rel="external">https://www.ssllabs.com/ssltest/index.html</a></li>
+</ol>
+<p><strong>PS:</strong>上面的写法也可以改为servlet的getParameter</p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/03/20/最近折腾的redis的总结/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2017/04/01/小程序wx-uploadFile踩坑/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

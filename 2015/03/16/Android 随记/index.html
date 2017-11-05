@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-Android 随记">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>随记 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="Android 随记1 . Android 四大组件  活动(Activity) 服务(Service) 广播接收器(Broadcast Receiver) 内容提供器(Context Provider)  2 . Android 分成五层架构 (硬件层)  Linux 内核层 (提供底层驱动) 系统运行库层(通过 C/C++库)(Sqlite , webkit)(虚拟机) 应用框架层 (API)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随记">
+<meta property="og:url" content="https://www.hyhcoder.xin/2015/03/16/Android 随记/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="Android 随记1 . Android 四大组件  活动(Activity) 服务(Service) 广播接收器(Broadcast Receiver) 内容提供器(Context Provider)  2 . Android 分成五层架构 (硬件层)  Linux 内核层 (提供底层驱动) 系统运行库层(通过 C/C++库)(Sqlite , webkit)(虚拟机) 应用框架层 (API)">
+<meta property="og:updated_time" content="2017-11-05T06:58:55.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随记">
+<meta name="twitter:description" content="Android 随记1 . Android 四大组件  活动(Activity) 服务(Service) 广播接收器(Broadcast Receiver) 内容提供器(Context Provider)  2 . Android 分成五层架构 (硬件层)  Linux 内核层 (提供底层驱动) 系统运行库层(通过 C/C++库)(Sqlite , webkit)(虚拟机) 应用框架层 (API)">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-随记"><span class="toc-text">Android 随记</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="Android 随记-Android 随记" class="article article-type-Android 随记" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">随记</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.03.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2015/03/16/Android 随记/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="Android-随记"><a href="#Android-随记" class="headerlink" title="Android 随记"></a>Android 随记</h1><p>1 . Android 四大组件</p>
+<ul>
+<li>活动(Activity)</li>
+<li>服务(Service)</li>
+<li>广播接收器(Broadcast Receiver)</li>
+<li>内容提供器(Context Provider)</li>
+</ul>
+<p>2 . Android 分成五层架构 (硬件层)</p>
+<ul>
+<li>Linux 内核层 (提供底层驱动)</li>
+<li>系统运行库层(通过 C/C++库)(Sqlite , webkit)(虚拟机)</li>
+<li>应用框架层 (API)</li>
+<li>应用层</li>
+</ul>
+<p>3 . Android 设计讲究逻辑和视图分离</p>
+<ul>
+<li>在代码中通过R.string.hello_world 获得该字符串引用</li>
+<li>在xml中通过@string/hello_world 获得该字符串</li>
+</ul>
+<p>4 . 活动状态</p>
+<ul>
+<li>运行状态</li>
+<li>暂停状态</li>
+<li>停止状态</li>
+<li>销毁状态</li>
+</ul>
+<p>5 . 7个函数</p>
+<ul>
+<li>OnCreate() — &gt; OnDestroy()</li>
+<li>OnStart() — &gt; OnStop()</li>
+<li>OnResume() — &gt; OnPause()</li>
+<li>OnRestart()</li>
+</ul>
+<p>6 . 活动启动模式</p>
+<ul>
+<li>standard</li>
+<li>singleTask</li>
+<li>singleTop</li>
+<li>singleInstance</li>
+</ul>
+<p>7 . 四种布局</p>
+<ul>
+<li>LinearLayout</li>
+<li>RelativeLayout</li>
+<li>FrameLayout</li>
+<li>TableLayout</li>
+</ul>
+<p>8 . 单位和尺寸<br>*Px为像素 ,pt为磅数</p>
+<ul>
+<li>dp为密度无关像素, sp为可伸缩像素(文字)</li>
+</ul>
+<p>9 . 碎片的几个回调方法</p>
+<ul>
+<li>onAttach() : 当碎片和活动建立关联时调用</li>
+<li>onCreateView() : 为碎片创建视图(加载布局)时调用</li>
+<li>onActivityCreated() : 确保与碎片关联的活动一定已创建完毕时调用.</li>
+<li>onDestroyView() : 当与碎片关联的视图被移除的时候调用;</li>
+<li>onDetach() : 当碎片和活动解除关联时调用;</li>
+</ul>
+<p>10 . 发送广播可用Intent, 接收用BroadcastReceiver</p>
+<ul>
+<li>标准广播 (完全异步执行)</li>
+<li>有序广播 (同步执行)</li>
+</ul>
+<p>11 . 数据持久化功能 :</p>
+<ul>
+<li>文件存储</li>
+<li>SharedPreference存储</li>
+<li>数据库存储</li>
+</ul>
+<p>12 . 获取其他程序的数据: 获得该应用程序的内容URI(借助contentResolver进行操作);</p>
+<p>13 . Android 异步消息处理:</p>
+<ul>
+<li>Message (线程之间传递的消息)</li>
+<li>Handler (处理者, 用于发送和处理消息的)</li>
+<li>MessageQueue (消息队列)</li>
+<li>Looper (每个线程中的MessageQueue管家)</li>
+</ul>
+<p>14 . AsyncTask</p>
+<p>15 . 服务(Service)是Android中实现程序后台运行的解决方案,它非常适合用于去执行那些不需要和用户交互而且还要求长期运行的任务;</p>
+<p>16 . Android 中定时任务一般两种实现方式:</p>
+<ul>
+<li>使用Java API 里提供的Timer类</li>
+<li>使用Android的Alarm机制</li>
+</ul>
+<p>17 . Xml两种解析方式:</p>
+<ul>
+<li>pull解析</li>
+<li>SAX解析</li>
+</ul>
+<p>18 . JSON格式解析;</p>
+<ul>
+<li>JSONObject 解析</li>
+<li>使用GSON开源库来解析</li>
+</ul>
+<p>19 . 全局context, 编写一个类,用类静态参数;</p>
+<p>20 . 常用viewPager + fragment方式开发侧滑动;(有开源项目)</p>
+<p>21 . Android ANR错误 (“Application Not Responding”)</p>
+<ul>
+<li>主线程(“事件处理线程”/ “UI线程”) 在5秒内没响应输入;</li>
+<li>BroadCastReceiver 没有在10秒内完成返回;</li>
+</ul>
+<p>22 . NDK为了方便调用第三方的C/C++的库;</p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2015/03/03/Java与C++在面向对象基本概念上的区分/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2015/05/20/oracle11g导出一些表缺失问题/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-Android 随记">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2015/03/16/Android 随记/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

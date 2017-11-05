@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>最近折腾的redis的总结 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="最近折腾的redis的总结redis介绍 redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。 还有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最近折腾的redis的总结">
+<meta property="og:url" content="https://www.hyhcoder.xin/2017/03/20/最近折腾的redis的总结/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="最近折腾的redis的总结redis介绍 redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。 还有">
+<meta property="og:updated_time" content="2017-11-05T07:16:08.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最近折腾的redis的总结">
+<meta name="twitter:description" content="最近折腾的redis的总结redis介绍 redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。 还有">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#最近折腾的redis的总结"><span class="toc-text">最近折腾的redis的总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#redis介绍"><span class="toc-text">redis介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis安装"><span class="toc-text">redis安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis连接"><span class="toc-text">redis连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis的java客户端jedis"><span class="toc-text">redis的java客户端jedis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jedis的实现"><span class="toc-text">jedis的实现</span></a></li></ol></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-最近折腾的redis的总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">最近折腾的redis的总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.03.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2017/03/20/最近折腾的redis的总结/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="最近折腾的redis的总结"><a href="#最近折腾的redis的总结" class="headerlink" title="最近折腾的redis的总结"></a>最近折腾的redis的总结</h1><h3 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h3><ul>
+<li>redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。</li>
+<li>还有另外一个与Memcached不同的是， 他可以支持持久化，redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步；因此支持分布式架构；</li>
+<li>redis在部分场合可以对关系型数据库起到了很好的补充作用。</li>
+<li>提供了对众多的语言支持， 比如java，c/c++，c#，php，Python等客户端，基本都可以满足；</li>
+</ul>
+<h3 id="redis安装"><a href="#redis安装" class="headerlink" title="redis安装"></a>redis安装</h3><p>redis的安装非常简单；<br>首先去<a href="https://redis.io/" target="_blank" rel="external">官网</a>下载安装包；<br>然后使用如下命令,即可进行编译安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<h3 id="redis连接"><a href="#redis连接" class="headerlink" title="redis连接"></a>redis连接</h3><p>安装完redis后,运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server</div></pre></td></tr></table></figure></p>
+<p>就可以启动redis服务, 默认端口为6379</p>
+<p>可以更改根目录下的redis.conf来更改默认端口及其他设置;</p>
+<p>运行下面命令可以启动客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli</div></pre></td></tr></table></figure>
+<p>默认redis-server的启动是以前台方式启动的, 需要更改配置文件中的,改为yes<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 默认Rdis不会作为守护进程运行。如果需要的话配置成&apos;yes&apos;</div><div class="line">daemonize no</div></pre></td></tr></table></figure></p>
+<p>还有默认的redis-server只允许本地访问, 你会在配置文件中看到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#指定 redis 只接收来自于该 IP 地址的请求，如果不进行设置，那么将处理所有请求</div><div class="line">bind 127.0.0.1</div></pre></td></tr></table></figure></p>
+<p>将其注释掉外网即可无限制访问, <strong>强烈不推荐,</strong> 有非常大的漏洞,导致主机变肉鸡, 不要问我为啥会知道,╮(╯﹏╰）╭<br>可以选择绑定特定地址, 或者使用密码认证:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#requirepass配置可以让用户使用AUTH命令来认证密码，才能使用其他命令。这让redis可以使用在不受信任的网络中。为了保持向后的兼容性，可以注释该命令，因为大部分用户也不需要认证。使用requirepass的时候需要注意，因为redis太快了，每秒可以认证15w次密码，简单的密码很容易被攻破，所以最好使用一个更复杂的密码。</div><div class="line"># requirepass foobared</div></pre></td></tr></table></figure></p>
+<p>以上就是redis-server的一些关键的配置点, 通过这里的配置我们就可以从外网或内网访问到服务器的redis-server了</p>
+<p>至于redis客户端的基本命令:<br>可以看下这里:<a href="http://www.runoob.com/redis/redis-connection.html" target="_blank" rel="external">http://www.runoob.com/redis/redis-connection.html</a></p>
+<h3 id="redis的java客户端jedis"><a href="#redis的java客户端jedis" class="headerlink" title="redis的java客户端jedis"></a>redis的java客户端jedis</h3><p>在linux里面, 我们使用了redis-cli这个客户端来连接redis, 但是如何通过程序来控制redis了, 这就需要使用另外一个客户端了, redis对于各种语言的支持非常丰富, 基本上都有相应的客户端,我是使用java的, 就使用了java里面最火的一个客户端jedis;</p>
+<p>jedis也是一个开源项目, 目前对于redis的各种操作已经封装得基本完美了, 各种数据结构的操作,连接池, 都有一系列的api支持;</p>
+<h4 id="jedis的实现"><a href="#jedis的实现" class="headerlink" title="jedis的实现"></a>jedis的实现</h4><p>下面是我用jedis的一些核心实现, 也是非常简单的;</p>
+<p>配置文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#最大活动对象数     </div><div class="line">redis.pool.maxTotal=1000    </div><div class="line">#最大能够保持idel状态的对象数      </div><div class="line">redis.pool.maxIdle=100  </div><div class="line">#最小能够保持idel状态的对象数   </div><div class="line">redis.pool.minIdle=50    </div><div class="line">#当池内没有返回对象时，最大等待时间    </div><div class="line">redis.pool.maxWaitMillis=10000    </div><div class="line">#当调用borrow Object方法时，是否进行有效性检查    </div><div class="line">redis.pool.testOnBorrow=true    </div><div class="line">#当调用return Object方法时，是否进行有效性检查    </div><div class="line">redis.pool.testOnReturn=true  </div><div class="line">#“空闲链接”检测线程，检测的周期，毫秒数。如果为负值，表示不运行“检测线程”。默认为-1.  </div><div class="line">redis.pool.timeBetweenEvictionRunsMillis=30000  </div><div class="line">#向调用者输出“链接”对象时，是否检测它的空闲超时；  </div><div class="line">redis.pool.testWhileIdle=true  </div><div class="line"># 对于“空闲链接”检测线程而言，每次检测的链接资源的个数。默认为3.  </div><div class="line">redis.pool.numTestsPerEvictionRun=50  </div><div class="line">#redis服务器的IP    </div><div class="line">redis.ip=xxxxxx  </div><div class="line">#redis服务器的Port    </div><div class="line">redis.port=6379</div></pre></td></tr></table></figure>
+<p>连接池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisClient</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 链接池</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> JedisPool jedisPool = <span class="keyword">null</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(RedisClient.class);</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 链接池初始化</div><div class="line">	 */</div><div class="line">	<span class="keyword">static</span> &#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="comment">// 池基本配置</span></div><div class="line">			JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</div><div class="line">			<span class="comment">// 预设置参数</span></div><div class="line">			<span class="comment">// 最大链接数</span></div><div class="line">			<span class="keyword">int</span> maxTotal = NumberUtils.toInt(Config.get(<span class="string">"redis.pool.maxTotal"</span>), <span class="number">0</span>);</div><div class="line">			<span class="keyword">if</span> (maxTotal &gt; <span class="number">0</span>) &#123;</div><div class="line">				logger.info(<span class="string">"设置最大连接数为&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.maxTotal"</span>));</div><div class="line">				config.setMaxTotal(maxTotal);</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 最大空闲资源数</span></div><div class="line">			<span class="keyword">int</span> maxIdle = NumberUtils.toInt(Config.get(<span class="string">"redis.pool.maxIdle"</span>), <span class="number">0</span>);</div><div class="line">			<span class="keyword">if</span> (maxIdle &gt; <span class="number">0</span>) &#123;</div><div class="line">				logger.info(<span class="string">"设置最大空闲资源数为&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.maxIdle"</span>));</div><div class="line">				config.setMaxIdle(maxIdle);</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 最小空闲资源数</span></div><div class="line">			<span class="keyword">int</span> minIdle = NumberUtils.toInt(Config.get(<span class="string">"redis.pool.minIdle"</span>), <span class="number">0</span>);</div><div class="line">			<span class="keyword">if</span> (minIdle &gt; <span class="number">0</span>) &#123;</div><div class="line">				logger.info(<span class="string">"设置最小空闲资源数为&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.minIdle"</span>));</div><div class="line">				config.setMinIdle(minIdle);</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 最大等待时间</span></div><div class="line">			<span class="keyword">int</span> maxWaitMillis = NumberUtils.toInt(Config.get(<span class="string">"redis.pool.maxWaitMillis"</span>), <span class="number">0</span>);</div><div class="line">			<span class="keyword">if</span> (maxWaitMillis &gt; <span class="number">0</span>) &#123;</div><div class="line">				logger.info(<span class="string">"设置最大等待时间为&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.maxWaitMillis"</span>));</div><div class="line">				config.setMaxWaitMillis(maxWaitMillis);</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 是否提前进行validate操作(默认否)</span></div><div class="line">			Boolean testOnBorrow = Boolean.valueOf(Config.get(<span class="string">"redis.pool.testOnBorrow"</span>, <span class="string">"false"</span>));</div><div class="line">			<span class="keyword">if</span> (testOnBorrow) &#123;</div><div class="line">				logger.info(<span class="string">"设置是否提前进行validate操作为&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.testOnBorrow"</span>, <span class="string">"false"</span>));</div><div class="line">				config.setTestOnBorrow(testOnBorrow);</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 当调用return Object方法时，是否进行有效性检查(默认否)</span></div><div class="line">			Boolean testOnReturn = Boolean.valueOf(Config.get(<span class="string">"redis.pool.testOnReturn"</span>, <span class="string">"false"</span>));</div><div class="line">			<span class="keyword">if</span> (testOnReturn) &#123;</div><div class="line">				logger.info(<span class="string">"当调用return Object方法时，是否进行有效性检查&#123;&#125;"</span>, Config.get(<span class="string">"redis.pool.testOnReturn"</span>, <span class="string">"false"</span>));</div><div class="line">				config.setTestOnReturn(testOnReturn);</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">if</span> (Config.get(<span class="string">"redis.ip"</span>).isEmpty()) &#123;</div><div class="line">				logger.warn(<span class="string">"没有设置redis服务器IP,无法连接"</span>);</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				String ip = (String) Config.get(<span class="string">"redis.ip"</span>);</div><div class="line">				<span class="keyword">int</span> port = Integer.parseInt(Config.get(<span class="string">"redis.port"</span>, <span class="string">"6379"</span>));</div><div class="line">				logger.info(<span class="string">"设置ip为&#123;&#125;,port为&#123;&#125;"</span>, ip, port);</div><div class="line">				<span class="comment">// 构建链接池</span></div><div class="line">				jedisPool = <span class="keyword">new</span> JedisPool(config, ip, port);</div><div class="line">				logger.info(<span class="string">"redis连接成功"</span>);</div><div class="line">			&#125;</div><div class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">			logger.error(<span class="string">"初始化redis失败"</span>, e);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Jedis <span class="title">getJedis</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="keyword">if</span> (jedisPool != <span class="keyword">null</span>) &#123;</div><div class="line">				Jedis resource = jedisPool.getResource();</div><div class="line">				<span class="keyword">return</span> resource;</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">			&#125;</div><div class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 释放jedis资源</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> jedis</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">releaseResource</span><span class="params">(<span class="keyword">final</span> Jedis jedis)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (jedis != <span class="keyword">null</span>) &#123;</div><div class="line">			jedis.close();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用库</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * redis 调用库</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> Chris</div><div class="line"> *</div><div class="line"> */</div><div class="line">ScriptSupport(<span class="string">"cache"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheHelper</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(CacheHelper.class);</div><div class="line">	<span class="comment">// 序列化</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] serialize(Object obj) &#123;</div><div class="line">		ObjectOutputStream obi = <span class="keyword">null</span>;</div><div class="line">		ByteArrayOutputStream bai = <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			bai = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">			obi = <span class="keyword">new</span> ObjectOutputStream(bai);</div><div class="line">			obi.writeObject(obj);</div><div class="line">			<span class="keyword">byte</span>[] byt = bai.toByteArray();</div><div class="line">			<span class="keyword">return</span> byt;</div><div class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 反序列化</span></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Object <span class="title">unserizlize</span><span class="params">(<span class="keyword">byte</span>[] byt)</span> </span>&#123;</div><div class="line">		ObjectInputStream oii = <span class="keyword">null</span>;</div><div class="line">		ByteArrayInputStream bis = <span class="keyword">null</span>;</div><div class="line">		bis = <span class="keyword">new</span> ByteArrayInputStream(byt);</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			oii = <span class="keyword">new</span> ObjectInputStream(bis);</div><div class="line">			Object obj = oii.readObject();</div><div class="line">			<span class="keyword">return</span> obj;</div><div class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过key删除（字节）</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">byte</span>[] key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.del(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过key删除</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.del(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加key value 并且设置存活时间(byte)</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> value</div><div class="line">	 * <span class="doctag">@param</span> liveTime</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">byte</span>[] key, <span class="keyword">byte</span>[] value, <span class="keyword">int</span> liveTime)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.set(key, value);</div><div class="line">		jedis.expire(key, liveTime);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加key value 并且设置存活时间</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> value</div><div class="line">	 * <span class="doctag">@param</span> liveTime</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, String value, <span class="keyword">int</span> liveTime)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.set(key, value);</div><div class="line">		jedis.expire(key, liveTime);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加key value</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> value</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, String value)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.set(key, value);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加key value (字节)(序列化)</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> value</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">byte</span>[] key, <span class="keyword">byte</span>[] value)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.set(key, value);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setClass</span><span class="params">(String key, Object value)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.set(key.getBytes(), serialize(value));</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">getClass</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		Object value = unserizlize(jedis.get(key.getBytes()));</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取redis value (String)</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		String value = jedis.get(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取redis value (byte [] )(反序列化)</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">byte</span>[] get(<span class="keyword">byte</span>[] key) &#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		<span class="keyword">byte</span>[] value = jedis.get(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过正则匹配keys</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> pattern</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">keys</span><span class="params">(String pattern)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		Set&lt;String&gt; value = jedis.keys(pattern);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 检查key是否已经存在</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		<span class="keyword">boolean</span> value = jedis.exists(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/******************* redis list操作 ************************/</span></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 往list中添加元素</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> value</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lpush</span><span class="params">(String key, String value)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.lpush(key, value);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rpush</span><span class="params">(String key, String value)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		jedis.rpush(key, value);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 数组长度</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> Long <span class="title">llen</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		Long len = jedis.llen(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> len;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取下标为index的value</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> key</div><div class="line">	 * <span class="doctag">@param</span> index</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">lindex</span><span class="params">(String key, Long index)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		String str = jedis.lindex(key, index);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> str;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">lpop</span><span class="params">(String key)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		String str = jedis.lpop(key);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> str;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">lrange</span><span class="params">(String key, <span class="keyword">long</span> start, <span class="keyword">long</span> end)</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		List&lt;String&gt; str = jedis.lrange(key, start, end);</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> str;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/********************* redis list操作结束 **************************/</span></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 清空redis 所有数据</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">flushDB</span><span class="params">()</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		String str = jedis.flushDB();</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> str;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查看redis里有多少数据</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">dbSize</span><span class="params">()</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		<span class="keyword">long</span> len = jedis.dbSize();</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> len;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 检查是否连接成功</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">ping</span><span class="params">()</span> </span>&#123;</div><div class="line">		Jedis jedis = RedisClient.getJedis();</div><div class="line">		String str = jedis.ping();</div><div class="line">		RedisClient.releaseResource(jedis);</div><div class="line">		<span class="keyword">return</span> str;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/02/26/一个奇怪的bug-tomcat卡在deploying/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/04/01/小程序wx-uploadFile踩坑/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2017/03/20/最近折腾的redis的总结/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

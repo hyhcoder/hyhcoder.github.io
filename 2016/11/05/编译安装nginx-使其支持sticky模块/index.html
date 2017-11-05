@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>编译安装nginx,使其支持sticky模块 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hyhcoder,后端,java,spring,mysql,算法,古典音乐,Linux,部署" />
+  
+
+  <meta name="description" content="编译安装nginx,使其支持sticky模块普通安装nginx的普通安装非常简单:12sudo yum install epel-releasesudo yum install nginx 开机启动:1sudo systemctl start nginx.service 查看状态:1service nginx status 手工启动:1service nginx start 编译安装普通安装虽然方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译安装nginx,使其支持sticky模块">
+<meta property="og:url" content="https://www.hyhcoder.xin/2016/11/05/编译安装nginx-使其支持sticky模块/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="编译安装nginx,使其支持sticky模块普通安装nginx的普通安装非常简单:12sudo yum install epel-releasesudo yum install nginx 开机启动:1sudo systemctl start nginx.service 查看状态:1service nginx status 手工启动:1service nginx start 编译安装普通安装虽然方">
+<meta property="og:updated_time" content="2017-11-05T07:11:48.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编译安装nginx,使其支持sticky模块">
+<meta name="twitter:description" content="编译安装nginx,使其支持sticky模块普通安装nginx的普通安装非常简单:12sudo yum install epel-releasesudo yum install nginx 开机启动:1sudo systemctl start nginx.service 查看状态:1service nginx status 手工启动:1service nginx start 编译安装普通安装虽然方">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编译安装nginx-使其支持sticky模块"><span class="toc-text">编译安装nginx,使其支持sticky模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#普通安装"><span class="toc-text">普通安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译安装"><span class="toc-text">编译安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-Sticky配置"><span class="toc-text">Session Sticky配置</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-编译安装nginx-使其支持sticky模块" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">编译安装nginx,使其支持sticky模块</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.11.05</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2016/11/05/编译安装nginx-使其支持sticky模块/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="编译安装nginx-使其支持sticky模块"><a href="#编译安装nginx-使其支持sticky模块" class="headerlink" title="编译安装nginx,使其支持sticky模块"></a>编译安装nginx,使其支持sticky模块</h1><h2 id="普通安装"><a href="#普通安装" class="headerlink" title="普通安装"></a>普通安装</h2><p>nginx的普通安装非常简单:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo yum install epel-release</div><div class="line">sudo yum install nginx</div></pre></td></tr></table></figure></p>
+<p>开机启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start nginx.service</div></pre></td></tr></table></figure></p>
+<p>查看状态:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx status</div></pre></td></tr></table></figure></p>
+<p>手工启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx start</div></pre></td></tr></table></figure></p>
+<h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><p>普通安装虽然方便, 但是不支持sticky模块,因此需要对nginx进行编译安装来支持;</p>
+<p>下载nginx源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://nginx.org/download/nginx-1.8.0.tar.gz</div></pre></td></tr></table></figure></p>
+<p>下载nginx session sticky模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/1e96371de59f.zip</div></pre></td></tr></table></figure></p>
+<p>解压以上的安装包:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//如目录: </div><div class="line">/tmp/nginx-1.8.0</div><div class="line">/tmp/nginx-goodies-nginx-sticky-module-ng-bd312d586752</div></pre></td></tr></table></figure></p>
+<p>编译前配置(注意目录的配置)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/run/nginx.pid --lock-path=/run/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_gunzip_module --with-http_gzip_static_module --with-pcre --with-debug --with-cc-opt=&apos;-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic&apos; --with-ld-opt=&apos;-Wl,-z,relro -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -Wl,-E&apos; --add-module=/tmp/nginx-goodies-nginx-sticky-module-ng-bd312d586752</div></pre></td></tr></table></figure></p>
+<p>然后编译并安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<p>设置开机启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">新增文件 /etc/init.d/nginx,内容如下:</div><div class="line">#!/bin/sh</div><div class="line">#</div><div class="line"># nginx - this script starts and stops the nginx daemon</div><div class="line">#</div><div class="line"># chkconfig:   - 85 15</div><div class="line"># description:  Nginx is an HTTP(S) server, HTTP(S) reverse \</div><div class="line">#               proxy and IMAP/POP3 proxy server</div><div class="line"># processname: nginx</div><div class="line"># config:      /etc/nginx/nginx.conf</div><div class="line"># pidfile:     /var/run/nginx.pid</div><div class="line"># user:        nginx</div><div class="line"># Source function library.</div><div class="line">. /etc/rc.d/init.d/functions</div><div class="line"># Source networking configuration.</div><div class="line">. /etc/sysconfig/network</div><div class="line"># Check that networking is up.</div><div class="line">[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0</div><div class="line">nginx=&quot;/usr/sbin/nginx&quot;</div><div class="line">prog=$(basename $nginx)</div><div class="line">NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;</div><div class="line">lockfile=/var/run/nginx.lock</div><div class="line">start() &#123;</div><div class="line">    [ -x $nginx ] || exit 5</div><div class="line">    [ -f $NGINX_CONF_FILE ] || exit 6</div><div class="line">    echo -n $&quot;Starting $prog: &quot;</div><div class="line">    daemon $nginx -c $NGINX_CONF_FILE</div><div class="line">    retval=$?</div><div class="line">    echo</div><div class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</div><div class="line">    return $retval</div><div class="line">&#125;</div><div class="line">stop() &#123;</div><div class="line">    echo -n $&quot;Stopping $prog: &quot;</div><div class="line">    killproc $prog -QUIT</div><div class="line">    retval=$?</div><div class="line">    echo</div><div class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</div><div class="line">    return $retval</div><div class="line">&#125;</div><div class="line">restart() &#123;</div><div class="line">    configtest || return $?</div><div class="line">    stop</div><div class="line">    start</div><div class="line">&#125;</div><div class="line">reload() &#123;</div><div class="line">    configtest || return $?</div><div class="line">    echo -n $&quot;Reloading $prog: &quot;</div><div class="line">    killproc $nginx -HUP</div><div class="line">    RETVAL=$?</div><div class="line">    echo</div><div class="line">&#125;</div><div class="line">force_reload() &#123;</div><div class="line">    restart</div><div class="line">&#125;</div><div class="line">configtest() &#123;</div><div class="line">  $nginx -t -c $NGINX_CONF_FILE</div><div class="line">&#125;</div><div class="line">rh_status() &#123;</div><div class="line">    status $prog</div><div class="line">&#125;</div><div class="line">rh_status_q() &#123;</div><div class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</div><div class="line">&#125;</div><div class="line">case &quot;$1&quot; in</div><div class="line">    start)</div><div class="line">        rh_status_q &amp;&amp; exit 0</div><div class="line">        $1</div><div class="line">        ;;</div><div class="line">    stop)</div><div class="line">        rh_status_q || exit 0</div><div class="line">        $1</div><div class="line">        ;;</div><div class="line">    restart|configtest)</div><div class="line">        $1</div><div class="line">        ;;</div><div class="line">    reload)</div><div class="line">        rh_status_q || exit 7</div><div class="line">        $1</div><div class="line">        ;;</div><div class="line">    force-reload)</div><div class="line">        force_reload</div><div class="line">        ;;</div><div class="line">    status)</div><div class="line">        rh_status</div><div class="line">        ;;</div><div class="line">    condrestart|try-restart)</div><div class="line">        rh_status_q || exit 0</div><div class="line">            ;;</div><div class="line">   *)</div><div class="line">    echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;&quot;</div><div class="line">    exit 2</div><div class="line">esac</div></pre></td></tr></table></figure></p>
+<p>增加执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +x /etc/init.d/nginx</div></pre></td></tr></table></figure></p>
+<p>加入开机启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig nginx on</div></pre></td></tr></table></figure></p>
+<h2 id="Session-Sticky配置"><a href="#Session-Sticky配置" class="headerlink" title="Session Sticky配置"></a>Session Sticky配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">upstream session-pool &#123;</div><div class="line">  sticky;</div><div class="line">  server (转发的服务器地址加端口,如下);</div><div class="line">  server 192.168.1.11:8082;</div><div class="line">  server 192.168.1.12:8080;</div><div class="line"> &#125;</div><div class="line">server &#123;</div><div class="line">  listen       80(监听端口);</div><div class="line">  server_name  (服务器ip);</div><div class="line">  location / &#123;</div><div class="line">        client_max_body_size 100M;</div><div class="line">    proxy_pass http://session-pool;</div><div class="line">    proxy_set_header   Host    $host;</div><div class="line">    proxy_set_header   X-Real-IP   $remote_addr;</div><div class="line">    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/26/Mysql的主从备份搭建/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/11/05/解决getpwnam-“nginx”-failed/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2016/11/05/编译安装nginx-使其支持sticky模块/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Oracle数据库服务总结 | Hyhcoder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="数据库,Oracle," />
+  
+
+  <meta name="description" content="Oracle数据库服务总结Oracle的数据库服务默认有5个看了几篇文章后,总结其作用如下:1 .OracleServiceORCL:数据库服务，这个服务会自动的启动和停止数据库。ORCL是Oracle的实例标识。此服务被默认的设置为开机启动。  必须启动，这是Oracle数据库的服务。  2 .OracleOraDb11g_home1TNSListener.监听器服务，服务只有在数据库需要远程访">
+<meta name="keywords" content="数据库,Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle数据库服务总结">
+<meta property="og:url" content="https://www.hyhcoder.xin/2014/05/15/Oracle数据库服务总结/index.html">
+<meta property="og:site_name" content="Hyhcoder">
+<meta property="og:description" content="Oracle数据库服务总结Oracle的数据库服务默认有5个看了几篇文章后,总结其作用如下:1 .OracleServiceORCL:数据库服务，这个服务会自动的启动和停止数据库。ORCL是Oracle的实例标识。此服务被默认的设置为开机启动。  必须启动，这是Oracle数据库的服务。  2 .OracleOraDb11g_home1TNSListener.监听器服务，服务只有在数据库需要远程访">
+<meta property="og:updated_time" content="2017-06-18T08:55:42.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle数据库服务总结">
+<meta name="twitter:description" content="Oracle数据库服务总结Oracle的数据库服务默认有5个看了几篇文章后,总结其作用如下:1 .OracleServiceORCL:数据库服务，这个服务会自动的启动和停止数据库。ORCL是Oracle的实例标识。此服务被默认的设置为开机启动。  必须启动，这是Oracle数据库的服务。  2 .OracleOraDb11g_home1TNSListener.监听器服务，服务只有在数据库需要远程访">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Oracle数据库服务总结"><span class="toc-text">Oracle数据库服务总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle的数据库服务默认有5个"><span class="toc-text">Oracle的数据库服务默认有5个</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用命令启动"><span class="toc-text">用命令启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特别注意"><span class="toc-text">特别注意</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Oracle数据库服务总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Oracle数据库服务总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.05.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Chris</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.hyhcoder.xin/2014/05/15/Oracle数据库服务总结/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="Oracle数据库服务总结"><a href="#Oracle数据库服务总结" class="headerlink" title="Oracle数据库服务总结"></a>Oracle数据库服务总结</h1><h2 id="Oracle的数据库服务默认有5个"><a href="#Oracle的数据库服务默认有5个" class="headerlink" title="Oracle的数据库服务默认有5个"></a>Oracle的数据库服务默认有5个</h2><p>看了几篇文章后,总结其作用如下:<br>1 .<strong>OracleServiceORCL:数据库服务</strong>，这个服务会自动的启动和停止数据库。ORCL是Oracle的实例标识。此服务被默认的设置为开机启动。</p>
+<ul>
+<li>必须启动，这是Oracle数据库的服务。</li>
+</ul>
+<p>2 .<strong>OracleOraDb11g_home1TNSListener.监听器服务</strong>，服务只有在数据库需要远程访问的时候才需要，此服务被默认的设置为开机启动。</p>
+<ul>
+<li>必须启动，这是临听，用于远程客户端连接你的Oracle;</li>
+</ul>
+<p>3 .<strong>OracleJobSchedulerORCL.Oracle作业调度服务</strong>，ORCL是Oracle实例标识。此服务被默认设置为禁用状态.</p>
+<ul>
+<li>通常不启动，用于定期操作任务的服务； </li>
+<li>数据库工作日程调度，一般没有安排工作日程就不需要启动，为什么默认是禁用？因为启动后会占用很大的系统资源。</li>
+</ul>
+<p>4 .<strong> OracleDBConsoleorcl.Oracle数据库控制台服务</strong>，orcl是Oracle的实例标识，默认的实例为orcl.在运行Enterprise Manager 的时候，需要启动这个服务。此服务被默认设置为自动开机启动的。</p>
+<ul>
+<li>可以不启动，用于管理Oracle的企业管理器的服务； </li>
+</ul>
+<p>5 .<strong>OracleOraDb10g_home1iSQL<em>Plus iSQL</em>Plus的服务进程</strong></p>
+<ul>
+<li>可以不启动，这是isqlplus服务，用于用网页执行sql执行，11g已经取消了这个功能；</li>
+</ul>
+<h2 id="用命令启动"><a href="#用命令启动" class="headerlink" title="用命令启动"></a>用命令启动</h2><ul>
+<li>启动listener:lsnrctl start  </li>
+<li>启动数据库：net start OracleServiceORCL</li>
+</ul>
+<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ol>
+<li><strong>在资源不够的情况下，要记得：</strong><br>只有这两项是必须启动的：OracleOraDb10g_home1TNSListener和OracleServiceORCL。（就是监听和数据库服务）</li>
+<li>对上面的服务也可以做一个批处理文件来启动和停止，批处理文件如下:</li>
+</ol>
+<ul>
+<li>建立dbstart.cmd文件（开启）</li>
+<li>添加如下内容：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@echo　off  </div><div class="line">net　　start　　OracleServiceORACLE  </div><div class="line">net　　start　　OracleDBConsoleoracle  </div><div class="line">net　　start　　OracleOraDb10g_home1iSQL*Plus  </div><div class="line">net　　start　　OracleOraDb10g_home1TNSListener  </div><div class="line">pause</div></pre></td></tr></table></figure>
+<ul>
+<li>同样我们可以建立关闭文件（dbstop.cmd）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@echo　off  </div><div class="line">net　　stop　　OracleServiceORACLE  </div><div class="line">net　　stop　　OracleDBConsoleoracle  </div><div class="line">net　　stop　　OracleOraDb10g_home1iSQL*Plus  </div><div class="line">net　　stop　　OracleOraDb10g_home1TNSListener  </div><div class="line">pause</div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2014/03/19/Oracle中删除重复记录整理/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2014/10/28/关于Java中转换机制整理/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hyhcoder';
+    
+    var disqus_url = 'https://www.hyhcoder.xin/2014/05/15/Oracle数据库服务总结/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hyhcoder.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
