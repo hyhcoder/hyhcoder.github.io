@@ -40,7 +40,9 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,7 +50,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
 
@@ -79,17 +83,17 @@
 
 
 
-<meta name="description" content="JSON,JSONArray,Map一些总结JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray: 我们可以看出 这是一个数组, 最外面是">
+<meta name="description" content="JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSON,JSONArray,Map一些总结">
 <meta property="og:url" content="https://www.hyhcoder.xin/2016/01/09/JSON-JSONArray-Map一些总结/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
-<meta property="og:description" content="JSON,JSONArray,Map一些总结JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray: 我们可以看出 这是一个数组, 最外面是">
+<meta property="og:description" content="JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray:">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-4-9/4877941-file_1491745216641_1063b.png">
-<meta property="og:updated_time" content="2017-11-05T07:01:08.057Z">
+<meta property="og:updated_time" content="2017-11-05T13:10:25.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSON,JSONArray,Map一些总结">
-<meta name="twitter:description" content="JSON,JSONArray,Map一些总结JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray: 我们可以看出 这是一个数组, 最外面是">
+<meta name="twitter:description" content="JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray:">
 <meta name="twitter:image" content="http://omwycd607.bkt.clouddn.com/17-4-9/4877941-file_1491745216641_1063b.png">
 
 
@@ -132,6 +136,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -217,6 +231,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
           </a>
         </li>
       
@@ -330,6 +354,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/09/JSON-JSONArray-Map一些总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/01/09/JSON-JSONArray-Map一些总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -354,8 +389,9 @@
       
 
       
-        <h1 id="JSON-JSONArray-Map一些总结"><a href="#JSON-JSONArray-Map一些总结" class="headerlink" title="JSON,JSONArray,Map一些总结"></a>JSON,JSONArray,Map一些总结</h1><p>JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说;</p>
+        <p>JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说;</p>
 <p>我们先来看比较复杂的一个JSONArray:<br><img src="http://omwycd607.bkt.clouddn.com/17-4-9/4877941-file_1491745216641_1063b.png" alt="enter image description here"></p>
+<a id="more"></a>
 <h3 id="我们可以看出"><a href="#我们可以看出" class="headerlink" title="我们可以看出"></a>我们可以看出</h3><ol>
 <li>这是一个数组, 最外面是由[ ]所组成的;</li>
 <li>里面包含了两个JSONObject,每个JSONObject最外面是由{ }组成的,里面的键值对由冒号:连接;</li>
@@ -444,6 +480,16 @@
           
 
   
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
 
 
 
@@ -508,7 +554,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -557,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON-JSONArray-Map一些总结"><span class="nav-number">1.</span> <span class="nav-text">JSON,JSONArray,Map一些总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们可以看出"><span class="nav-number">1.0.1.</span> <span class="nav-text">我们可以看出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取数"><span class="nav-number">1.0.2.</span> <span class="nav-text">取数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们可以看出"><span class="nav-number">1.</span> <span class="nav-text">我们可以看出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取数"><span class="nav-number">2.</span> <span class="nav-text">取数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -660,32 +706,32 @@
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
   
 
   
@@ -731,6 +777,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://hyhcoder.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://www.hyhcoder.xin/2016/01/09/JSON-JSONArray-Map一些总结/';
+          this.page.identifier = '2016/01/09/JSON-JSONArray-Map一些总结/';
+          this.page.title = 'JSON,JSONArray,Map一些总结';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hyhcoder.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -743,10 +809,6 @@
   
 
 
-
-
-
-  
 
 
 

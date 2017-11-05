@@ -40,7 +40,9 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,7 +50,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
 
@@ -68,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="部署," />
 
 
 
@@ -79,22 +83,23 @@
 
 
 
-<meta name="description" content="让Github Pages自定义域名开启HTTPS放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HT">
+<meta name="description" content="放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HTTPSHTTPS（全称：Hyper Text Tr">
+<meta name="keywords" content="部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="让Github Pages自定义域名开启HTTPS">
 <meta property="og:url" content="https://www.hyhcoder.xin/2017/01/25/让Github Pages自定义域名开启HTTPS/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
-<meta property="og:description" content="让Github Pages自定义域名开启HTTPS放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HT">
+<meta property="og:description" content="放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HTTPSHTTPS（全称：Hyper Text Tr">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/24716316-file_1490712481173_f1ab.png">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/65028105-file_1490712723046_1367c.png">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/2234812-file_1490712828190_2809.png">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/16638333-file_1490713066345_5ee9.png">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/15468715-file_1490713454842_161d5.png">
 <meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/12336386-file_1490713119922_b7af.png">
-<meta property="og:updated_time" content="2017-11-05T07:13:35.170Z">
+<meta property="og:updated_time" content="2017-11-05T13:09:04.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="让Github Pages自定义域名开启HTTPS">
-<meta name="twitter:description" content="让Github Pages自定义域名开启HTTPS放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HT">
+<meta name="twitter:description" content="放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https). HTTPSHTTPS（全称：Hyper Text Tr">
 <meta name="twitter:image" content="http://omwycd607.bkt.clouddn.com/17-3-28/24716316-file_1490712481173_f1ab.png">
 
 
@@ -137,6 +142,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7a54a44fff329989bc3411014d02261a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -222,6 +237,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
           </a>
         </li>
       
@@ -335,6 +360,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/25/让Github Pages自定义域名开启HTTPS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/01/25/让Github Pages自定义域名开启HTTPS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -359,9 +395,10 @@
       
 
       
-        <h1 id="让Github-Pages自定义域名开启HTTPS"><a href="#让Github-Pages自定义域名开启HTTPS" class="headerlink" title="让Github Pages自定义域名开启HTTPS"></a>让Github Pages自定义域名开启HTTPS</h1><p>放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https).</p>
+        <p>放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https).</p>
 <h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。可以有效防止运营商劫持和保护用户输入内容。</p>
 <p>github pages其实在上一年就支持https了,当用户用xxx.github.io访问时, 就会自动切换为https访问,但是,很可惜的是, 这个当你开启自定义域名的时候, 就失效了, 所以这个方案就不完美了.</p>
+<a id="more"></a>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>既然github自己提供的方案不完美, 那么对于我们还有什么好选择呢? 遍寻资料后, 我找到了两个方案:</p>
 <ol>
 <li>使用Cloudflare对你的自定义域名进行DNS解析, 缺点是Cloudflare没有国内的解析点,会导致国内访问变慢, 这点我无法接受, 因此这个方法又放弃了,毕竟这个blog会访问的大多也是国内而已, 若要使用这个方法,可以参考这篇文章: 开启githubpage的https</li>
@@ -400,6 +437,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/部署/" rel="tag"># 部署</a>
+          
+        </div>
       
 
       
@@ -450,6 +493,16 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
 
   
 
@@ -516,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -565,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#让Github-Pages自定义域名开启HTTPS"><span class="nav-number">1.</span> <span class="nav-text">让Github Pages自定义域名开启HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.1.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">1.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#coding-pages的搭建"><span class="nav-number">1.3.</span> <span class="nav-text">coding pages的搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">1.4.</span> <span class="nav-text">结尾</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#coding-pages的搭建"><span class="nav-number">3.</span> <span class="nav-text">coding pages的搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">4.</span> <span class="nav-text">结尾</span></a></li></ol></div>
             
 
           </div>
@@ -668,32 +721,32 @@
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
   
 
   
@@ -739,6 +792,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://hyhcoder.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://www.hyhcoder.xin/2017/01/25/让Github Pages自定义域名开启HTTPS/';
+          this.page.identifier = '2017/01/25/让Github Pages自定义域名开启HTTPS/';
+          this.page.title = '让Github Pages自定义域名开启HTTPS';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hyhcoder.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -751,10 +824,6 @@
   
 
 
-
-
-
-  
 
 
 
