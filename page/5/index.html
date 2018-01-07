@@ -512,7 +512,7 @@
         
           
             <h1 id="关于Java中转换机制整理"><a href="#关于Java中转换机制整理" class="headerlink" title="关于Java中转换机制整理"></a>关于Java中转换机制整理</h1><p>这两天在会看think in java, 顺便整理一些东西;</p>
-<p>下面是最基本的数据类型比较:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/94101325-file_1490513405075_15bf5.gif" alt=""></p>
+<p>下面是最基本的数据类型比较:<br><img src="http://img.hyhcoder.top/17-3-26/94101325-file_1490513405075_15bf5.gif" alt=""></p>
 <p>说明几点:<br>1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）</p>
 <ul>
 <li>注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的</li>
@@ -520,7 +520,7 @@
 <p>2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。<br>3 . 若还需要用更高精度的浮点数，可以考虑使用BigDecimal类。<br>4 . Java提供了三个特殊的浮点数值：正无穷大、负无穷大和非数，用于表示溢出和出错。<br>5 . 例如使用一个正浮点数除以0将得到正无穷大（POSITIVE_INFINITY）;负浮点数除以0得到负无穷大（NEGATIVE_INFINITY）。0.0除以0.0或对一个负数开方得到一个非数（NaN）。（都属于Double或Float包装类）<br>6 . 所有正无穷大数值相等，所有负无穷大数值都是相等；而NaN不与任何数值相等。</p>
 <h3 id="1-基本数值型类型的自动类型转换"><a href="#1-基本数值型类型的自动类型转换" class="headerlink" title="1.基本数值型类型的自动类型转换"></a>1.基本数值型类型的自动类型转换</h3><p>这种很好理解，就是在基本类型中（boolean除外），可以系统自动转换把范围小的直接赋予范围大的变量。</p>
 <ul>
-<li>一般是实行如下转换，不用特别标记:<br><img src="http://omwycd607.bkt.clouddn.com/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
+<li>一般是实行如下转换，不用特别标记:<br><img src="http://img.hyhcoder.top/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</div><div class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></div><div class="line">        </div><div class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</div><div class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></div><div class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></div><div class="line">        </div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
 <p><strong>PS：</strong>有一种比较特殊的自动类型转换，就是把基本类型（boolean也行）和一个空字符连接起来，可以形成对应的字符串。</p>

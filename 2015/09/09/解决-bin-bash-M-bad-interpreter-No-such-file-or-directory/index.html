@@ -89,13 +89,13 @@
 <meta property="og:url" content="https://blog.hyhcoder.top/2015/09/09/解决-bin-bash-M-bad-interpreter-No-such-file-or-directory/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="今天编译了一个程序,然后上传到服务器运行时,居然报了以下错误1/bin/bash^M: bad interpreter: No such file or directory&amp;apos; 查阅资料, 可以得知是因为linux和windows对换行符理解的不同所导致的,解决很简单;">
-<meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-4-9/99388935-file_1491743658921_72a3.png">
-<meta property="og:image" content="http://omwycd607.bkt.clouddn.com/17-4-9/44570419-file_1491743952413_246c.png">
-<meta property="og:updated_time" content="2017-11-05T09:50:57.537Z">
+<meta property="og:image" content="http://img.hyhcoder.top/17-4-9/99388935-file_1491743658921_72a3.png">
+<meta property="og:image" content="http://img.hyhcoder.top/17-4-9/44570419-file_1491743952413_246c.png">
+<meta property="og:updated_time" content="2018-01-07T00:22:22.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决&#x2F;bin&#x2F;bash^M: bad interpreter: No such file or directory">
 <meta name="twitter:description" content="今天编译了一个程序,然后上传到服务器运行时,居然报了以下错误1/bin/bash^M: bad interpreter: No such file or directory&amp;apos; 查阅资料, 可以得知是因为linux和windows对换行符理解的不同所导致的,解决很简单;">
-<meta name="twitter:image" content="http://omwycd607.bkt.clouddn.com/17-4-9/99388935-file_1491743658921_72a3.png">
+<meta name="twitter:image" content="http://img.hyhcoder.top/17-4-9/99388935-file_1491743658921_72a3.png">
 
 
 
@@ -393,9 +393,9 @@
 <h3 id="从根本解决"><a href="#从根本解决" class="headerlink" title="从根本解决"></a>从根本解决</h3><p>使用上面的命令的确解决了该脚本无法运行的错误, 但是不可能让我每次编译后再在linux上执行转换命令吧, 这个不科学;</p>
 <p>继续探究, 发现我们可以在Eclipse上设置换行符的模式为unix, 这就可以避免我们的文件在unix运行的尴尬了;</p>
 <ol>
-<li><p>设置<br><img src="http://omwycd607.bkt.clouddn.com/17-4-9/99388935-file_1491743658921_72a3.png" alt="enter image description here"></p>
+<li><p>设置<br><img src="http://img.hyhcoder.top/17-4-9/99388935-file_1491743658921_72a3.png" alt="enter image description here"></p>
 </li>
-<li><p>该设置只是对新建的文件有效, 还需要对之前的文件进行转换;<br><img src="http://omwycd607.bkt.clouddn.com/17-4-9/44570419-file_1491743952413_246c.png" alt="enter image description here"></p>
+<li><p>该设置只是对新建的文件有效, 还需要对之前的文件进行转换;<br><img src="http://img.hyhcoder.top/17-4-9/44570419-file_1491743952413_246c.png" alt="enter image description here"></p>
 </li>
 <li><p>至此,该问题全部解决</p>
 </li>
