@@ -299,6 +299,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/" itemprop="url">JavaWeb（一）网络分层结构及HTTP协议</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T16:51:52+08:00">
+                2018-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么?</p>
+<h3 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h3><p>首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果。</p>
+<p>这些会让你觉得很繁琐, 你不外乎可能只是想要发送一句话过去其他客户端, 就要一下子考虑怎么多事情,  还有就是网络的传输什么都非常复杂, 万一哪里有了变动, 就全部程序都要重写, 因此,  出现了分层参考模型,   就像面向对象一样,  把每一层都封装好,  然后对每一层开发接口就可以了, 这样每一层只要负责好自己的事情就可以了, 不用每次都全部考虑。</p>
+<p>基于此， ISO指定了一个OSI参考模型（七层） ， 这可以说是一个理想化的模型，里面把每个层次都分了出来，虽清晰， 但太多层会导致复杂化，也不便于管理，因此后面又由技术人员开发了TCP/IP参考模型（四层），大大简化了层次，这也使得TCP/IP协议得到广泛的应用。</p>
+<ul>
+<li><p>对于OSI参考模型：（用维基百科的图片说明）<br><img src="http://img.hyhcoder.top/18-1-21/66496673.jpg" alt=""></p>
+</li>
+<li><p>而TCP/IP就大大简化了层次, 对比关系如下:(我们平时用的最多的Http是在应用层)<br><img src="http://img.hyhcoder.top/18-1-21/61282413.jpg" alt=""></p>
+</li>
+</ul>
+<p>从上面我们就可以看出整个网络模型分层后, 我们只要按照各自的协议考虑各自当前层的问题就可以愉快的编程了;<br>比如一开始的发送例子, 我们只是想编写在应用层的程序，所以根本无需考虑下面其他分层传输数据包等的事情，只要遵循好协议发送数据即可，其他都交给其他层的程序考虑，而在应用层我们所用的协议最多的就是Http协议了, 至于http协议怎么和传输层进行协助, 我们可以不用关心, 有兴趣的可以去读&lt;<tcp ip详解(卷一)="">&gt;;</tcp></p>
+<p>如果要通俗的去讲就是我们首先发送的是HTTP协议报文, 然后会转换成TCP/IP协议的数据包,  然后根据IP地址进行传输,  到客户端又重新变成TCP/IP协议的数据包,  再变成HTTP协议报文, 返回到客户端。如下， 每过一层会加一层首部，接收时再逐个去掉。<br><img src="http://img.hyhcoder.top/18-1-21/18937008.jpg" alt=""></p>
+<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><p>因为Java web的编程很少接触到底层的协议实现，所以我们把关注点放在掌握应用层协议会更好，而当今基本上我们接触到的应用层协议最多的就是HTTP协议， 你打开一个网站，基本都是HTTP开头的；</p>
+<p>那掌握HTTP协议(Hyper Text Transfer Protocol 超文本传输协议)对于我们编写web程序非常关键。</p>
+<h4 id="本质：-基于TCP-IP通信协议来传递数据的协议"><a href="#本质：-基于TCP-IP通信协议来传递数据的协议" class="headerlink" title="本质： 基于TCP/IP通信协议来传递数据的协议;"></a>本质： 基于TCP/IP通信协议来传递数据的协议;</h4><h4 id="特点"><a href="#特点" class="headerlink" title="特点:"></a>特点:</h4><ol>
+<li>简单快捷: 客户端向服务端请求服务时, 只要传送请求方法和路径。</li>
+<li>灵活： 允许传输任意类型的数据对象。（用Content-Type加以标记）</li>
+<li>无连接：无连接的含义是限制每次连接只处理一个请求。</li>
+<li>无状态：HTTP协议为无状态协议。</li>
+</ol>
+<h4 id="消息格式：（具体的可以自己打开浏览器，按F12进行查看）"><a href="#消息格式：（具体的可以自己打开浏览器，按F12进行查看）" class="headerlink" title="消息格式：（具体的可以自己打开浏览器，按F12进行查看）"></a>消息格式：（具体的可以自己打开浏览器，按F12进行查看）</h4><ol>
+<li><p>发送一个HTTP请求时（Request）， 需要包含下面的格式（请求行，请求头部，空号，和请求数据）（get，post用得最多）<br><img src="http://img.hyhcoder.top/18-1-21/23259117.jpg" alt=""></p>
+</li>
+<li><p>接收一个HTTP请求时（Response），需要包含下面格式（状态行，消息报头，空号，响应正文）<br><img src="http://img.hyhcoder.top/18-1-21/7995488.jpg" alt=""></p>
+</li>
+</ol>
+<h4 id="HTTP工作原理"><a href="#HTTP工作原理" class="headerlink" title="HTTP工作原理"></a>HTTP工作原理</h4><p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传输给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送了一个请求报文，请求报文包含了请求的方法，URL，协议版本，请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本，成功和错误代码，服务器信息，响应头部和响应数据。<br>过程如下：</p>
+<ol>
+<li>客户端连接Web服务器：<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。</li>
+<li>发送HTTP请求：<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应：<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接;<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
+<p>##总结：<br>网络的分层使得网络编程变得十分的便捷，Java Web的编程可以说是作用与应用层的，所以我们必须要了解掌握应用层应用最广的HTTP协议，所有的网络请求基本都是基于HTTP请求。</p>
+<p>参考文章:</p>
+<ol>
+<li><a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI模型–维基百科</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="external">TCP/IP模型–维基百科</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2018/01/07/2018新年开始第一篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -791,135 +950,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2017/01/26/如何申请免费的HTTPS证书/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/26/如何申请免费的HTTPS证书/" itemprop="url">如何申请免费的HTTPS证书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T15:09:27+08:00">
-                2017-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前面折腾了下github pages的https的开启, 对https证书也开始感兴趣;毕竟自己搭服务器的话, 就需要自己去弄https证书, 已达到开启https的目的; 搜索了一下现在流行的免费https证书(收费的就不用说了, 大把), 大致分下面两种, 就逐一介绍下, 并给自己做个备忘;</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/26/如何申请免费的HTTPS证书/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -969,7 +1004,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -982,7 +1017,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
