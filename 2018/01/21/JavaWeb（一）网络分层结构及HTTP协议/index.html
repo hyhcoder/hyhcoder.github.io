@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/18937008.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/23259117.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/7995488.jpg">
-<meta property="og:updated_time" content="2018-01-21T12:19:43.273Z">
+<meta property="og:updated_time" content="2018-01-21T12:24:04.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb（一）网络分层结构及HTTP协议">
 <meta name="twitter:description" content="学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么? 网络分层首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果">
@@ -418,7 +418,7 @@
 <li>释放连接TCP连接;<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
 <li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
 </ol>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>网络的分层使得网络编程变得十分的便捷，Java Web的编程可以说是作用与应用层的，所以我们必须要了解掌握应用层应用最广的HTTP协议，所有的网络请求基本都是基于HTTP请求。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>网络的分层使得网络编程变得十分的便捷，Java Web的编程可以说是作用与应用层的，所以我们必须要了解掌握应用层应用最广的HTTP协议，所有的网络请求基本都是基于HTTP请求。</p>
 <p>参考文章:</p>
 <ol>
 <li><a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI模型–维基百科</a></li>
@@ -626,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络分层"><span class="nav-number">1.</span> <span class="nav-text">网络分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议"><span class="nav-number">2.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本质：-基于TCP-IP通信协议来传递数据的协议"><span class="nav-number">2.1.</span> <span class="nav-text">本质： 基于TCP/IP通信协议来传递数据的协议;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息格式：（具体的可以自己打开浏览器，按F12进行查看）"><span class="nav-number">2.3.</span> <span class="nav-text">消息格式：（具体的可以自己打开浏览器，按F12进行查看）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP工作原理"><span class="nav-number">2.4.</span> <span class="nav-text">HTTP工作原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number"></span> <span class="nav-text">总结：</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络分层"><span class="nav-number">1.</span> <span class="nav-text">网络分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议"><span class="nav-number">2.</span> <span class="nav-text">HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本质：-基于TCP-IP通信协议来传递数据的协议"><span class="nav-number">2.1.</span> <span class="nav-text">本质： 基于TCP/IP通信协议来传递数据的协议;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息格式：（具体的可以自己打开浏览器，按F12进行查看）"><span class="nav-number">2.3.</span> <span class="nav-text">消息格式：（具体的可以自己打开浏览器，按F12进行查看）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP工作原理"><span class="nav-number">2.4.</span> <span class="nav-text">HTTP工作原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">3.</span> <span class="nav-text">总结：</span></a></li></ol></div>
             
 
           </div>
