@@ -299,6 +299,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2016/10/26/Mysql的主从备份搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/26/Mysql的主从备份搭建/" itemprop="url">Mysql的主从备份搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T15:07:49+08:00">
+                2016-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Mysql的主从备份搭建"><a href="#Mysql的主从备份搭建" class="headerlink" title="Mysql的主从备份搭建"></a>Mysql的主从备份搭建</h1><h3 id="设置server-id，打开binlog"><a href="#设置server-id，打开binlog" class="headerlink" title="设置server-id，打开binlog"></a>设置server-id，打开binlog</h3><ol>
+<li><p>修改master节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div><div class="line">activiti在主从复制模式下需要设置format为mixed</div><div class="line">binlog_format=MIXED</div><div class="line">server-id=1</div><div class="line">注意主从的server-id一定要不同即可</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启master：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改slave节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server-id=2</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="创建数据库复制用户"><a href="#创建数据库复制用户" class="headerlink" title="创建数据库复制用户"></a>创建数据库复制用户</h3><ul>
+<li>master节点执行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE USER &apos;repluser&apos;@&apos;%&apos; IDENTIFIED BY &apos;replpass&apos;;</div><div class="line">GRANT REPLICATION SLAVE ON *.* TO &apos;repluser&apos;@&apos;%&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="设置初始复制点"><a href="#设置初始复制点" class="headerlink" title="设置初始复制点"></a>设置初始复制点</h3><ol>
+<li><p>对master节点进行锁表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLUSH TABLES WITH READ LOCK;</div></pre></td></tr></table></figure>
+</li>
+<li><p>master节点执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master status;</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| File | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| mysql-bin.000001 |  419 |  |  |   |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>记下<strong>mysql-bin.000001 和 419</strong></p>
+<ol>
+<li><p>slave节点执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CHANGE MASTER TO MASTER_HOST=&apos;192.168.1.1&apos;, MASTER_USER=&apos;repluser&apos;, MASTER_PASSWORD=&apos;replpass&apos;, MASTER_LOG_FILE=&apos;mysql-bin.000001&apos;,MASTER_LOG_POS=419</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start slave</div></pre></td></tr></table></figure>
+</li>
+<li><p>看是否正常工作, 在slave上面执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">show slave status /G;</div><div class="line">#看到Slave_IO_Running和Slave_SQL_Running状态均为YES即可</div></pre></td></tr></table></figure>
+</li>
+<li><p>对master节点进行解锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unlock tables;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="打开防火墙"><a href="#打开防火墙" class="headerlink" title="打开防火墙"></a>打开防火墙</h3><p>要注意的是可能需要打开防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2016/10/26/samba服务器可以访问-无法写入故障/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -838,131 +999,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.hyhcoder.top/2016/01/09/JSON-JSONArray-Map一些总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://omwycd607.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/01/09/JSON-JSONArray-Map一些总结/" itemprop="url">JSON,JSONArray,Map一些总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-09T14:54:10+08:00">
-                2016-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说;</p>
-<p>我们先来看比较复杂的一个JSONArray:<br><img src="http://img.hyhcoder.top/17-4-9/4877941-file_1491745216641_1063b.png" alt="enter image description here"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/01/09/JSON-JSONArray-Map一些总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1017,7 +1053,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
