@@ -90,6 +90,7 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2014/10/28/关于Java中转换机制整理/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="关于Java中转换机制整理这两天在会看think in java, 顺便整理一些东西; 下面是最基本的数据类型比较: 说明几点:1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）  注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的  2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。3 . 若还需">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.hyhcoder.top/17-3-26/94101325-file_1490513405075_15bf5.gif">
 <meta property="og:image" content="http://img.hyhcoder.top/17-3-26/56836039-file_1490513440333_7802.png">
 <meta property="og:updated_time" content="2018-01-07T00:20:09.177Z">
@@ -332,7 +333,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-10-28T16:29:20+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-10-28T16:29:20+09:00">
                 2014-10-28
               </time>
             
@@ -391,17 +392,17 @@
 <ul>
 <li>一般是实行如下转换，不用特别标记:<br><img src="http://img.hyhcoder.top/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</div><div class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></div><div class="line">        </div><div class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</div><div class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></div><div class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></div><div class="line">        </div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></span><br><span class="line">        </span><br><span class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</span><br><span class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></span><br><span class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></span><br><span class="line">        </span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p><strong>PS：</strong>有一种比较特殊的自动类型转换，就是把基本类型（boolean也行）和一个空字符连接起来，可以形成对应的字符串。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</div><div class="line">     String str = b + <span class="string">""</span>;</div><div class="line">     System.out.print(str);<span class="comment">//这里输出true</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">     String str = b + <span class="string">""</span>;</span><br><span class="line">     System.out.print(str);<span class="comment">//这里输出true</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2-强制类型转化"><a href="#2-强制类型转化" class="headerlink" title="2.强制类型转化"></a>2.强制类型转化</h3><p>上面的自动类型只能把表数范围小的数值转化为大的，如果没有显性表示把大的转为小的，会发生编译错误。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">     <span class="keyword">int</span> b = <span class="number">233</span>;</div><div class="line">     <span class="keyword">byte</span> c = (<span class="keyword">byte</span>)b;<span class="comment">//强制把一个int转为byte类型</span></div><div class="line">     System.out.println(c);<span class="comment">//输出-23</span></div><div class="line">      </div><div class="line">     <span class="keyword">float</span> a = <span class="number">5.6</span>;<span class="comment">//错误，因为5.6默认是double类型</span></div><div class="line">     <span class="keyword">float</span> a = (<span class="keyword">float</span>)<span class="number">5.6</span>;<span class="comment">//正确，要进行强制转化</span></div><div class="line">      </div><div class="line">     <span class="keyword">double</span> d = <span class="number">3.98</span>;</div><div class="line">     <span class="keyword">int</span> e = (<span class="keyword">int</span>)d;<span class="comment">//强制把一个double转为int类型</span></div><div class="line">     System.out.println(e);<span class="comment">//输出3</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> b = <span class="number">233</span>;</span><br><span class="line">     <span class="keyword">byte</span> c = (<span class="keyword">byte</span>)b;<span class="comment">//强制把一个int转为byte类型</span></span><br><span class="line">     System.out.println(c);<span class="comment">//输出-23</span></span><br><span class="line">      </span><br><span class="line">     <span class="keyword">float</span> a = <span class="number">5.6</span>;<span class="comment">//错误，因为5.6默认是double类型</span></span><br><span class="line">     <span class="keyword">float</span> a = (<span class="keyword">float</span>)<span class="number">5.6</span>;<span class="comment">//正确，要进行强制转化</span></span><br><span class="line">      </span><br><span class="line">     <span class="keyword">double</span> d = <span class="number">3.98</span>;</span><br><span class="line">     <span class="keyword">int</span> e = (<span class="keyword">int</span>)d;<span class="comment">//强制把一个double转为int类型</span></span><br><span class="line">     System.out.println(e);<span class="comment">//输出3</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>像上面一样，要执行表数大的范围转为小的，需要显性声明，若强制转化后数值过大，会造成精度丢失。</p>
 <h3 id="3-字符串（String）转换为基本类型"><a href="#3-字符串（String）转换为基本类型" class="headerlink" title="3.字符串（String）转换为基本类型"></a>3.字符串（String）转换为基本类型</h3><ul>
 <li>通常情况下，字符串不能直接转换为基本类型，但通过基本类型对应的包装类可以实现。</li>
 <li>每个包装类都会有提供一个parseXxx（String str）静态方法来用于字符串转换为基本类型</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Sting a = <span class="string">"45"</span>;</div><div class="line"><span class="comment">//使用Integer的方法将一个字符串转换为int类型</span></div><div class="line"><span class="keyword">int</span> iValue = Interger.parseInt(a);</div><div class="line"><span class="comment">//boolean比较特殊，仅在字符串为true的情况下为true，其他为false</span></div><div class="line"><span class="keyword">boolean</span> b = Boolean.valueOf(a);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sting a = <span class="string">"45"</span>;</span><br><span class="line"><span class="comment">//使用Integer的方法将一个字符串转换为int类型</span></span><br><span class="line"><span class="keyword">int</span> iValue = Interger.parseInt(a);</span><br><span class="line"><span class="comment">//boolean比较特殊，仅在字符串为true的情况下为true，其他为false</span></span><br><span class="line"><span class="keyword">boolean</span> b = Boolean.valueOf(a);</span><br></pre></td></tr></table></figure>
 <h3 id="4-将基本类型转换为字符串（String）"><a href="#4-将基本类型转换为字符串（String）" class="headerlink" title="4.将基本类型转换为字符串（String）"></a>4.将基本类型转换为字符串（String）</h3><p>每个包装类都带有一个toString的方法，比如Double.toString(double d)等，可以转换为String字符串。</p>
 <h3 id="5-基本数据类型和包装类的转换"><a href="#5-基本数据类型和包装类的转换" class="headerlink" title="5.基本数据类型和包装类的转换"></a>5.基本数据类型和包装类的转换</h3><table>
 <thead>
@@ -448,7 +449,7 @@
 <ul>
 <li>下面示例两者之间的互相转换</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);<span class="comment">//包装</span></div><div class="line"><span class="keyword">int</span> unWrap = iWrap.intValue();<span class="comment">//解包装</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);<span class="comment">//包装</span></span><br><span class="line"><span class="keyword">int</span> unWrap = iWrap.intValue();<span class="comment">//解包装</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -756,8 +757,6 @@
   
 
 
-  
-
 
 
 
@@ -796,11 +795,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -915,7 +909,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

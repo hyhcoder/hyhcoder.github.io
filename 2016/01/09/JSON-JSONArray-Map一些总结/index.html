@@ -89,8 +89,9 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2016/01/09/JSON-JSONArray-Map一些总结/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray:">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.hyhcoder.top/17-4-9/4877941-file_1491745216641_1063b.png">
-<meta property="og:updated_time" content="2018-01-07T00:23:35.974Z">
+<meta property="og:updated_time" content="2018-01-07T00:23:35.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSON,JSONArray,Map一些总结">
 <meta name="twitter:description" content="JSON是目前前后端交互非常常用的一种格式, JSON其实是个总称,里面最小单元是JSONObject,就是由一连串键值对所组成的;而JSONArray则是由一连串JSONObject所组成的数组; Map也是一个键值对,但跟JSONObject有点不同, 下面再说说; 我们先来看比较复杂的一个JSONArray:">
@@ -330,7 +331,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-09T14:54:10+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-09T14:54:10+09:00">
                 2016-01-09
               </time>
             
@@ -398,7 +399,7 @@
 <li><p>JSONObject<br>json对象，就是一个键对应一个值，使用的是大括号{ }，如：{key:value}</p>
 </li>
 <li><p>JSONArray<br>json数组，使用中括号[ ],只不过数组里面的项也是json键值对格式的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">JSONObject Json = new JSONObject();  </div><div class="line">JSONArray JsonArray = new JSONArray();    </div><div class="line">Json.put(&quot;key&quot;, &quot;value&quot;);//JSONObject对象中添加键值对  </div><div class="line">JsonArray.put(Json);//将JSONObject对象添加到Json数组中</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JSONObject Json = new JSONObject();  </span><br><span class="line">JSONArray JsonArray = new JSONArray();    </span><br><span class="line">Json.put(&quot;key&quot;, &quot;value&quot;);//JSONObject对象中添加键值对  </span><br><span class="line">JsonArray.put(Json);//将JSONObject对象添加到Json数组中</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Map<br>map和json都是键值对，不同的是map中的每一对键值对是用等号对应起来的，如：userName=”LiMing”, 而json中的每一对键值对是用冒号对应起来的，如：userAge:18,  其实json就是一种特殊形式的map。</p>
 </li>
@@ -705,8 +706,6 @@
   
 
 
-  
-
 
 
 
@@ -745,11 +744,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -864,7 +858,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

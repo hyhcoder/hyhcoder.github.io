@@ -90,12 +90,13 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么? 网络分层首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/66496673.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/61282413.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/18937008.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/23259117.jpg">
 <meta property="og:image" content="http://img.hyhcoder.top/18-1-21/7995488.jpg">
-<meta property="og:updated_time" content="2018-01-27T05:48:21.127Z">
+<meta property="og:updated_time" content="2018-01-27T05:48:21.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaWeb（一）网络分层结构及HTTP协议">
 <meta name="twitter:description" content="学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么? 网络分层首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果">
@@ -335,7 +336,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T16:51:52+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T16:51:52+09:00">
                 2018-01-21
               </time>
             
@@ -394,7 +395,7 @@
 <ul>
 <li>而TCP/IP就大大简化了层次, 对比关系如下:(我们平时用的最多的Http是在应用层)<br><img src="http://img.hyhcoder.top/18-1-21/61282413.jpg" alt=""></li>
 </ul>
-<p>从上面我们就可以看出整个网络模型分层后, 我们只要按照各自的协议考虑各自当前层的问题就可以愉快的编程了;<br>比如一开始的发送例子, 我们只是想编写在应用层的程序，所以根本无需考虑下面其他分层传输数据包等的事情，只要遵循好协议发送数据即可，其他都交给其他层的程序考虑，而在应用层我们所用的协议最多的就是Http协议了, 至于http协议怎么和传输层进行协助, 我们可以不用关心, 有兴趣的可以去读&lt;<tcp ip详解(卷一)="">&gt;;</tcp></p>
+<p>从上面我们就可以看出整个网络模型分层后, 我们只要按照各自的协议考虑各自当前层的问题就可以愉快的编程了;<br>比如一开始的发送例子, 我们只是想编写在应用层的程序，所以根本无需考虑下面其他分层传输数据包等的事情，只要遵循好协议发送数据即可，其他都交给其他层的程序考虑，而在应用层我们所用的协议最多的就是Http协议了, 至于http协议怎么和传输层进行协助, 我们可以不用关心, 有兴趣的可以去读&lt;&lt;TCP/IP详解(卷一)&gt;&gt;;</p>
 <p>如果要通俗的去讲就是我们首先发送的是HTTP协议报文, 然后会转换成TCP/IP协议的数据包,  然后根据IP地址进行传输,  到客户端又重新变成TCP/IP协议的数据包,  再变成HTTP协议报文, 返回到客户端。如下， 每过一层会加一层首部，接收时再逐个去掉。<br><img src="http://img.hyhcoder.top/18-1-21/18937008.jpg" alt=""></p>
 <h3 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h3><p>因为Java web的编程很少接触到底层的协议实现，所以我们把关注点放在掌握应用层协议会更好，而当今基本上我们接触到的应用层协议最多的就是HTTP协议， 你打开一个网站，基本都是HTTP开头的；</p>
 <p>那掌握HTTP协议(Hyper Text Transfer Protocol 超文本传输协议)对于我们编写web程序非常关键。</p>
@@ -421,10 +422,10 @@
 <h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>网络的分层使得网络编程变得十分的便捷，Java Web的编程可以说是作用与应用层的，所以我们必须要了解掌握应用层应用最广的HTTP协议，所有的网络请求基本都是基于HTTP请求。</p>
 <p>参考文章:</p>
 <ol>
-<li><a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI模型–维基百科</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="external">TCP/IP模型–维基百科</a></li>
-<li><a href="https://baike.baidu.com/item/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">OSI模型–百度百科</a></li>
-<li><a href="https://baike.baidu.com/item/TCP%2FIP%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B" target="_blank" rel="external">TCP/IP模型–百度百科</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">OSI模型–维基百科</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F" target="_blank" rel="noopener">TCP/IP模型–维基百科</a></li>
+<li><a href="https://baike.baidu.com/item/OSI%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">OSI模型–百度百科</a></li>
+<li><a href="https://baike.baidu.com/item/TCP%2FIP%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">TCP/IP模型–百度百科</a></li>
 </ol>
 
       
@@ -734,8 +735,6 @@
   
 
 
-  
-
 
 
 
@@ -774,11 +773,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -893,7 +887,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

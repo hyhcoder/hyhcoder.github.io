@@ -90,7 +90,8 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2014/03/19/Oracle中删除重复记录整理/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="Oracle中删除重复记录整理Oracle中经常会删除一些重复记录，整理一下以备用 举例(建立数据如下): 12345678910create table t_table  (id NUMBER,  name VARCHAR2(20)  );insert into t_table values (1234, &apos;abc&apos;);  insert into t_table values (1234, &apos;a">
-<meta property="og:updated_time" content="2017-06-18T08:56:40.911Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-18T08:56:40.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle中删除重复记录整理">
 <meta name="twitter:description" content="Oracle中删除重复记录整理Oracle中经常会删除一些重复记录，整理一下以备用 举例(建立数据如下): 12345678910create table t_table  (id NUMBER,  name VARCHAR2(20)  );insert into t_table values (1234, &apos;abc&apos;);  insert into t_table values (1234, &apos;a">
@@ -329,7 +330,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-19T16:28:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-19T16:28:36+09:00">
                 2014-03-19
               </time>
             
@@ -379,18 +380,18 @@
       
         <h1 id="Oracle中删除重复记录整理"><a href="#Oracle中删除重复记录整理" class="headerlink" title="Oracle中删除重复记录整理"></a>Oracle中删除重复记录整理</h1><p>Oracle中经常会删除一些重复记录，整理一下以备用</p>
 <p>举例(建立数据如下):</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_table  </div><div class="line">(<span class="keyword">id</span> <span class="built_in">NUMBER</span>,  </div><div class="line"><span class="keyword">name</span> VARCHAR2(<span class="number">20</span>)  </div><div class="line">);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">7890</span>, <span class="string">'cde'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_table  </span><br><span class="line">(<span class="keyword">id</span> <span class="built_in">NUMBER</span>,  </span><br><span class="line"><span class="keyword">name</span> VARCHAR2(<span class="number">20</span>)  </span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">1234</span>, <span class="string">'abc'</span>);  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">3456</span>, <span class="string">'bcd'</span>);  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">values</span> (<span class="number">7890</span>, <span class="string">'cde'</span>);</span><br></pre></td></tr></table></figure>
 <p>1 .<strong>第一种方法:</strong>适用于有少量重复记录的情况(临时表法)</p>
 <ul>
 <li>(建一个临时表用来存放重复的记录)</li>
 <li>(清空表的数据，但保留表的结构)</li>
 <li>(再将临时表里的内容反插回来)</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tmp_table <span class="keyword">as</span> <span class="keyword">select</span> <span class="keyword">distinct</span> * <span class="keyword">from</span> t_table;  </div><div class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> t_table;  </div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">select</span> * <span class="keyword">from</span> tmp_table;</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tmp_table <span class="keyword">as</span> <span class="keyword">select</span> <span class="keyword">distinct</span> * <span class="keyword">from</span> t_table;  </span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> t_table;  </span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_table <span class="keyword">select</span> * <span class="keyword">from</span> tmp_table;</span><br></pre></td></tr></table></figure>
 <p>2 .<strong>第二种方法:</strong>适用于有大量重复记录的情况</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">delete</span> t_table <span class="keyword">where</span>   </div><div class="line">(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>   </div><div class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>)   </div><div class="line"><span class="keyword">and</span>   </div><div class="line"><span class="keyword">rowid</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">min</span>(<span class="keyword">rowid</span>)   </div><div class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> t_table <span class="keyword">where</span>   </span><br><span class="line">(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>   </span><br><span class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>)   </span><br><span class="line"><span class="keyword">and</span>   </span><br><span class="line"><span class="keyword">rowid</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">min</span>(<span class="keyword">rowid</span>)   </span><br><span class="line"><span class="keyword">from</span> t_table <span class="keyword">group</span> <span class="keyword">by</span>  <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">having</span> <span class="keyword">count</span>(*)&gt;<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <p>3 .<strong>第三种方法:</strong>适用于有少量重复记录的情况</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t_table a <span class="keyword">where</span> a.rowid!=(<span class="keyword">select</span> <span class="keyword">max</span>(b.rowid)   </div><div class="line"><span class="keyword">from</span> t_table b <span class="keyword">where</span> a.id=b.id <span class="keyword">and</span> a.name=b.name);</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t_table a <span class="keyword">where</span> a.rowid!=(<span class="keyword">select</span> <span class="keyword">max</span>(b.rowid)   </span><br><span class="line"><span class="keyword">from</span> t_table b <span class="keyword">where</span> a.id=b.id <span class="keyword">and</span> a.name=b.name);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -695,8 +696,6 @@
   
 
 
-  
-
 
 
 
@@ -735,11 +734,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -854,7 +848,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

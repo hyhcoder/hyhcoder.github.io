@@ -89,7 +89,8 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2015/02/09/mysqldump命令一点总结/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="mysqldump命令一点总结常见的几种导出方式 导出结构不导出数据 1mysqldump -d 数据库名 -uroot -p &amp;gt; xxx.sql  导出数据不导出结构 1mysqldump -t 数据库名 -uroot -p &amp;gt; xxx.sql  导出数据和表结构 1mysqldump 数据库名 -uroot -p &amp;gt; xxx.sql  导出特定表的结构 1mysqldump">
-<meta property="og:updated_time" content="2017-11-05T06:57:26.872Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-05T06:57:26.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysqldump命令一点总结">
 <meta name="twitter:description" content="mysqldump命令一点总结常见的几种导出方式 导出结构不导出数据 1mysqldump -d 数据库名 -uroot -p &amp;gt; xxx.sql  导出数据不导出结构 1mysqldump -t 数据库名 -uroot -p &amp;gt; xxx.sql  导出数据和表结构 1mysqldump 数据库名 -uroot -p &amp;gt; xxx.sql  导出特定表的结构 1mysqldump">
@@ -328,7 +329,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-02-09T14:50:56+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-02-09T14:50:56+09:00">
                 2015-02-09
               </time>
             
@@ -378,16 +379,16 @@
       
         <h1 id="mysqldump命令一点总结"><a href="#mysqldump命令一点总结" class="headerlink" title="mysqldump命令一点总结"></a>mysqldump命令一点总结</h1><h3 id="常见的几种导出方式"><a href="#常见的几种导出方式" class="headerlink" title="常见的几种导出方式"></a>常见的几种导出方式</h3><ol>
 <li><p>导出结构不导出数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -d 数据库名 -uroot -p &gt; xxx.sql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -d 数据库名 -uroot -p &gt; xxx.sql</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>导出数据不导出结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -t 数据库名 -uroot -p &gt; xxx.sql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -t 数据库名 -uroot -p &gt; xxx.sql</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>导出数据和表结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump 数据库名 -uroot -p &gt; xxx.sql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump 数据库名 -uroot -p &gt; xxx.sql</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>导出特定表的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -uroot -p -B数据库名 --table 表名 &gt; xxx.sql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p -B数据库名 --table 表名 &gt; xxx.sql</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="支持的选项"><a href="#支持的选项" class="headerlink" title="支持的选项"></a>支持的选项</h3><p><strong>mysqldump [OPTIONS] database [tables]</strong></p>
@@ -719,8 +720,6 @@
   
 
 
-  
-
 
 
 
@@ -759,11 +758,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -878,7 +872,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

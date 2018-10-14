@@ -89,7 +89,8 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2016/05/27/记录一些markdown的使用技巧/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="记录一些markdown的使用技巧markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;  在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱; #后面跟着标题时, 要留个空格, 不然有些解析器会读不出来; markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化; markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网">
-<meta property="og:updated_time" content="2017-11-05T07:03:52.230Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-05T07:03:52.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录一些markdown的使用技巧">
 <meta name="twitter:description" content="记录一些markdown的使用技巧markdown这个工具用得越来越多, 也踩了一些坑, 开一篇文档记录下一些坑和技巧;  在对代码引用的时候, 三点后面不能有空行或空格, 不然会导致读取错乱; #后面跟着标题时, 要留个空格, 不然有些解析器会读不出来; markdown表格是最麻烦的一块之一; 推荐个网站,轻松搞定表格:表格格式化; markdown插入图片也是一个麻烦点,推荐七牛云搭配图床网">
@@ -328,7 +329,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-27T11:55:41+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-27T11:55:41+09:00">
                 2016-05-27
               </time>
             
@@ -689,8 +690,6 @@
   
 
 
-  
-
 
 
 
@@ -729,11 +728,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -848,7 +842,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

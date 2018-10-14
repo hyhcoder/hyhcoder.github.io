@@ -89,6 +89,7 @@
 <meta property="og:url" content="https://www.hyhcoder.com/page/2/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="From zero to infinity">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hyhcoder的博客">
 <meta name="twitter:description" content="From zero to infinity">
@@ -330,7 +331,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T15:09:42+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T15:09:42+09:00">
                 2017-02-26
               </time>
             
@@ -369,7 +370,7 @@
 
       
         
-          <p>今天在部署一个新的开发环境, 然后启动tomcat的时候, 发现居然启动卡住了, tomcat启动以后卡在INFO: Deploying web application directory ……反反复复尝试, 未果, 于是上google爬了下文, 发现是jdk的一个bug导致的;附下<a href="https://docs.oracle.com/cd/E13209_01/wlcp/wlss30/configwlss/jvmrand.html" target="_blank" rel="external">官网的解释</a></p>
+          <p>今天在部署一个新的开发环境, 然后启动tomcat的时候, 发现居然启动卡住了, tomcat启动以后卡在INFO: Deploying web application directory ……反反复复尝试, 未果, 于是上google爬了下文, 发现是jdk的一个bug导致的;附下<a href="https://docs.oracle.com/cd/E13209_01/wlcp/wlss30/configwlss/jvmrand.html" target="_blank" rel="noopener">官网的解释</a></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/26/一个奇怪的bug-tomcat卡在deploying/#more" rel="contents">
@@ -454,7 +455,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T15:09:27+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T15:09:27+09:00">
                 2017-01-26
               </time>
             
@@ -578,7 +579,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-25T15:09:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-25T15:09:08+09:00">
                 2017-01-25
               </time>
             
@@ -704,7 +705,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-05T15:08:46+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-05T15:08:46+09:00">
                 2016-11-05
               </time>
             
@@ -744,9 +745,9 @@
       
         
           
-            <p>有时在编译安装完nginx后, 启动nginx时, 会出现报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</div></pre></td></tr></table></figure></p>
-<h3 id="原因及解决"><a href="#原因及解决" class="headerlink" title="原因及解决"></a>原因及解决</h3><p>这种报错一般是编译安装后没有加入nginx用户导致的;<br>执行如下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -s /sbin/nologin -M nginx</div><div class="line">id nginx</div></pre></td></tr></table></figure></p>
-<p>最后重启启动, 即可解决:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service nginx restart</div><div class="line">service nginx status</div></pre></td></tr></table></figure></p>
+            <p>有时在编译安装完nginx后, 启动nginx时, 会出现报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</span><br></pre></td></tr></table></figure></p>
+<h3 id="原因及解决"><a href="#原因及解决" class="headerlink" title="原因及解决"></a>原因及解决</h3><p>这种报错一般是编译安装后没有加入nginx用户导致的;<br>执行如下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -s /sbin/nologin -M nginx</span><br><span class="line">id nginx</span><br></pre></td></tr></table></figure></p>
+<p>最后重启启动, 即可解决:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service nginx restart</span><br><span class="line">service nginx status</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -826,7 +827,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-05T15:08:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-05T15:08:06+09:00">
                 2016-11-05
               </time>
             
@@ -865,10 +866,10 @@
 
       
         
-          <h2 id="普通安装"><a href="#普通安装" class="headerlink" title="普通安装"></a>普通安装</h2><p>nginx的普通安装非常简单:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo yum install epel-release</div><div class="line">sudo yum install nginx</div></pre></td></tr></table></figure></p>
-<p>开机启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start nginx.service</div></pre></td></tr></table></figure></p>
-<p>查看状态:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx status</div></pre></td></tr></table></figure></p>
-<p>手工启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx start</div></pre></td></tr></table></figure></p>
+          <h2 id="普通安装"><a href="#普通安装" class="headerlink" title="普通安装"></a>普通安装</h2><p>nginx的普通安装非常简单:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install epel-release</span><br><span class="line">sudo yum install nginx</span><br></pre></td></tr></table></figure></p>
+<p>开机启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start nginx.service</span><br></pre></td></tr></table></figure></p>
+<p>查看状态:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx status</span><br></pre></td></tr></table></figure></p>
+<p>手工启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx start</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/11/05/编译安装nginx-使其支持sticky模块/#more" rel="contents">
@@ -1117,8 +1118,6 @@
   
 
 
-  
-
 
 
 
@@ -1157,11 +1156,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -1248,7 +1242,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

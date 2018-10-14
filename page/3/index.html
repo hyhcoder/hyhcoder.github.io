@@ -89,6 +89,7 @@
 <meta property="og:url" content="https://www.hyhcoder.com/page/3/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="From zero to infinity">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hyhcoder的博客">
 <meta name="twitter:description" content="From zero to infinity">
@@ -330,7 +331,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T15:07:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T15:07:49+09:00">
                 2016-10-26
               </time>
             
@@ -372,46 +373,46 @@
           
             <h1 id="Mysql的主从备份搭建"><a href="#Mysql的主从备份搭建" class="headerlink" title="Mysql的主从备份搭建"></a>Mysql的主从备份搭建</h1><h3 id="设置server-id，打开binlog"><a href="#设置server-id，打开binlog" class="headerlink" title="设置server-id，打开binlog"></a>设置server-id，打开binlog</h3><ol>
 <li><p>修改master节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div><div class="line">activiti在主从复制模式下需要设置format为mixed</div><div class="line">binlog_format=MIXED</div><div class="line">server-id=1</div><div class="line">注意主从的server-id一定要不同即可</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log-bin=mysql-bin</span><br><span class="line">activiti在主从复制模式下需要设置format为mixed</span><br><span class="line">binlog_format=MIXED</span><br><span class="line">server-id=1</span><br><span class="line">注意主从的server-id一定要不同即可</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>重启master：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改slave节点的/etc/my.cnf, 在[mysqld] 下面加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server-id=2</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server-id=2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>重启slave：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="创建数据库复制用户"><a href="#创建数据库复制用户" class="headerlink" title="创建数据库复制用户"></a>创建数据库复制用户</h3><ul>
-<li>master节点执行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE USER &apos;repluser&apos;@&apos;%&apos; IDENTIFIED BY &apos;replpass&apos;;</div><div class="line">GRANT REPLICATION SLAVE ON *.* TO &apos;repluser&apos;@&apos;%&apos;;</div></pre></td></tr></table></figure>
+<li>master节点执行：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;repluser&apos;@&apos;%&apos; IDENTIFIED BY &apos;replpass&apos;;</span><br><span class="line">GRANT REPLICATION SLAVE ON *.* TO &apos;repluser&apos;@&apos;%&apos;;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="设置初始复制点"><a href="#设置初始复制点" class="headerlink" title="设置初始复制点"></a>设置初始复制点</h3><ol>
 <li><p>对master节点进行锁表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLUSH TABLES WITH READ LOCK;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLUSH TABLES WITH READ LOCK;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>master节点执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master status;</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| File | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">| mysql-bin.000001 |  419 |  |  |   |</div><div class="line">+------------------+----------+--------------+------------------+-------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show master status;</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| File | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| mysql-bin.000001 |  419 |  |  |   |</span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>记下<strong>mysql-bin.000001 和 419</strong></p>
 <ol>
 <li><p>slave节点执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CHANGE MASTER TO MASTER_HOST=&apos;192.168.1.1&apos;, MASTER_USER=&apos;repluser&apos;, MASTER_PASSWORD=&apos;replpass&apos;, MASTER_LOG_FILE=&apos;mysql-bin.000001&apos;,MASTER_LOG_POS=419</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CHANGE MASTER TO MASTER_HOST=&apos;192.168.1.1&apos;, MASTER_USER=&apos;repluser&apos;, MASTER_PASSWORD=&apos;replpass&apos;, MASTER_LOG_FILE=&apos;mysql-bin.000001&apos;,MASTER_LOG_POS=419</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动slave：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start slave</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start slave</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>看是否正常工作, 在slave上面执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">show slave status /G;</div><div class="line">#看到Slave_IO_Running和Slave_SQL_Running状态均为YES即可</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show slave status /G;</span><br><span class="line">#看到Slave_IO_Running和Slave_SQL_Running状态均为YES即可</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>对master节点进行解锁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unlock tables;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="打开防火墙"><a href="#打开防火墙" class="headerlink" title="打开防火墙"></a>打开防火墙</h3><p>要注意的是可能需要打开防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</div></pre></td></tr></table></figure></p>
+<h3 id="打开防火墙"><a href="#打开防火墙" class="headerlink" title="打开防火墙"></a>打开防火墙</h3><p>要注意的是可能需要打开防火墙：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -491,7 +492,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T14:56:23+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-26T14:56:23+09:00">
                 2016-10-26
               </time>
             
@@ -534,10 +535,10 @@
             <h1 id="samba服务器可以访问-无法写入故障"><a href="#samba服务器可以访问-无法写入故障" class="headerlink" title="samba服务器可以访问,无法写入故障"></a>samba服务器可以访问,无法写入故障</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>今天尝试了部署下samba文件服务器, 部署完毕后发现A机器可以访问B机器的共享目录, 但无法写入和看到里面的文件;</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
 <li>起初以为是访问的权限问题, 但将文件全改改为777也无果, 于是放弃该方向;</li>
-<li>使用指定ip及用户名直接访问<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">subclient -L 192.168.1.113 -U test</div></pre></td></tr></table></figure>
+<li>使用指定ip及用户名直接访问<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subclient -L 192.168.1.113 -U test</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>系统提示错误:NT_STATUS_ACCESS_DENIED<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Server requested LANMAN password (share-level security) but &apos;client lanman auth&apos; is disabled</div><div class="line">tree connect failed: NT_STATUS_ACCESS_DENIED</div></pre></td></tr></table></figure></p>
+<p>系统提示错误:NT_STATUS_ACCESS_DENIED<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Server requested LANMAN password (share-level security) but &apos;client lanman auth&apos; is disabled</span><br><span class="line">tree connect failed: NT_STATUS_ACCESS_DENIED</span><br></pre></td></tr></table></figure></p>
 <p>原因是被被SELINUX阻挡了，只要关闭SELINUX便可以了</p>
 <h2 id="SELINUX"><a href="#SELINUX" class="headerlink" title="SELINUX"></a>SELINUX</h2><p>SELINUX几种状态表示：</p>
 <ul>
@@ -545,8 +546,8 @@
 <li>permissive：宽容模式：代表 SELinux 运行中，不过仅会有警告信息并不会实际限制 domain/type 的存取。这种模式可以运来作为 SELinux 的 debug 之用;</li>
 <li>disabled：关闭，SELinux 并没有实际运行。</li>
 </ul>
-<p>关闭SELINUX即可:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">getenforce //获取当前服务器的SELINUX状态, 看是否enforcing</div><div class="line">setenforce 0 //临时更改SELINUX状态为permissive,重启失效</div></pre></td></tr></table></figure></p>
-<p>若要永久更改SELINUX状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/selinux  //将里面的enforing改为permissive</div></pre></td></tr></table></figure></p>
+<p>关闭SELINUX即可:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">getenforce //获取当前服务器的SELINUX状态, 看是否enforcing</span><br><span class="line">setenforce 0 //临时更改SELINUX状态为permissive,重启失效</span><br></pre></td></tr></table></figure></p>
+<p>若要永久更改SELINUX状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/selinux  //将里面的enforing改为permissive</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -626,7 +627,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T14:55:55+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-22T14:55:55+09:00">
                 2016-07-22
               </time>
             
@@ -700,10 +701,10 @@
 <li><p># : 用于确定每个月第几个星期几，只能出现在DayofMonth域。例如在4#2，表示某月的第二个星期三。</p>
 </li>
 </ul>
-<h3 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">0 0 10,14,16 * * ? 每天上午10点，下午2点，4点 </div><div class="line">0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时 </div><div class="line">0 0 12 ? * WED 表示每个星期三中午12点 </div><div class="line">0 0 12 * * ? 每天中午12点触发 </div><div class="line">0 15 10 ? * * 每天上午10:15触发 </div><div class="line">0 15 10 * * ? 每天上午10:15触发 </div><div class="line">0 15 10 * * ? * 每天上午10:15触发 </div><div class="line">0 15 10 * * ? 2005 2005年的每天上午10:15触发 </div><div class="line">0 * 14 * * ?&quot; 在每天下午2点到下午2:59期间的每1分钟触发 </div><div class="line">0 0/5 14 * * ? 在每天下午2点到下午2:55期间的每5分钟触发 </div><div class="line">0 0/5 14,18 * * ? 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 </div><div class="line">0 0-5 14 * * ? 在每天下午2点到下午2:05期间的每1分钟触发 </div><div class="line">0 10,44 14 ? 3 WED 每年三月的星期三的下午2:10和2:44触发 </div><div class="line">0 15 10 ? * MON-FRI 周一至周五的上午10:15触发 </div><div class="line">0 15 10 15 * ? 每月15日上午10:15触发 </div><div class="line">0 15 10 L * ? 每月最后一日的上午10:15触发 </div><div class="line">0 15 10 ? * 6L 每月的最后一个星期五上午10:15触发 </div><div class="line">0 15 10 ? * 6L 2002-2005 2002年至2005年的每月的最后一个星期五上午10:15触发 </div><div class="line">0 15 10 ? * 6#3 每月的第三个星期五上午10:15触发</div></pre></td></tr></table></figure>
+<h3 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">0 0 10,14,16 * * ? 每天上午10点，下午2点，4点 </span><br><span class="line">0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时 </span><br><span class="line">0 0 12 ? * WED 表示每个星期三中午12点 </span><br><span class="line">0 0 12 * * ? 每天中午12点触发 </span><br><span class="line">0 15 10 ? * * 每天上午10:15触发 </span><br><span class="line">0 15 10 * * ? 每天上午10:15触发 </span><br><span class="line">0 15 10 * * ? * 每天上午10:15触发 </span><br><span class="line">0 15 10 * * ? 2005 2005年的每天上午10:15触发 </span><br><span class="line">0 * 14 * * ?&quot; 在每天下午2点到下午2:59期间的每1分钟触发 </span><br><span class="line">0 0/5 14 * * ? 在每天下午2点到下午2:55期间的每5分钟触发 </span><br><span class="line">0 0/5 14,18 * * ? 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 </span><br><span class="line">0 0-5 14 * * ? 在每天下午2点到下午2:05期间的每1分钟触发 </span><br><span class="line">0 10,44 14 ? 3 WED 每年三月的星期三的下午2:10和2:44触发 </span><br><span class="line">0 15 10 ? * MON-FRI 周一至周五的上午10:15触发 </span><br><span class="line">0 15 10 15 * ? 每月15日上午10:15触发 </span><br><span class="line">0 15 10 L * ? 每月最后一日的上午10:15触发 </span><br><span class="line">0 15 10 ? * 6L 每月的最后一个星期五上午10:15触发 </span><br><span class="line">0 15 10 ? * 6L 2002-2005 2002年至2005年的每月的最后一个星期五上午10:15触发 </span><br><span class="line">0 15 10 ? * 6#3 每月的第三个星期五上午10:15触发</span><br></pre></td></tr></table></figure>
 <h3 id="相关网站"><a href="#相关网站" class="headerlink" title="相关网站"></a>相关网站</h3><p>若还觉得混乱, 还有相关的在线网站可以测试生成;</p>
 <ul>
-<li><a href="http://cron.qqe2.com/" target="_blank" rel="external">在线cron表达式生成器</a></li>
+<li><a href="http://cron.qqe2.com/" target="_blank" rel="noopener">在线cron表达式生成器</a></li>
 </ul>
 
           
@@ -784,7 +785,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-27T11:55:41+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-27T11:55:41+09:00">
                 2016-05-27
               </time>
             
@@ -914,7 +915,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-15T08:55:16+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-15T08:55:16+09:00">
                 2016-04-15
               </time>
             
@@ -959,7 +960,7 @@
 <p>步骤:</p>
 <ol>
 <li>确保ss客户端连接;</li>
-<li>打开命令行输入以下代码:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global http.proxy &apos;socks5://127.0.0.1:1090&apos; </div><div class="line">git config --global https.proxy &apos;socks5://127.0.0.1:1090&apos;</div></pre></td></tr></table></figure>
+<li>打开命令行输入以下代码:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy &apos;socks5://127.0.0.1:1090&apos; </span><br><span class="line">git config --global https.proxy &apos;socks5://127.0.0.1:1090&apos;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>1090为ss的本地端口,这个要根据自己的设置来更改;</p>
@@ -1207,8 +1208,6 @@
   
 
 
-  
-
 
 
 
@@ -1247,11 +1246,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -1338,7 +1332,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {

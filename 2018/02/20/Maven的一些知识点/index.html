@@ -89,7 +89,8 @@
 <meta property="og:url" content="https://www.hyhcoder.com/2018/02/20/Maven的一些知识点/index.html">
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="约定目录结构Maven项目有约定好的目录结构  一般认定项目主代码位于src/main/java 目录 资源, 配置文件放在src/main/resources下 测试代码在src/test/java 这里没有webapp, Web项目会有webapp目录, webapp下存放Web应用相关代码">
-<meta property="og:updated_time" content="2018-08-20T13:46:53.027Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T13:46:53.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven的一些知识点">
 <meta name="twitter:description" content="约定目录结构Maven项目有约定好的目录结构  一般认定项目主代码位于src/main/java 目录 资源, 配置文件放在src/main/resources下 测试代码在src/test/java 这里没有webapp, Web项目会有webapp目录, webapp下存放Web应用相关代码">
@@ -328,7 +329,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T21:44:52+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T21:44:52+09:00">
                 2018-02-20
               </time>
             
@@ -384,7 +385,7 @@
 <li>这里没有webapp, Web项目会有webapp目录, webapp下存放Web应用相关代码</li>
 </ul>
 <a id="more"></a>  
-<h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><p>一般pom的结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</div><div class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</div><div class="line"> &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</div><div class="line"> &lt;groupId&gt;com.hyhcoder&lt;/groupId&gt;</div><div class="line"> &lt;artifactId&gt;chapter18&lt;/artifactId&gt;</div><div class="line"> &lt;packaging&gt;jar&lt;/packaging&gt;</div><div class="line"> &lt;version&gt;1.0&lt;/version&gt;</div><div class="line"> &lt;name&gt;bbs论坛&lt;/name&gt;</div><div class="line"> &lt;scope&gt;test&lt;/scope&gt;</div><div class="line"> </div><div class="line"> &lt;/project&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><p>一般pom的结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line"> &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"> &lt;groupId&gt;com.hyhcoder&lt;/groupId&gt;</span><br><span class="line"> &lt;artifactId&gt;chapter18&lt;/artifactId&gt;</span><br><span class="line"> &lt;packaging&gt;jar&lt;/packaging&gt;</span><br><span class="line"> &lt;version&gt;1.0&lt;/version&gt;</span><br><span class="line"> &lt;name&gt;bbs论坛&lt;/name&gt;</span><br><span class="line"> &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;/project&gt;</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>第一行一般是XML头, 指定版本和编码方式;</li>
 <li>紧接着是project元素, project是所有的pom.xml的根元素; (还可以声明一些xsd属性, 非必须, 可以让ide识别罢了)</li>
@@ -404,7 +405,7 @@
 <h4 id="其他属性"><a href="#其他属性" class="headerlink" title="其他属性"></a>其他属性</h4><p><strong>dependencies和dependency</strong></p>
 <ol>
 <li>前者包含后者, 依赖的jar包, 在maven中, 被称为dependency</li>
-<li>例如这样配置(若使用MyBatis)<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;dependencies&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</div><div class="line">        &lt;version&gt;3.2.5&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line">&lt;/dependencies&gt;</div><div class="line">&lt;/pre&gt;</div></pre></td></tr></table></figure>
+<li>例如这样配置(若使用MyBatis)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.2.5&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p><strong>properties</strong><br>properties是用来定义一些配置属性的, 例如project.build.sourceEncoding（项目构建源码编码方式），可以设置为UTF-8，防止中文乱码，也可定义相关构建版本号，便于日后统一升级, 统一管理版本;</p>
@@ -454,12 +455,12 @@
 <h4 id="聚合和继承POM-父子"><a href="#聚合和继承POM-父子" class="headerlink" title="聚合和继承POM(父子)"></a>聚合和继承POM(父子)</h4><ol>
 <li>使用如下来保存聚合的pom;</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">## 下面对于父项目的来说都是相对路径的名字</div><div class="line">&lt;packaging&gt;pom&lt;/packaging&gt; #这里一定要是pom</div><div class="line">&lt;modules&gt;</div><div class="line">   &lt;module&gt;account-email&lt;/module&gt;</div><div class="line">   &lt;module&gt;account-persist&lt;/module&gt;</div><div class="line">&lt;/modules&gt;</div></pre></td></tr></table></figure>
-<ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 下面对于父项目的来说都是相对路径的名字</span><br><span class="line">&lt;packaging&gt;pom&lt;/packaging&gt; #这里一定要是pom</span><br><span class="line">&lt;modules&gt;</span><br><span class="line">   &lt;module&gt;account-email&lt;/module&gt;</span><br><span class="line">   &lt;module&gt;account-persist&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
 <li>使用如下来继承pom</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">   &lt;groupId&gt;&lt;/groupId&gt;</div><div class="line">   &lt;artifactId&gt;&lt;/artifactId&gt;</div><div class="line">   &lt;version&gt;&lt;/version&gt;</div><div class="line">   &lt;relativePath&gt;../xx.pom&lt;/relativePath&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure>
-<ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">   &lt;groupId&gt;&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;&lt;/version&gt;</span><br><span class="line">   &lt;relativePath&gt;../xx.pom&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li><p>建议父Pom使用dependencyManagement来管理dependency这样的好处在于不会导致子pom一定引入父pom的东西;(子pom不声明即可)</p>
 </li>
 <li><p>父Pom使用pluginManagement来管理插件;</p>
@@ -763,8 +764,6 @@
   
 
 
-  
-
 
 
 
@@ -803,11 +802,6 @@
   
   
     <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -922,7 +916,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.json";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {
