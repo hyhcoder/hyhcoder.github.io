@@ -290,6 +290,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2015/03/03/Java与C++在面向对象基本概念上的区分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/03/03/Java与C++在面向对象基本概念上的区分/" itemprop="url">Java与C++在面向对象基本概念上的区分</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-03T19:51:41+09:00">
+                2015-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java与C-在面向对象基本概念上的区分"><a href="#Java与C-在面向对象基本概念上的区分" class="headerlink" title="Java与C++在面向对象基本概念上的区分"></a>Java与C++在面向对象基本概念上的区分</h1><p>今天在面试的时候,被问到了Java和C++在面向对象上的区别, 居然一时不知道怎么回到, 平时一般都只知道面向对象, 然后了解到C是面向结构的, C++和Java是面向对象, 都没怎么去留意两者之间的差别;特此回来整理下, 然后以此备忘;</p>
+<h2 id="最基本区别"><a href="#最基本区别" class="headerlink" title="最基本区别"></a>最基本区别</h2><ul>
+<li>Java是一个完全面向对象的语言, C++是一个面向对象和面向过程的杂合体; 这是为了兼容C而导致的;</li>
+<li>Java中的所有东西都必须置入一个类。不存在全局函数、全局数据，也没有像结构、枚举或者联合这种东西，一切只有“类”！</li>
+<li>然而C++则不同，比如C++的main方法是置于所有的类之外的，除此之外还可以在类外定义其它的函数。在C++中，全局变量、结构、枚举、联合等一些列源于C的概念仍然存在。对于在这个问题上的区别，不同的人会有不同的看法，C++的优点是灵活机动，而且比较利于C程序员接受，因为在C中成立的事情在C++中基本上不会出现差错，他们只需要了解C++多了哪些东西便可以了，然而也正因为如此，C++杂糅了面向对象和面向过程的双重概念，由此产生出的很多机制在强化某部分功能的同时破坏了程序的整体结构。</li>
+<li>与此相比，Java语言去除了C++中为了兼容C语言而保留的非面向对象的内容，对于对C比较习惯的人来说不是十分友好，在很多问题的处理上也显得有些弃简就繁，但是它以此换来了严谨和可靠的结构，以及在维护和管理上的方便。</li>
+<li><strong>因此对两种语言的总体比较可以得出的结论是：C++更加灵活而Java更加严谨。</strong></li>
+</ul>
+<h2 id="类定义和类方法的定义上的区别"><a href="#类定义和类方法的定义上的区别" class="headerlink" title="类定义和类方法的定义上的区别"></a>类定义和类方法的定义上的区别</h2><p>Java中没有独立的类声明，只有类定义。在定义类和类的方法（C++中称为成员函数）上，让我们用一个C++的典型类定义的片段来说明两者的不同：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class score</span><br><span class="line">&#123;</span><br><span class="line">score(int);</span><br><span class="line">&#125;;</span><br><span class="line">score::score(int x)</span><br><span class="line">&#123;</span><br><span class="line">//写下构造函数的具体定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子反映了C++和Java的三个不同之处：</p>
+<ol>
+<li>在Java中，类定义采取几乎和C++一样的形式，只不过没有标志结束的分号。</li>
+<li>Java中的所有方法都是在类的主体定义的而C++并非如此。在Java中我们必须将函数的定义置于类的内部，这种禁止在类外对方法定义的规定和Java的完全面向对象特性是吻合的。</li>
+<li>Java中没有作用域范围运算符“::”。Java利用“.”做所有的事情，但可以不用考虑它，因为只能在一个类里定义元素。即使那些方法定义，也必须在一个类的内部，所以根本没有必要指定作用域的范围。而对于static方法的调用，也是通过使用ClassName.methodName()就可以了。</li>
+</ol>
+<h2 id="类和对象的建立与回收机制上的区别"><a href="#类和对象的建立与回收机制上的区别" class="headerlink" title="类和对象的建立与回收机制上的区别"></a>类和对象的建立与回收机制上的区别</h2><ul>
+<li>Java提供了与C++类似的构造函数。如果不自己定义一个，就会获得一个默认构造函数。而如果定义了一个非默认的构造函数，就不会为我们自动定义默认构造函数。这和C++是一样的。但是在Java中没有拷贝构造函数，因为所有自变量都是按引用传递的。</li>
+<li>静态初始化器是Java的一个独特概念，与构造函数对每个新建的对象初始化相对的，静态初始化器对每个类进行初始化，它不是方法，没有方法名、返回值和参数列表，在系统向内存加载时自动完成。</li>
+<li>另一方面，在C++中，对象的释放和回收是通过编程人员执行某种特殊的操作来实现的，像利用new运算符创建对象一样，利用delete运算符可以回收对象。但在Java语言中，为方便、简化编程并减少错误，对象的回收是由系统的垃圾回收机制自动完成的。Java的垃圾回收机制是一个系统后台线程，它与用户的程序共存，能够检测用户程序中各对象的状态。当它发现一个对象已经不能继续被程序利用时，就把这个对象记录下来，这种不能再使用的对象被称为内存垃圾。当垃圾达到一定数目且系统不是很忙时，垃圾回收线程会自动完成所有垃圾对象的内存释放工作，在这个过程中，在回收每个垃圾对象的同时，系统将自动调用执行它的终结器（finalize)方法。</li>
+<li>finalize()方法与C++中的析构函数（Destructor）有类似的地方，但是finalize()是由垃圾收集器调用的，而且只负责释放“资源”（如打开的文件、套接字、端口、URL等等）。如需在一个特定的地点做某样事情，必须创建一个特殊的方法，并调用它，不能依赖finalize()。而在另一方面，C++中的所有对象都会（或者说“应该”）破坏，但并非Java中的所有对象都会被当作“垃圾”收集掉。由于Java不支持析构函数的概念，所以在必要的时候，必须谨慎地创建一个清除方法。而且针对类内的基础类以及成员对象，需要明确调用所有清除方法。</li>
+</ul>
+<h2 id="重载方面的区别——Java没有运算符重载"><a href="#重载方面的区别——Java没有运算符重载" class="headerlink" title="重载方面的区别——Java没有运算符重载"></a>重载方面的区别——Java没有运算符重载</h2><p>多态是面向对象程序设计的一个特殊特性，重载则是它的重要体现。在C++中，同时支持函数重载和运算符重载，而Java具有方法重载的能力，但不允许运算符重载。</p>
+<h2 id="继承方面的区别——关于访问权限"><a href="#继承方面的区别——关于访问权限" class="headerlink" title="继承方面的区别——关于访问权限"></a>继承方面的区别——关于访问权限</h2><ul>
+<li>在C++中存在三种继承模式——公有继承、私有继承和保护继承。其中公有继承使基类中的非私有成员在派生类中的访问属性保持不变，保护继承使基类中的非私有成员在派生类中的访问属性都降一级，而私有继承使基类中的非私有成员都成为派生类中的私有成员。</li>
+<li>在Java中，只有公有继承被保留了下来，Java中的继承不会改变基础类成员的保护级别。我们不能在Java中指定public，private或者protected继承，这一点与C++是不同的。此外，在衍生类中的优先方法不能减少对基础类方法的访问。例如，假设一个成员在基础类中属于public，而我们用另一个方法代替了它，那么用于替换的方法也必须属于public（编译器会自动检查）。<br>继承方面的区别——关于多继承</li>
+</ul>
+<p>所谓多重继承，是指一个子类可以有一个以上的直接父类。</p>
+<ul>
+<li>C++在语法上直接支持多继承，其格式为：class 派生类名：访问控制关键字 1 基类名1，访问控制关键字 2 基类名2，…</li>
+<li>Java出于简化程序结构的考虑，取消了语法上对多继承的直接支持，而是用接口来实现多重继承功能的结构。</li>
+</ul>
+<p>这样一来，对于仅仅设计成一个接口的东西，以及对于用extends关键字在现有功能基础上的扩展，两者之间便产生了一个明显的差异。不值得用abstract关键字产生一种类似的效果，因为我们不能创建属于那个类的一个对象。一个abstract（抽象）类可包含抽象方法（尽管并不要求在它里面包含什么东西），但它也能包含用于具体实现的代码。因此，它被限制成一个单一的继承。通过与接口联合使用，这一方案避免了对类似于C++虚基类那样的一些机制的需要。由此而来的，Java中没有virtual关键字。</p>
+<h2 id="其他方面的区别"><a href="#其他方面的区别" class="headerlink" title="其他方面的区别"></a>其他方面的区别</h2><p>除此之外, 还有一些区别, 比如指针与引用的问题，异常机制的问题，流程控制的问题等等。通过两种语言在种种方面的差异我们可以很明显地感觉两者在风格上的差异。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2015/02/09/mysqldump命令一点总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -842,193 +994,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2014/10/28/关于Java中转换机制整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/10/28/关于Java中转换机制整理/" itemprop="url">关于Java中转换机制整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-10-28T16:29:20+09:00">
-                2014-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="关于Java中转换机制整理"><a href="#关于Java中转换机制整理" class="headerlink" title="关于Java中转换机制整理"></a>关于Java中转换机制整理</h1><p>这两天在会看think in java, 顺便整理一些东西;</p>
-<p>下面是最基本的数据类型比较:<br><img src="https://img.hyhcoder.top/17-3-26/94101325-file_1490513405075_15bf5.gif" alt=""></p>
-<p>说明几点:<br>1 . 也可以分为两大类：boolean类型和数值类型（主要为了数据转换时用）</p>
-<ul>
-<li>注意boolean不能与其他类型转换，把boolean赋予一个int等类型是不可以的</li>
-</ul>
-<p>2 . String字符串并不是基本数据类型，字符串是一个类，就是说是一个引用数据类型。<br>3 . 若还需要用更高精度的浮点数，可以考虑使用BigDecimal类。<br>4 . Java提供了三个特殊的浮点数值：正无穷大、负无穷大和非数，用于表示溢出和出错。<br>5 . 例如使用一个正浮点数除以0将得到正无穷大（POSITIVE_INFINITY）;负浮点数除以0得到负无穷大（NEGATIVE_INFINITY）。0.0除以0.0或对一个负数开方得到一个非数（NaN）。（都属于Double或Float包装类）<br>6 . 所有正无穷大数值相等，所有负无穷大数值都是相等；而NaN不与任何数值相等。</p>
-<h3 id="1-基本数值型类型的自动类型转换"><a href="#1-基本数值型类型的自动类型转换" class="headerlink" title="1.基本数值型类型的自动类型转换"></a>1.基本数值型类型的自动类型转换</h3><p>这种很好理解，就是在基本类型中（boolean除外），可以系统自动转换把范围小的直接赋予范围大的变量。</p>
-<ul>
-<li>一般是实行如下转换，不用特别标记:<br><img src="https://img.hyhcoder.top/17-3-26/56836039-file_1490513440333_7802.png" alt=""></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConversion</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">       <span class="keyword">float</span> f = a;<span class="comment">//int可以自动转为float</span></span><br><span class="line">        </span><br><span class="line">       <span class="keyword">byte</span> b = <span class="number">9</span>;</span><br><span class="line">       <span class="keyword">char</span> c = b;<span class="comment">//出错，byte不能转为char型</span></span><br><span class="line">       <span class="keyword">double</span> d = b;<span class="comment">//byte 可以转为double</span></span><br><span class="line">        </span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p><strong>PS：</strong>有一种比较特殊的自动类型转换，就是把基本类型（boolean也行）和一个空字符连接起来，可以形成对应的字符串。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">boolean</span> b = <span class="keyword">true</span>;</span><br><span class="line">     String str = b + <span class="string">""</span>;</span><br><span class="line">     System.out.print(str);<span class="comment">//这里输出true</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-强制类型转化"><a href="#2-强制类型转化" class="headerlink" title="2.强制类型转化"></a>2.强制类型转化</h3><p>上面的自动类型只能把表数范围小的数值转化为大的，如果没有显性表示把大的转为小的，会发生编译错误。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Conversion</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> b = <span class="number">233</span>;</span><br><span class="line">     <span class="keyword">byte</span> c = (<span class="keyword">byte</span>)b;<span class="comment">//强制把一个int转为byte类型</span></span><br><span class="line">     System.out.println(c);<span class="comment">//输出-23</span></span><br><span class="line">      </span><br><span class="line">     <span class="keyword">float</span> a = <span class="number">5.6</span>;<span class="comment">//错误，因为5.6默认是double类型</span></span><br><span class="line">     <span class="keyword">float</span> a = (<span class="keyword">float</span>)<span class="number">5.6</span>;<span class="comment">//正确，要进行强制转化</span></span><br><span class="line">      </span><br><span class="line">     <span class="keyword">double</span> d = <span class="number">3.98</span>;</span><br><span class="line">     <span class="keyword">int</span> e = (<span class="keyword">int</span>)d;<span class="comment">//强制把一个double转为int类型</span></span><br><span class="line">     System.out.println(e);<span class="comment">//输出3</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>像上面一样，要执行表数大的范围转为小的，需要显性声明，若强制转化后数值过大，会造成精度丢失。</p>
-<h3 id="3-字符串（String）转换为基本类型"><a href="#3-字符串（String）转换为基本类型" class="headerlink" title="3.字符串（String）转换为基本类型"></a>3.字符串（String）转换为基本类型</h3><ul>
-<li>通常情况下，字符串不能直接转换为基本类型，但通过基本类型对应的包装类可以实现。</li>
-<li>每个包装类都会有提供一个parseXxx（String str）静态方法来用于字符串转换为基本类型</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sting a = <span class="string">"45"</span>;</span><br><span class="line"><span class="comment">//使用Integer的方法将一个字符串转换为int类型</span></span><br><span class="line"><span class="keyword">int</span> iValue = Interger.parseInt(a);</span><br><span class="line"><span class="comment">//boolean比较特殊，仅在字符串为true的情况下为true，其他为false</span></span><br><span class="line"><span class="keyword">boolean</span> b = Boolean.valueOf(a);</span><br></pre></td></tr></table></figure>
-<h3 id="4-将基本类型转换为字符串（String）"><a href="#4-将基本类型转换为字符串（String）" class="headerlink" title="4.将基本类型转换为字符串（String）"></a>4.将基本类型转换为字符串（String）</h3><p>每个包装类都带有一个toString的方法，比如Double.toString(double d)等，可以转换为String字符串。</p>
-<h3 id="5-基本数据类型和包装类的转换"><a href="#5-基本数据类型和包装类的转换" class="headerlink" title="5.基本数据类型和包装类的转换"></a>5.基本数据类型和包装类的转换</h3><table>
-<thead>
-<tr>
-<th>基本数据类型</th>
-<th>包装类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>boolean</td>
-<td>Boolean</td>
-</tr>
-<tr>
-<td>char</td>
-<td>Character</td>
-</tr>
-<tr>
-<td>byte</td>
-<td>Byte</td>
-</tr>
-<tr>
-<td>short</td>
-<td>Short</td>
-</tr>
-<tr>
-<td>integer</td>
-<td>Integer</td>
-</tr>
-<tr>
-<td>long</td>
-<td>Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td>Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td>Double</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>下面示例两者之间的互相转换</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);<span class="comment">//包装</span></span><br><span class="line"><span class="keyword">int</span> unWrap = iWrap.intValue();<span class="comment">//解包装</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1083,7 +1048,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1161,7 +1126,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
