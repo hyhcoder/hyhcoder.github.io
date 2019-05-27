@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="秒杀系统的设计总归有一些套路设计, 总结了一些如下:  架构原则: 4要1不要1.数据要尽量少;  用户请求数据, 系统依赖数据, 能少尽量少  2.请求数要尽量少;  页面请求数, 有些可以通过合并CSS和js文件来减少请求;  3.路径尽量短;  请求经过的节点能少尽量少; 多个相互强依赖的应用合并部署在一起, 把远程过程调用(RPC)变成JVM内部之间的方法调用  4.依赖尽量少;  依赖的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-27T14:46:58.660Z">
+<meta property="og:updated_time" content="2019-05-27T14:53:54.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="秒杀系统的一些要点整理">
 <meta name="twitter:description" content="秒杀系统的设计总归有一些套路设计, 总结了一些如下:  架构原则: 4要1不要1.数据要尽量少;  用户请求数据, 系统依赖数据, 能少尽量少  2.请求数要尽量少;  页面请求数, 有些可以通过合并CSS和js文件来减少请求;  3.路径尽量短;  请求经过的节点能少尽量少; 多个相互强依赖的应用合并部署在一起, 把远程过程调用(RPC)变成JVM内部之间的方法调用  4.依赖尽量少;  依赖的">
@@ -377,6 +377,7 @@
 <li>采用系统分级, 糟糕的时候实现系统降级;</li>
 </ul>
 <p><strong>5.不要有单点;</strong></p>
+<a id="more"></a>
 <h3 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h3><p>1.把静态数据缓存到离用户最近的地方; (常见三种:用户浏览器,CDN或者服务器Cache)</p>
 <p>2.静态化改造就是要直接缓存HTTP连接(不仅仅是缓存数据)</p>
 <h3 id="二八原则-针对热数据"><a href="#二八原则-针对热数据" class="headerlink" title="二八原则(针对热数据)"></a>二八原则(针对热数据)</h3><p>对热点数据整理的几个思路;(针对20%的热点数据进行针对性的优化)</p>
