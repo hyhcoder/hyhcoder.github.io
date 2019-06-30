@@ -290,6 +290,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/06/01/Redis使用规范指导/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/01/Redis使用规范指导/" itemprop="url">Redis使用规范指导</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-01T19:33:33+09:00">
+                2019-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Redis使用规范指导"><a href="#Redis使用规范指导" class="headerlink" title="Redis使用规范指导"></a>Redis使用规范指导</h2><h3 id="一-键值设计"><a href="#一-键值设计" class="headerlink" title="一. 键值设计"></a>一. 键值设计</h3><h4 id="1-key名设计"><a href="#1-key名设计" class="headerlink" title="1.key名设计:"></a>1.key名设计:</h4><ul>
+<li>可读性和可管理性: 以业务名:表名:id 来避免冲突;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user:book:1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>简洁性: 不要过长, 会导致内存占用过高; 最好不要超过20字节;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">若过长: 就把常用的单词缩写: 如: u:bok:1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不要包含特殊字符(强制)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如 空格, 换行, 单双引号以及其他的转义字符</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/01/Redis使用规范指导/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/05/26/各种计算机编码的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -815,132 +950,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/01/07/2018新年开始第一篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/07/2018新年开始第一篇/" itemprop="url">2018新年开始第一篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:06:16+09:00">
-                2018-01-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="https://img.hyhcoder.top/18-1-7/26089060.jpg" alt=""></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;2018过了几天了，本应先回顾下2017再说，但过去还是让他过去吧，就像之前朋友圈里流行的晒18岁的照片，其实有这个时间，倒不如多想一想现在，想一想未来还比较好。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;之前中兴程序员跳楼事件传的沸沸扬扬，还不是反映了其实处处有危机， 处处有焦虑感， 我们可以做的就只有怎么让自己在这些危机面前更加坦然， 减少焦虑感，这一切都是要让自己有所准备。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/07/2018新年开始第一篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -995,7 +1004,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
