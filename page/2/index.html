@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/02/20/Maven的一些知识点/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/02/Mysql之四-行锁和MVCC版本控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/20/Maven的一些知识点/" itemprop="url">Maven的一些知识点</a></h1>
+                <a class="post-title-link" href="/2019/03/02/Mysql之四-行锁和MVCC版本控制/" itemprop="url">Mysql之四-行锁和MVCC版本控制</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T21:44:52+09:00">
-                2018-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T22:50:13+09:00">
+                2019-03-02
               </time>
             
 
@@ -360,16 +360,15 @@
 
       
         
-          <h3 id="约定目录结构"><a href="#约定目录结构" class="headerlink" title="约定目录结构"></a>约定目录结构</h3><p>Maven项目有约定好的目录结构</p>
+          <h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><p>1.在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议。<br>2.如果你的事务中需要锁多个行，要把最可能造成锁冲突、最可能影响并发度的锁尽量往后放.<br>(也就是说让你的那一行锁尽量慢加)<br>(先插入再更新, 更新会涉及到行锁的竞争, 所以先插入会减少锁等待)</p>
+<h3 id="死锁和死锁检测"><a href="#死锁和死锁检测" class="headerlink" title="死锁和死锁检测"></a>死锁和死锁检测</h3><p>当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁。<br>1.可以调整innodb_lock_wait_timeout, 直到超时就失败(默认50s)<br>2.发起死锁检测,发现后, 主动回滚, innodb_deadlock_detect设置为on;(默认on)</p>
 <ul>
-<li>一般认定项目主代码位于src/main/java 目录</li>
-<li>资源, 配置文件放在src/main/resources下</li>
-<li>测试代码在src/test/java</li>
-<li>这里没有webapp, Web项目会有webapp目录, webapp下存放Web应用相关代码</li>
+<li>O(n2)复杂度</li>
+<li>可以用多表来记录避免热数据更新在同一行, 结合业务;</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/20/Maven的一些知识点/#more" rel="contents">
+            <a class="btn" href="/2019/03/02/Mysql之四-行锁和MVCC版本控制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -420,7 +419,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/02/14/JavaWeb（二）对象生命周期/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/02/28/Mysql之三-事务隔离级别和事务传播级别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -439,7 +438,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/14/JavaWeb（二）对象生命周期/" itemprop="url">JavaWeb（二）对象生命周期</a></h1>
+                <a class="post-title-link" href="/2019/02/28/Mysql之三-事务隔离级别和事务传播级别/" itemprop="url">Mysql之三-事务隔离级别和事务传播级别</a></h1>
         
 
         <div class="post-meta">
@@ -451,8 +450,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-14T00:12:25+09:00">
-                2018-02-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:49:49+09:00">
+                2019-02-28
               </time>
             
 
@@ -490,9 +489,18 @@
 
       
         
-          
-            <h3 id="常见对象的生命周期理解"><a href="#常见对象的生命周期理解" class="headerlink" title="常见对象的生命周期理解"></a>常见对象的生命周期理解</h3><h4 id="1-request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。"><a href="#1-request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。" class="headerlink" title="1.request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。"></a>1.request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。</h4><h4 id="2-session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。"><a href="#2-session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。" class="headerlink" title="2.session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。"></a>2.session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。</h4><h4 id="3-application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。"><a href="#3-application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。" class="headerlink" title="3.application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。"></a>3.application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。</h4><h4 id="4-request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session-是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。"><a href="#4-request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session-是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。" class="headerlink" title="4.request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session 是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。"></a>4.request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session 是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。</h4>
-          
+          <h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><p>1.读未提交:(read-uncommitted)<br>事务的最低隔离级别,它允许另外一个事务可以看到这个事务未提交的数据. 这种隔离级别会产生脏读, 不可重复读和幻读;</p>
+<p>2.读已提交:(read-committed)<br>保证一个事务修改的数据提交后才能被另外一个事务读取,另外一个事务不能读取该事务未提交的数据. 这种隔离级别可以避免脏读, 但也是可能出现不可重复读和幻读;</p>
+<p>3.可重复读:(repeatable-read)<br>指一个事务执行过程中看到的数据,总是跟这个事务在启动时看到的数据是一致的;这种事务隔离级别可以防止脏读,不可重复读. 但依旧可能出现幻读.</p>
+<p>4.串行化:(serializable)<br>这个是最高代价但最可靠的事务隔离级别, 事务被处理为顺序执行, 除了防止脏读, 不可重复读外, 还避免了幻读;</p>
+<p><strong>PS: mysql默认的隔离级别为RR, oracle和sql server为RC;</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/28/Mysql之三-事务隔离级别和事务传播级别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -539,7 +547,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/01/26/Mysql之二-索引详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -558,7 +566,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/" itemprop="url">JavaWeb（一）网络分层结构及HTTP协议</a></h1>
+                <a class="post-title-link" href="/2019/01/26/Mysql之二-索引详解/" itemprop="url">Mysql之二-索引详解</a></h1>
         
 
         <div class="post-meta">
@@ -570,8 +578,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T16:51:52+09:00">
-                2018-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T22:49:29+09:00">
+                2019-01-26
               </time>
             
 
@@ -609,16 +617,26 @@
 
       
         
-          <p>学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么?</p>
-<h3 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h3><p>首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果。</p>
-<p>这些会让你觉得很繁琐, 你不外乎可能只是想要发送一句话过去其他客户端, 就要一下子考虑怎么多事情,  还有就是网络的传输什么都非常复杂, 万一哪里有了变动, 就全部程序都要重写, 因此,  出现了分层参考模型,   就像面向对象一样,  把每一层都封装好,  然后对每一层开发接口就可以了, 这样每一层只要负责好自己的事情就可以了, 不用每次都全部考虑。</p>
-<p>基于此， ISO指定了一个OSI参考模型（七层） ， 这可以说是一个理想化的模型，里面把每个层次都分了出来，虽清晰， 但太多层会导致复杂化，也不便于管理，因此后面又由技术人员开发了TCP/IP参考模型（四层），大大简化了层次，这也使得TCP/IP协议得到广泛的应用。</p>
+          <h3 id="索引是什么"><a href="#索引是什么" class="headerlink" title="索引是什么"></a>索引是什么</h3><p>索引是存储引擎用于快速找到记录的一种数据结构;<br>索引是在存储引擎层而不是server层的实现.</p>
+<h3 id="相关数据结构"><a href="#相关数据结构" class="headerlink" title="相关数据结构"></a>相关数据结构</h3><p>1.B-Tree(应用范围比较广)(多路平衡查找数)</p>
 <ul>
-<li>对于OSI参考模型：（用维基百科的图片说明）<br><img src="https://img.hyhcoder.top/18-1-21/66496673.jpg" alt=""></li>
+<li>范围寻找;</li>
+<li>顺序查找;</li>
+<li>按值选择; </li>
+</ul>
+<p>2.Hash (适用于等值寻找)</p>
+<ul>
+<li>没法按顺序, 范围, 重复多容易导致hash碰撞;</li>
+</ul>
+<h3 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a>聚簇索引和非聚簇索引</h3><p>1.聚簇索引并不是一种索引类型, 而是一种数据存储方式.<br>2.Innodb的聚簇索引实际上在同一个结构中保存了B-Tree索引和数据行;</p>
+<ul>
+<li>聚簇表示数据行和键值紧邻在一起, 因为数据行只有一个, 所以一个表只能有一个聚簇索引;</li>
+<li>一般主键索引为聚簇索引, 其他为非聚簇索引;</li>
+<li>聚簇索引跟存储引擎相关,并不是所有存储引擎都支持聚簇索引;</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/#more" rel="contents">
+            <a class="btn" href="/2019/01/26/Mysql之二-索引详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -669,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/01/07/2018新年开始第一篇/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/01/18/Mysql之一-基础知识概述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -688,7 +706,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/07/2018新年开始第一篇/" itemprop="url">2018新年开始第一篇</a></h1>
+                <a class="post-title-link" href="/2019/01/18/Mysql之一-基础知识概述/" itemprop="url">Mysql之一-基础知识概述</a></h1>
         
 
         <div class="post-meta">
@@ -700,8 +718,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:06:16+09:00">
-                2018-01-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T22:48:53+09:00">
+                2019-01-18
               </time>
             
 
@@ -739,12 +757,12 @@
 
       
         
-          <p><img src="https://img.hyhcoder.top/18-1-7/26089060.jpg" alt=""></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;2018过了几天了，本应先回顾下2017再说，但过去还是让他过去吧，就像之前朋友圈里流行的晒18岁的照片，其实有这个时间，倒不如多想一想现在，想一想未来还比较好。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;之前中兴程序员跳楼事件传的沸沸扬扬，还不是反映了其实处处有危机， 处处有焦虑感， 我们可以做的就只有怎么让自己在这些危机面前更加坦然， 减少焦虑感，这一切都是要让自己有所准备。<br>
+          <h3 id="Mysql的基本架构示意图"><a href="#Mysql的基本架构示意图" class="headerlink" title="Mysql的基本架构示意图"></a>Mysql的基本架构示意图</h3><p>主要分server层和存储引擎层</p>
+<p><img src="https://static001.geekbang.org/resource/image/0d/d9/0d2070e8f84c4801adbfa03bda1f98d9.png" alt=""></p>
+<h3 id="日志模块"><a href="#日志模块" class="headerlink" title="日志模块"></a>日志模块</h3><p>1.redolog日志(innodb存储引擎特有的)<br>2.binlog日志(mysql自带的日志)<br>(这两个的结合需要用两阶段提交)</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/07/2018新年开始第一篇/#more" rel="contents">
+            <a class="btn" href="/2019/01/18/Mysql之一-基础知识概述/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -795,7 +813,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/04/01/小程序wx-uploadFile踩坑/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/11/20/秒杀系统的一些要点整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -814,7 +832,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/04/01/小程序wx-uploadFile踩坑/" itemprop="url">小程序wx.uploadFile踩坑</a></h1>
+                <a class="post-title-link" href="/2018/11/20/秒杀系统的一些要点整理/" itemprop="url">秒杀系统的一些要点整理</a></h1>
         
 
         <div class="post-meta">
@@ -826,8 +844,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T15:10:19+09:00">
-                2017-04-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T23:34:51+09:00">
+                2018-11-20
               </time>
             
 
@@ -865,12 +883,29 @@
 
       
         
-          <h3 id="前端实现"><a href="#前端实现" class="headerlink" title="前端实现"></a>前端实现</h3><p>小程序目前可以上传文件了,比如最常用到的会是图片的上传:</p>
-<p>我们可以使用wx.chooseImage(OBJECT)实现</p>
-<p>官方示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.chooseImage(&#123;</span><br><span class="line">  count: <span class="number">1</span>, <span class="comment">// 默认9</span></span><br><span class="line">  sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>], <span class="comment">// 可以指定是原图还是压缩图，默认二者都有</span></span><br><span class="line">  sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>], <span class="comment">// 可以指定来源是相册还是相机，默认二者都有</span></span><br><span class="line">  success: function (res) &#123;</span><br><span class="line">    <span class="comment">// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片</span></span><br><span class="line">    var tempFilePaths = res.tempFilePaths</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+          <p>秒杀系统的设计总归有一些套路设计, 总结了一些如下: </p>
+<h3 id="架构原则-4要1不要"><a href="#架构原则-4要1不要" class="headerlink" title="架构原则: 4要1不要"></a>架构原则: 4要1不要</h3><p><strong>1.数据要尽量少;</strong></p>
+<ul>
+<li>用户请求数据, 系统依赖数据, 能少尽量少</li>
+</ul>
+<p><strong>2.请求数要尽量少;</strong></p>
+<ul>
+<li>页面请求数, 有些可以通过合并CSS和js文件来减少请求;</li>
+</ul>
+<p><strong>3.路径尽量短;</strong></p>
+<ul>
+<li>请求经过的节点能少尽量少;</li>
+<li>多个相互强依赖的应用合并部署在一起, 把远程过程调用(RPC)变成JVM内部之间的方法调用</li>
+</ul>
+<p><strong>4.依赖尽量少;</strong></p>
+<ul>
+<li>依赖的系统少;</li>
+<li>采用系统分级, 糟糕的时候实现系统降级;</li>
+</ul>
+<p><strong>5.不要有单点;</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/01/小程序wx-uploadFile踩坑/#more" rel="contents">
+            <a class="btn" href="/2018/11/20/秒杀系统的一些要点整理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -912,7 +947,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -962,7 +997,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -975,7 +1010,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

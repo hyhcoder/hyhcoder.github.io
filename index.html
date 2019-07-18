@@ -685,6 +685,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/20/Mysql之五-查询要点和注意事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/Mysql之五-查询要点和注意事项/" itemprop="url">Mysql之五-查询要点和注意事项</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T22:50:57+09:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="order-by-工作原理"><a href="#order-by-工作原理" class="headerlink" title="order by 工作原理"></a>order by 工作原理</h3><ol>
+<li>mysql会给每个线程分配一个内存(sort_buffer)用于排序, 其大小为sort_buffer_size;<ul>
+<li>如果排序数据量小于sort_buffer_size, 排序将在内存中进行;</li>
+<li>如果数据量很大, 内存无法存下这么多数据, 则会用磁盘临时文件来辅助排序, 也称外部排序;</li>
+<li>在使用外部排序时, mysql会分成好几份单独的临时文件用来存放排序后的数据,然后再将这些文件合并成一个大文件</li>
+</ul>
+</li>
+<li>全字段排序<ul>
+<li>太多数据的情况下会使用到磁盘临时表, 对IO开销大;</li>
+<li>这个算法的过程就是读出所有数据在内存中, 然后在sort_buffer和临时文件中执行,如果字段太多会导致内存放进的行数很少, 导致最后会分拆成太多的临时文件, 排序性能变差;</li>
+</ul>
+</li>
+<li>rowId排序<ul>
+<li>这个排序的算法是先只查主键和排序字段, 然后再由主键回表去查询出所需要的内容, 这个优点可以加快排序, 但是要多回表查询;(并且是随机IO读)</li>
+<li>max_length_for_sort_data (设置多少字段长度时, 就使用rowId)</li>
+</ul>
+</li>
+<li>使用覆盖索引加快排序;</li>
+</ol>
+<h3 id="随机排序的处理方式"><a href="#随机排序的处理方式" class="headerlink" title="随机排序的处理方式"></a>随机排序的处理方式</h3><ol>
+<li>使用order by rand();<ul>
+<li>这个会使用了内存临时表, 内存临时表排序的时候使用了rowid排序方式(使用全表扫描)</li>
+<li>tmp_table_size配置了内存临时表大小(16m), 过大的话会变成了磁盘临时表;</li>
+<li>如果使用了limit的方式, 如果取出数据行大小小于sort_buffer_size, 会使用优先队列算法,(堆算法), 减少了临时文件的使用, 如果是超过了sort_buffer_size, 则只能使用归并排序算法;</li>
+</ul>
+</li>
+<li>使用业务缓存排序</li>
+<li>使用取出整表长度, 再随机取的方式:(伪随机)</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/20/Mysql之五-查询要点和注意事项/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/14/Git提交信息规范化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -808,154 +960,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/11/20/秒杀系统的一些要点整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/20/秒杀系统的一些要点整理/" itemprop="url">秒杀系统的一些要点整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T23:34:51+09:00">
-                2018-11-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>秒杀系统的设计总归有一些套路设计, 总结了一些如下: </p>
-<h3 id="架构原则-4要1不要"><a href="#架构原则-4要1不要" class="headerlink" title="架构原则: 4要1不要"></a>架构原则: 4要1不要</h3><p><strong>1.数据要尽量少;</strong></p>
-<ul>
-<li>用户请求数据, 系统依赖数据, 能少尽量少</li>
-</ul>
-<p><strong>2.请求数要尽量少;</strong></p>
-<ul>
-<li>页面请求数, 有些可以通过合并CSS和js文件来减少请求;</li>
-</ul>
-<p><strong>3.路径尽量短;</strong></p>
-<ul>
-<li>请求经过的节点能少尽量少;</li>
-<li>多个相互强依赖的应用合并部署在一起, 把远程过程调用(RPC)变成JVM内部之间的方法调用</li>
-</ul>
-<p><strong>4.依赖尽量少;</strong></p>
-<ul>
-<li>依赖的系统少;</li>
-<li>采用系统分级, 糟糕的时候实现系统降级;</li>
-</ul>
-<p><strong>5.不要有单点;</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/秒杀系统的一些要点整理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1005,7 +1014,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1018,7 +1027,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

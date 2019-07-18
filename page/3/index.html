@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/03/20/最近折腾的redis的总结/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/02/20/Maven的一些知识点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -309,7 +309,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/20/最近折腾的redis的总结/" itemprop="url">最近折腾的redis的总结</a></h1>
+                <a class="post-title-link" href="/2018/02/20/Maven的一些知识点/" itemprop="url">Maven的一些知识点</a></h1>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:09:58+09:00">
-                2017-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-20T21:44:52+09:00">
+                2018-02-20
               </time>
             
 
@@ -360,15 +360,16 @@
 
       
         
-          <h3 id="redis介绍"><a href="#redis介绍" class="headerlink" title="redis介绍"></a>redis介绍</h3><ul>
-<li>redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。</li>
-<li>还有另外一个与Memcached不同的是， 他可以支持持久化，redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步；因此支持分布式架构；</li>
-<li>redis在部分场合可以对关系型数据库起到了很好的补充作用。</li>
-<li>提供了对众多的语言支持， 比如java，c/c++，c#，php，Python等客户端，基本都可以满足；</li>
+          <h3 id="约定目录结构"><a href="#约定目录结构" class="headerlink" title="约定目录结构"></a>约定目录结构</h3><p>Maven项目有约定好的目录结构</p>
+<ul>
+<li>一般认定项目主代码位于src/main/java 目录</li>
+<li>资源, 配置文件放在src/main/resources下</li>
+<li>测试代码在src/test/java</li>
+<li>这里没有webapp, Web项目会有webapp目录, webapp下存放Web应用相关代码</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/最近折腾的redis的总结/#more" rel="contents">
+            <a class="btn" href="/2018/02/20/Maven的一些知识点/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -419,7 +420,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/02/26/一个奇怪的bug-tomcat卡在deploying/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/02/14/JavaWeb（二）对象生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -438,7 +439,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/02/26/一个奇怪的bug-tomcat卡在deploying/" itemprop="url">一个奇怪的bug,tomcat卡在deploying</a></h1>
+                <a class="post-title-link" href="/2018/02/14/JavaWeb（二）对象生命周期/" itemprop="url">JavaWeb（二）对象生命周期</a></h1>
         
 
         <div class="post-meta">
@@ -450,8 +451,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T15:09:42+09:00">
-                2017-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-14T00:12:25+09:00">
+                2018-02-14
               </time>
             
 
@@ -489,10 +490,135 @@
 
       
         
-          <p>今天在部署一个新的开发环境, 然后启动tomcat的时候, 发现居然启动卡住了, tomcat启动以后卡在INFO: Deploying web application directory ……反反复复尝试, 未果, 于是上google爬了下文, 发现是jdk的一个bug导致的;附下<a href="https://docs.oracle.com/cd/E13209_01/wlcp/wlss30/configwlss/jvmrand.html" target="_blank" rel="noopener">官网的解释</a></p>
+          
+            <h3 id="常见对象的生命周期理解"><a href="#常见对象的生命周期理解" class="headerlink" title="常见对象的生命周期理解"></a>常见对象的生命周期理解</h3><h4 id="1-request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。"><a href="#1-request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。" class="headerlink" title="1.request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。"></a>1.request对象内数据的存活范围就是在request对象的存活范围内，当客户端向服务器端发送一个请求，服务器向客户端返回一个响应后，该请求对象就被销毁了；之后再向服务器端发送新的请求时，服务器会创建新的request对象，该request对象与之前的request对象没有任何关系，因此也无法获得在之前的request对象中所存放的任何数据。</h4><h4 id="2-session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。"><a href="#2-session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。" class="headerlink" title="2.session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。"></a>2.session对象内数据的存活范围也就是session对象的存活范围（只要浏览器不关闭，session对象就会一直存在），因此在同一个浏览器窗口中，无论向服务器端发送多少个请求，session对象只有一个。</h4><h4 id="3-application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。"><a href="#3-application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。" class="headerlink" title="3.application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。"></a>3.application（应用对象）：存活范围最大的对象，只要服务器没有关闭，application对象中的数据就会一直存在。在整个服务器运行过程当中，application对象只有一个。</h4><h4 id="4-request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session-是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。"><a href="#4-request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session-是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。" class="headerlink" title="4.request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session 是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。"></a>4.request、session以及application这3个对象的范围是逐个增加的：request只在一个请求的范围内；session 是在浏览器窗口的范围内；application则是在整个服务器的运行过程中。</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/" itemprop="url">JavaWeb（一）网络分层结构及HTTP协议</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T16:51:52+09:00">
+                2018-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>学习Java web的第一步, 肯定要先了解的是当今网络的运行情况; 以及弄懂当今最流行的Http协议究竟是什么?</p>
+<h3 id="网络分层"><a href="#网络分层" class="headerlink" title="网络分层"></a>网络分层</h3><p>首先说下网络分层, 如果现在让你去从头开发一个web通信工具, 你需要考虑什么?  首先你需要考虑把数据怎么分成一个个数据包, 然后要考虑这些数据包要怎么传输, 怎么到达你想要它去的那个地方, 然后还要考虑接收端如何接收这些数据, 解码出来要的数据, 最后还原成想要的最终效果。</p>
+<p>这些会让你觉得很繁琐, 你不外乎可能只是想要发送一句话过去其他客户端, 就要一下子考虑怎么多事情,  还有就是网络的传输什么都非常复杂, 万一哪里有了变动, 就全部程序都要重写, 因此,  出现了分层参考模型,   就像面向对象一样,  把每一层都封装好,  然后对每一层开发接口就可以了, 这样每一层只要负责好自己的事情就可以了, 不用每次都全部考虑。</p>
+<p>基于此， ISO指定了一个OSI参考模型（七层） ， 这可以说是一个理想化的模型，里面把每个层次都分了出来，虽清晰， 但太多层会导致复杂化，也不便于管理，因此后面又由技术人员开发了TCP/IP参考模型（四层），大大简化了层次，这也使得TCP/IP协议得到广泛的应用。</p>
+<ul>
+<li>对于OSI参考模型：（用维基百科的图片说明）<br><img src="https://img.hyhcoder.top/18-1-21/66496673.jpg" alt=""></li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/26/一个奇怪的bug-tomcat卡在deploying/#more" rel="contents">
+            <a class="btn" href="/2018/01/21/JavaWeb（一）网络分层结构及HTTP协议/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -543,7 +669,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/01/26/如何申请免费的HTTPS证书/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/01/07/2018新年开始第一篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -562,7 +688,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/26/如何申请免费的HTTPS证书/" itemprop="url">如何申请免费的HTTPS证书</a></h1>
+                <a class="post-title-link" href="/2018/01/07/2018新年开始第一篇/" itemprop="url">2018新年开始第一篇</a></h1>
         
 
         <div class="post-meta">
@@ -574,8 +700,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T15:09:27+09:00">
-                2017-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:06:16+09:00">
+                2018-01-07
               </time>
             
 
@@ -613,10 +739,12 @@
 
       
         
-          <p>前面折腾了下github pages的https的开启, 对https证书也开始感兴趣;毕竟自己搭服务器的话, 就需要自己去弄https证书, 已达到开启https的目的; 搜索了一下现在流行的免费https证书(收费的就不用说了, 大把), 大致分下面两种, 就逐一介绍下, 并给自己做个备忘;</p>
+          <p><img src="https://img.hyhcoder.top/18-1-7/26089060.jpg" alt=""></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2018过了几天了，本应先回顾下2017再说，但过去还是让他过去吧，就像之前朋友圈里流行的晒18岁的照片，其实有这个时间，倒不如多想一想现在，想一想未来还比较好。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;之前中兴程序员跳楼事件传的沸沸扬扬，还不是反映了其实处处有危机， 处处有焦虑感， 我们可以做的就只有怎么让自己在这些危机面前更加坦然， 减少焦虑感，这一切都是要让自己有所准备。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/26/如何申请免费的HTTPS证书/#more" rel="contents">
+            <a class="btn" href="/2018/01/07/2018新年开始第一篇/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -667,7 +795,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/01/25/让Github Pages自定义域名开启HTTPS/">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2017/04/01/小程序wx-uploadFile踩坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyhcoder">
@@ -686,7 +814,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/25/让Github Pages自定义域名开启HTTPS/" itemprop="url">让Github Pages自定义域名开启HTTPS</a></h1>
+                <a class="post-title-link" href="/2017/04/01/小程序wx-uploadFile踩坑/" itemprop="url">小程序wx.uploadFile踩坑</a></h1>
         
 
         <div class="post-meta">
@@ -698,8 +826,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-25T15:09:08+09:00">
-                2017-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T15:10:19+09:00">
+                2017-04-01
               </time>
             
 
@@ -737,138 +865,16 @@
 
       
         
-          <p>放假在家,闲着无聊,于是乎又想着折腾下github pages的blog了, 最近github的国内连接速度不行,国内连接速度间歇性断网,导致blog也体验不佳, 还有最近https化的网站越来越多, google也在力推全面普及https, 年前刮起的小程序风也要求连接一定要是https, 导致也想折腾下给blog挂个小绿标(https).</p>
-<h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><p>HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。可以有效防止运营商劫持和保护用户输入内容。</p>
-<p>github pages其实在上一年就支持https了,当用户用xxx.github.io访问时, 就会自动切换为https访问,但是,很可惜的是, 这个当你开启自定义域名的时候, 就失效了, 所以这个方案就不完美了.</p>
+          <h3 id="前端实现"><a href="#前端实现" class="headerlink" title="前端实现"></a>前端实现</h3><p>小程序目前可以上传文件了,比如最常用到的会是图片的上传:</p>
+<p>我们可以使用wx.chooseImage(OBJECT)实现</p>
+<p>官方示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.chooseImage(&#123;</span><br><span class="line">  count: <span class="number">1</span>, <span class="comment">// 默认9</span></span><br><span class="line">  sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>], <span class="comment">// 可以指定是原图还是压缩图，默认二者都有</span></span><br><span class="line">  sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>], <span class="comment">// 可以指定来源是相册还是相机，默认二者都有</span></span><br><span class="line">  success: function (res) &#123;</span><br><span class="line">    <span class="comment">// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片</span></span><br><span class="line">    var tempFilePaths = res.tempFilePaths</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/25/让Github Pages自定义域名开启HTTPS/#more" rel="contents">
+            <a class="btn" href="/2017/04/01/小程序wx-uploadFile踩坑/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2016/11/05/解决getpwnam-“nginx”-failed/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/05/解决getpwnam-“nginx”-failed/" itemprop="url">解决getpwnam(“nginx”) failed</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-05T15:08:46+09:00">
-                2016-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有时在编译安装完nginx后, 启动nginx时, 会出现报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</span><br></pre></td></tr></table></figure></p>
-<h3 id="原因及解决"><a href="#原因及解决" class="headerlink" title="原因及解决"></a>原因及解决</h3><p>这种报错一般是编译安装后没有加入nginx用户导致的;<br>执行如下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -s /sbin/nologin -M nginx</span><br><span class="line">id nginx</span><br></pre></td></tr></table></figure></p>
-<p>最后重启启动, 即可解决:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service nginx restart</span><br><span class="line">service nginx status</span><br></pre></td></tr></table></figure></p>
-
-          
         
       
     </div>
@@ -906,7 +912,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -956,7 +962,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -969,7 +975,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
