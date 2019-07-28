@@ -290,6 +290,434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/04/10/Mysql之六-日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/Mysql之六-日志/" itemprop="url">Mysql之六-日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T23:05:33+09:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="binlog写入机制"><a href="#binlog写入机制" class="headerlink" title="binlog写入机制"></a>binlog写入机制</h3><ol>
+<li>过程:<ul>
+<li>事务执行过程中, 先把日志写入binlog cache, 事务提交的时候, 再把binlog cache写到binlog文件中;</li>
+</ul>
+</li>
+<li>机制:<ul>
+<li>系统给binlog cache分配了一片内存, 每个线程一个, 参数binlog_cache_size用于控制单个线程内binlog cache所占内存的大小, 如果超过就暂存硬盘;</li>
+<li>事务提交时, 执行器把binlog cache里的完整事务写入到binlog中, 并清空binlog cache;</li>
+</ul>
+</li>
+<li>写入磁盘时机:<br>write 和 fsync 的时机，是由参数 sync_binlog 控制的：<ul>
+<li>sync_binlog=0 的时候，表示每次提交事务都只 write，不 fsync；</li>
+<li>sync_binlog=1 的时候，表示每次提交事务都会执行 fsync；</li>
+<li>sync_binlog=N(N&gt;1) 的时候，表示每次提交事务都 write，但累积 N 个事务后才 fsync。<br>(在出现 IO 瓶颈的场景里，将 sync_binlog 设置成一个比较大的值，可以提升性能。)<br>(缺点是异常重启时, 会丢失最近N个事务的binlog日志)</li>
+</ul>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/10/Mysql之六-日志/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/20/Mysql之五-查询要点和注意事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/Mysql之五-查询要点和注意事项/" itemprop="url">Mysql之五-查询要点和注意事项</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T22:50:57+09:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="order-by-工作原理"><a href="#order-by-工作原理" class="headerlink" title="order by 工作原理"></a>order by 工作原理</h3><ol>
+<li>mysql会给每个线程分配一个内存(sort_buffer)用于排序, 其大小为sort_buffer_size;<ul>
+<li>如果排序数据量小于sort_buffer_size, 排序将在内存中进行;</li>
+<li>如果数据量很大, 内存无法存下这么多数据, 则会用磁盘临时文件来辅助排序, 也称外部排序;</li>
+<li>在使用外部排序时, mysql会分成好几份单独的临时文件用来存放排序后的数据,然后再将这些文件合并成一个大文件</li>
+</ul>
+</li>
+<li>全字段排序<ul>
+<li>太多数据的情况下会使用到磁盘临时表, 对IO开销大;</li>
+<li>这个算法的过程就是读出所有数据在内存中, 然后在sort_buffer和临时文件中执行,如果字段太多会导致内存放进的行数很少, 导致最后会分拆成太多的临时文件, 排序性能变差;</li>
+</ul>
+</li>
+<li>rowId排序<ul>
+<li>这个排序的算法是先只查主键和排序字段, 然后再由主键回表去查询出所需要的内容, 这个优点可以加快排序, 但是要多回表查询;(并且是随机IO读)</li>
+<li>max_length_for_sort_data (设置多少字段长度时, 就使用rowId)</li>
+</ul>
+</li>
+<li>使用覆盖索引加快排序;</li>
+</ol>
+<h3 id="随机排序的处理方式"><a href="#随机排序的处理方式" class="headerlink" title="随机排序的处理方式"></a>随机排序的处理方式</h3><ol>
+<li>使用order by rand();<ul>
+<li>这个会使用了内存临时表, 内存临时表排序的时候使用了rowid排序方式(使用全表扫描)</li>
+<li>tmp_table_size配置了内存临时表大小(16m), 过大的话会变成了磁盘临时表;</li>
+<li>如果使用了limit的方式, 如果取出数据行大小小于sort_buffer_size, 会使用优先队列算法,(堆算法), 减少了临时文件的使用, 如果是超过了sort_buffer_size, 则只能使用归并排序算法;</li>
+</ul>
+</li>
+<li>使用业务缓存排序</li>
+<li>使用取出整表长度, 再随机取的方式:(伪随机)</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/20/Mysql之五-查询要点和注意事项/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/14/Git提交信息规范化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyhcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyhcoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/Git提交信息规范化/" itemprop="url">Git提交信息规范化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-14T00:50:42+09:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Git版本规范"><a href="#Git版本规范" class="headerlink" title="Git版本规范"></a>Git版本规范</h3><h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><ul>
+<li>master分支为主分支(保护分支)，不能直接在master上进行修改代码和提交；</li>
+<li>develop分支为测试分支，所以开发完成需要提交测试的功能合并到该分支；</li>
+<li>feature分支为开发分支，大家根据不同需求创建独立的功能分支，开发完成后合并到develop分支；</li>
+<li>fix分支为bug修复分支，需要根据实际情况对已发布的版本进行漏洞修复；</li>
+</ul>
+<h4 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h4><p>采用三段式，v版本.里程碑.序号，如<code>v1.2.1</code></p>
+<ul>
+<li>架构升级或架构重大调整，修改第2位</li>
+<li>新功能上线或者模块大的调整，修改第2位</li>
+<li>bug修复上线，修改第3位</li>
+</ul>
+<h4 id="changelog"><a href="#changelog" class="headerlink" title="changelog"></a>changelog</h4><p>版本正式发布后，需要生产changelog文档，便于后续问题追溯。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/14/Git提交信息规范化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/03/02/Mysql之四-行锁和MVCC版本控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -534,420 +962,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/01/26/Mysql之二-索引详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/Mysql之二-索引详解/" itemprop="url">Mysql之二-索引详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T22:49:29+09:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="索引是什么"><a href="#索引是什么" class="headerlink" title="索引是什么"></a>索引是什么</h3><p>索引是存储引擎用于快速找到记录的一种数据结构;<br>索引是在存储引擎层而不是server层的实现.</p>
-<h3 id="相关数据结构"><a href="#相关数据结构" class="headerlink" title="相关数据结构"></a>相关数据结构</h3><p>1.B-Tree(应用范围比较广)(多路平衡查找数)</p>
-<ul>
-<li>范围寻找;</li>
-<li>顺序查找;</li>
-<li>按值选择; </li>
-</ul>
-<p>2.Hash (适用于等值寻找)</p>
-<ul>
-<li>没法按顺序, 范围, 重复多容易导致hash碰撞;</li>
-</ul>
-<h3 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a>聚簇索引和非聚簇索引</h3><p>1.聚簇索引并不是一种索引类型, 而是一种数据存储方式.<br>2.Innodb的聚簇索引实际上在同一个结构中保存了B-Tree索引和数据行;</p>
-<ul>
-<li>聚簇表示数据行和键值紧邻在一起, 因为数据行只有一个, 所以一个表只能有一个聚簇索引;</li>
-<li>一般主键索引为聚簇索引, 其他为非聚簇索引;</li>
-<li>聚簇索引跟存储引擎相关,并不是所有存储引擎都支持聚簇索引;</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/26/Mysql之二-索引详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2019/01/18/Mysql之一-基础知识概述/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/Mysql之一-基础知识概述/" itemprop="url">Mysql之一-基础知识概述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T22:48:53+09:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Mysql的基本架构示意图"><a href="#Mysql的基本架构示意图" class="headerlink" title="Mysql的基本架构示意图"></a>Mysql的基本架构示意图</h3><p>主要分server层和存储引擎层</p>
-<p><img src="https://static001.geekbang.org/resource/image/0d/d9/0d2070e8f84c4801adbfa03bda1f98d9.png" alt=""></p>
-<h3 id="日志模块"><a href="#日志模块" class="headerlink" title="日志模块"></a>日志模块</h3><p>1.redolog日志(innodb存储引擎特有的)<br>2.binlog日志(mysql自带的日志)<br>(这两个的结合需要用两阶段提交)</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/Mysql之一-基础知识概述/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.hyhcoder.com/2018/11/20/秒杀系统的一些要点整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyhcoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://img.hyhcoder.top/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyhcoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/20/秒杀系统的一些要点整理/" itemprop="url">秒杀系统的一些要点整理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T23:34:51+09:00">
-                2018-11-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>秒杀系统的设计总归有一些套路设计, 总结了一些如下: </p>
-<h3 id="架构原则-4要1不要"><a href="#架构原则-4要1不要" class="headerlink" title="架构原则: 4要1不要"></a>架构原则: 4要1不要</h3><p><strong>1.数据要尽量少;</strong></p>
-<ul>
-<li>用户请求数据, 系统依赖数据, 能少尽量少</li>
-</ul>
-<p><strong>2.请求数要尽量少;</strong></p>
-<ul>
-<li>页面请求数, 有些可以通过合并CSS和js文件来减少请求;</li>
-</ul>
-<p><strong>3.路径尽量短;</strong></p>
-<ul>
-<li>请求经过的节点能少尽量少;</li>
-<li>多个相互强依赖的应用合并部署在一起, 把远程过程调用(RPC)变成JVM内部之间的方法调用</li>
-</ul>
-<p><strong>4.依赖尽量少;</strong></p>
-<ul>
-<li>依赖的系统少;</li>
-<li>采用系统分级, 糟糕的时候实现系统降级;</li>
-</ul>
-<p><strong>5.不要有单点;</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/秒杀系统的一些要点整理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -997,7 +1016,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
