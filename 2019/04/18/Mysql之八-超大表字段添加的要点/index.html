@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="hyhcoder的博客">
 <meta property="og:description" content="背景因为业务的需求, 公司的一张大表需要添加字段, 先看了下表的大小, 行数到是还行, 才几十万, 但是, 因为有大字段的原因, 这个表有几十个G, 因此, 考验的时候就来了, 找了个业务不繁忙的时候, 果断添加了字段, 可是这个过程中, ddl执行了快一个半小时, 然后磁盘的iops快要爆炸, 因为业务低锋期, 倒也还没造成什么大影响, 但难免对大表加字段产生了深深的恐惧;于是我们来探究下大表加">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-28T03:29:27.817Z">
+<meta property="og:updated_time" content="2019-07-29T05:14:50.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql之八-超大表字段添加的要点">
 <meta name="twitter:description" content="背景因为业务的需求, 公司的一张大表需要添加字段, 先看了下表的大小, 行数到是还行, 才几十万, 但是, 因为有大字段的原因, 这个表有几十个G, 因此, 考验的时候就来了, 找了个业务不繁忙的时候, 果断添加了字段, 可是这个过程中, ddl执行了快一个半小时, 然后磁盘的iops快要爆炸, 因为业务低锋期, 倒也还没造成什么大影响, 但难免对大表加字段产生了深深的恐惧;于是我们来探究下大表加">
@@ -383,6 +383,7 @@
 <li>等待打开当前表的所有只读事务提交;</li>
 <li>创建索引结束</li>
 </ul>
+<a id="more"></a>
 <p>Online DDL实现:<br>其实实质也是包含了copy和inplace的方式, 对于不支持online形式的, 也是直接采用了copy的方式;<br>online DDL主要包含了3个阶段;<br>1.Prepare阶段:</p>
 <ul>
 <li>创建新的临时frm文件;</li>
